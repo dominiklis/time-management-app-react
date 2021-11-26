@@ -1,13 +1,58 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --clr-gray1: #fafafa;
+  --clr-gray2: #b8b8b8;
+  --clr-gray3: #797979;
+  --clr-gray4: #4d4d4d;
+  --clr-gray5: #2b2b2b;
+
+  --clr-prim1: #bbdefb;
+  --clr-prim2: #64b5f6;
+  --clr-prim3: #2196f3;
+  --clr-prim4: #1976d2;
+  --clr-prim5: #083c8b;
+
+  --clr-sec1: #ffccbc;
+  --clr-sec2: #ff8a65;
+  --clr-sec3: #ff5722;
+  --clr-sec4: #e64a19;
+  --clr-sec5: #bf360c;
+
+  --clr-err1: #ffcdd2;
+  --clr-err2: #e57373;
+  --clr-err3: #f44336;
+  --clr-err4: #d32f2f;
+  --clr-err5: #b71c1c;
+
+  --clr-war1: #fff176;
+  --clr-war2: #fff176;
+  --clr-war3: #ffeb3b;
+  --clr-war4: #fbc02d;
+  --clr-war5: #f57f17;
+
+  --clr-suc1: #c8e6c9;
+  --clr-suc2: #81c784;
+  --clr-suc3: #4caf50;
+  --clr-suc4: #388e3c;
+  --clr-suc5: #1b5e20;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  color: var(--clr-gray5);
+}
+
+body,
+body * {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

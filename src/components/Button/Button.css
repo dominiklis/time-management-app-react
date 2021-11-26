@@ -1,0 +1,29 @@
+.button {
+  background-color: var(--clr-prim3);
+  color: var(--clr-gray1);
+  font-size: 1.1em;
+  padding: 0.4em 1.5em;
+  border-radius: 0.625em;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--clr-prim2);
+  color: var(--clr-gray1);
+  font-size: 1.1em;
+  padding: 0.4em 1.5em;
+  border-radius: 0.625em;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: var(--clr-prim1);
+  color: var(--clr-gray1);
+  font-size: 1.1em;
+  padding: 0.4em 1.5em;
+  border-radius: 0.625em;
+  border-color: transparent;
+  cursor: default;
+}
