@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "./Login.css";
 import { useNavigate } from "react-router";
 
 import Button from "../../components/Button/Button";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import AppLink from "../../components/Link/AppLink";
+import AuthContainer from "../../components/AuthContainer/AuthContainer";
 
 import apiCalls from "../../utils/api";
 import validatePassword from "../../utils/validatePassword";
 import validateLogin from "../../utils/validateLogin";
+import AuthForm from "../../components/AuthForm/AuthForm";
+import AuthPage from "../../components/AuthPage/AuthPage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,7 +40,6 @@ const Login = () => {
     setWaitingForResponse(true);
     setErrors((prev) => ({ ...prev, response: "" }));
     const result = await apiCalls.users.login(input.login, input.password);
-    console.log(result);
 
     if (!result.success) {
       setErrors((prev) => ({ ...prev, response: result.message }));
@@ -72,21 +73,35 @@ const Login = () => {
 
   useEffect(() => setInitialRender(false), []);
 
+  useEffect(() => {
+    console.log("=======================================");
+    console.log(
+      !input.login ||
+        !input.password ||
+        errors.login ||
+        errors.password.length === 0
+    );
+    console.log("nie ma loginu", input.login);
+    console.log("nie ma password", input.password);
+    console.log("errors.login", errors.login);
+    console.log("errors.password", errors.password);
+  });
+
   return (
-    <div className="login-page">
+    <AuthPage>
       {errors.response && (
-        <div className="login-page__error">
+        <div className="auth-page__error">
           <h3>{errors.response}</h3>
         </div>
       )}
-      <div className="container">
-        <div className="container__header">
+      <AuthContainer onSubmit={handleSubmit}>
+        <div className="auth-container__header">
           <h1>Login</h1>
         </div>
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="login-form__input">
+        <AuthForm onSubmit={handleSubmit}>
+          <div className="auth-form__input">
             {errors.login && (
-              <div className="login-form__error">{errors.login}</div>
+              <div className="auth-form__error">{errors.login}</div>
             )}
             <label htmlFor="login">
               email or username
@@ -100,10 +115,10 @@ const Login = () => {
             </label>
           </div>
 
-          <div className="login-form__input">
+          <div className="auth-form__input">
             {errors.password.length > 0 &&
               errors.password.map((err) => (
-                <div ket={err} className="login-form__error">
+                <div ket={err} className="auth-form__error">
                   {err}
                 </div>
               ))}
@@ -122,16 +137,24 @@ const Login = () => {
           {waitingForResponse ? (
             <LoadingButton />
           ) : (
-            <Button type="submit" disabled={!input.login || !input.password}>
+            <Button
+              type="submit"
+              disabled={
+                !input.login ||
+                !input.password ||
+                errors.login ||
+                errors.password.length !== 0
+              }
+            >
               submit
             </Button>
           )}
-        </form>
-        <div className="container__bottom">
-          New user? <AppLink to="/register">Register now</AppLink>.
+        </AuthForm>
+        <div className="auth-container__bottom">
+          New user? <AppLink to="/register">Register now</AppLink>
         </div>
-      </div>
-    </div>
+      </AuthContainer>
+    </AuthPage>
   );
 };
 

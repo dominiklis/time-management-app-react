@@ -1,0 +1,21 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-prim5);
+}
+
+.auth-page__error {
+  width: 100%;
+  background-color: var(--clr-err5);
+  padding: 0.1em 1em;
+  position: fixed;
+  top: 0;
+}
+
+.auth-page__error h3 {
+  color: var(--clr-gray1);
+  font-size: 0.8em;
+}
