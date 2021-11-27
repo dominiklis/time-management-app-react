@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-
-import apiCalls from "../../utils/api";
 import { useNavigate } from "react-router";
+import validateEmail from "../../utils/validateEmail";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../store/slices/usersSlice";
 
 import AuthContainer from "../../components/AuthContainer/AuthContainer";
 import AppLink from "../../components/Link/AppLink";
@@ -12,23 +13,29 @@ import AuthPage from "../../components/AuthPage/AuthPage";
 
 import validatePassword from "../../utils/validatePassword";
 import validateUsername from "../../utils/validateUsername";
-import validateEmail from "../../utils/validateEmail";
+
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    user,
+    token,
+    loadings: { register: registerLoading },
+    errors: { register: registerResponseError },
+  } = useSelector((state) => state.users);
 
   const [initialRender, setInitialRender] = useState(true);
 
-  const [waitingForResponse, setWaitingForResponse] = useState(false);
+  // const [waitingForResponse, setWaitingForResponse] = useState(false);
 
   const [input, setInput] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    response: "",
-    username: "",
+    name: "",
     email: "",
     password: [],
   });
@@ -40,31 +47,29 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setWaitingForResponse(true);
-    const result = await apiCalls.users.register(
-      input.username,
-      input.email,
-      input.password
-    );
-
-    if (!result.success) {
-      setErrors((prev) => ({ ...prev, response: result.message }));
-    } else {
-      navigate("/");
-    }
-    setWaitingForResponse(false);
+    await dispatch(
+      registerUser({
+        name: input.name,
+        email: input.email,
+        password: input.password,
+      })
+    ).unwrap();
   };
 
   useEffect(() => {
+    if (token && user.id && user.name && user.email) navigate("/");
+  }, [user, token]);
+
+  useEffect(() => {
     if (!initialRender) {
-      const error = validateUsername(input.username);
+      const error = validateUsername(input.name);
 
       setErrors((prev) => ({
         ...prev,
-        username: error,
+        name: error,
       }));
     }
-  }, [input.username]);
+  }, [input.name]);
 
   useEffect(() => {
     if (!initialRender) {
@@ -92,9 +97,9 @@ const Register = () => {
 
   return (
     <AuthPage>
-      {errors.response && (
+      {registerResponseError && (
         <div className="auth-page__error">
-          <h3>{errors.response}</h3>
+          <h3>{registerResponseError}</h3>
         </div>
       )}
       <AuthContainer>
@@ -103,16 +108,16 @@ const Register = () => {
         </div>
         <AuthForm onSubmit={handleSubmit}>
           <div className="auth-form__input">
-            {errors.username && (
-              <div className="auth-form__error">{errors.username}</div>
+            {errors.name && (
+              <div className="auth-form__error">{errors.name}</div>
             )}
-            <label htmlFor="username">
-              username
+            <label htmlFor="name">
+              name
               <input
-                id="username"
+                id="name"
                 type="text"
-                name="username"
-                value={input.username}
+                name="name"
+                value={input.name}
                 onChange={handleChange}
               />
             </label>
@@ -122,7 +127,7 @@ const Register = () => {
             {errors.email && (
               <div className="auth-form__error">{errors.email}</div>
             )}
-            <label htmlFor="username">
+            <label htmlFor="name">
               email
               <input
                 id="email"
@@ -153,17 +158,17 @@ const Register = () => {
             </label>
           </div>
 
-          {waitingForResponse ? (
+          {registerLoading ? (
             <LoadingButton />
           ) : (
             <Button
               type="submit"
               disabled={
-                !input.username ||
+                !input.name ||
                 !input.email ||
                 !input.password ||
                 errors.login ||
-                errors.username ||
+                errors.name ||
                 errors.password.length !== 0
               }
             >

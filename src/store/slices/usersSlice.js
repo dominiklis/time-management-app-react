@@ -14,14 +14,29 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
+  async (userData, { rejectWithValue }) => {
+    const { name, email, password } = userData;
+    try {
+      const response = await apiCalls.users.register(name, email, password);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   user: {},
   token: null,
   loadings: {
     login: false,
+    register: false,
   },
   errors: {
     login: "",
+    register: "",
   },
 };
 
@@ -30,10 +45,11 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // login user
     builder
+      // login user
       .addCase(loginUser.pending, (state) => {
         state.loadings.login = true;
+        state.errors.login = "";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         if (action.payload.success) {
@@ -41,14 +57,23 @@ export const usersSlice = createSlice({
           state.token = action.payload.data.token;
         } else {
           state.errors.login = action.payload.message;
-          console.log(action.payload);
         }
         state.loadings.login = false;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loadings.login = false;
-        console.log(action.payload.response);
-        state.errors.login = action.payload.response.data.message;
+
+      // register user
+      .addCase(registerUser.pending, (state) => {
+        state.loadings.register = true;
+        state.errors.register = "";
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.user = action.payload.data.user;
+          state.token = action.payload.data.token;
+        } else {
+          state.errors.register = action.payload.message;
+        }
+        state.loadings.register = false;
       });
   },
 });

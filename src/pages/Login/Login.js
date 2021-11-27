@@ -51,6 +51,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (token && user.id && user.name && user.email) navigate("/");
+  }, [user, token]);
+
+  useEffect(() => {
     if (!initialRender) {
       const error = validateLogin(input.login);
 
@@ -73,10 +77,6 @@ const Login = () => {
   }, [input.password]);
 
   useEffect(() => setInitialRender(false), []);
-
-  useEffect(() => {
-    if (token && user.id && user.name && user.email) navigate("/");
-  }, [user, token]);
 
   return (
     <AuthPage>
