@@ -45,9 +45,6 @@ const users = {
     if (validator.isEmail(login)) email = login;
     else name = login;
 
-    console.log("name", name);
-    console.log("email", email);
-
     return requests.post("/users/login", { email, name, password });
   },
   register: (name, email, password) =>
