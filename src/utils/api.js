@@ -1,7 +1,18 @@
 import axios from "axios";
 import validator from "validator";
+import { userTokenKey } from "../store/slices/usersSlice";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
+
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem(userTokenKey);
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 const delay = (d) => new Promise((resolve) => setTimeout(resolve, d));
 

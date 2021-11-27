@@ -1,6 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiCalls from "../../utils/api";
 
+export const userTokenKey = "user-token";
+
+const saveTokenLocalStorace = (token) => {
+  localStorage.setItem(userTokenKey, token);
+};
+
+const removeTokenFromLocalStorace = (token) => {
+  localStorage.removeItem(userTokenKey);
+};
+
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -27,16 +37,30 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const renewToken = createAsyncThunk(
+  "users/renewToken",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiCalls.users.renew();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   user: {},
   token: null,
   loadings: {
     login: false,
     register: false,
+    renew: false,
   },
   errors: {
     login: "",
     register: "",
+    renew: "",
   },
 };
 
@@ -55,6 +79,7 @@ export const usersSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.data.user;
           state.token = action.payload.data.token;
+          saveTokenLocalStorace(action.payload.data.token);
         } else {
           state.errors.login = action.payload.message;
         }
@@ -70,10 +95,28 @@ export const usersSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.data.user;
           state.token = action.payload.data.token;
+          saveTokenLocalStorace(action.payload.data.token);
         } else {
           state.errors.register = action.payload.message;
         }
         state.loadings.register = false;
+      })
+
+      // renew token
+      .addCase(renewToken.pending, (state) => {
+        state.loadings.renew = true;
+        state.errors.renew = "";
+      })
+      .addCase(renewToken.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.user = action.payload.data.user;
+          state.token = action.payload.data.token;
+          saveTokenLocalStorace(action.payload.data.token);
+        } else {
+          state.errors.renew = action.payload.message;
+          removeTokenFromLocalStorace();
+        }
+        state.loadings.renew = false;
       });
   },
 });

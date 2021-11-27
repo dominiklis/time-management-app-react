@@ -1,3 +1,4 @@
 .layout {
+  background-color: var(--clr-gray1);
   min-height: 100vh;
 }

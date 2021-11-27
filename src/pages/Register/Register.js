@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import validateEmail from "../../utils/validateEmail";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/slices/usersSlice";
@@ -16,6 +16,9 @@ import validateUsername from "../../utils/validateUsername";
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const dispatch = useDispatch();
   const {
     user,
@@ -57,7 +60,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (token && user.id && user.name && user.email) navigate("/");
+    if (token && user.id && user.name && user.email)
+      navigate(from, { replace: true });
   }, [user, token]);
 
   useEffect(() => {
