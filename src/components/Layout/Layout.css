@@ -1,4 +1,18 @@
 .layout {
   background-color: var(--clr-gray1);
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.layout__content {
+  display: flex;
+  height: 100%;
+  flex: 1;
+}
+
+.layout__page {
+  width: 100%;
+  padding: 1em;
 }

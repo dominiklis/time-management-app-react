@@ -1,0 +1,30 @@
+.navbar {
+  background-color: var(--clr-prim3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  padding: 1em;
+}
+
+.navbar-button {
+  color: var(--clr-gray1);
+  background-color: var(--clr-prim3);
+  text-decoration: none;
+  border: none;
+  font-size: 1.25em;
+  cursor: pointer;
+  padding: 0.5em;
+}
+.navbar-button:active,
+.navbar-button:hover {
+  background-color: var(--clr-prim2);
+}
+
+.navbar__home {
+  font-size: 1.25em;
+}
+
+.navbar__menu-icon {
+  vertical-align: middle;
+}

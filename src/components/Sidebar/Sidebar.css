@@ -1,0 +1,23 @@
+.sidebar {
+  background-color: var(--clr-gray2);
+  width: 75%;
+  max-width: 280px;
+  padding: 1em;
+  transition: all 0.3s ease-in;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    position: fixed;
+    top: 4rem;
+    height: calc(100vh - 4rem);
+    width: 75%;
+  }
+}
+
+.sidebar.hidden {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+}
