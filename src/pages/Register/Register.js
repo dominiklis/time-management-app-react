@@ -4,15 +4,16 @@ import validateEmail from "../../utils/validateEmail";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/slices/usersSlice";
 
+import validatePassword from "../../utils/validatePassword";
+import validateUsername from "../../utils/validateUsername";
+
 import AuthContainer from "../../components/AuthContainer/AuthContainer";
 import AppLink from "../../components/Link/AppLink";
 import AuthForm from "../../components/AuthForm/AuthForm";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import Button from "../../components/Button/Button";
 import AuthPage from "../../components/AuthPage/AuthPage";
-
-import validatePassword from "../../utils/validatePassword";
-import validateUsername from "../../utils/validateUsername";
+import InputField from "../../components/InputField/InputField";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -111,56 +112,38 @@ const Register = () => {
           <h1>Register</h1>
         </div>
         <AuthForm onSubmit={handleSubmit}>
-          <div className="auth-form__input">
-            {errors.name && (
-              <div className="auth-form__error">{errors.name}</div>
-            )}
-            <label htmlFor="name">
-              name
-              <input
-                id="name"
-                type="text"
-                name="name"
-                value={input.name}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
+          <InputField
+            value={input.name}
+            onChange={handleChange}
+            label="usernname"
+            id="name"
+            type="text"
+            name="name"
+            error={errors.name}
+            fullwidth
+          />
 
-          <div className="auth-form__input">
-            {errors.email && (
-              <div className="auth-form__error">{errors.email}</div>
-            )}
-            <label htmlFor="name">
-              email
-              <input
-                id="email"
-                type="text"
-                name="email"
-                value={input.email}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
+          <InputField
+            value={input.email}
+            onChange={handleChange}
+            label="email"
+            id="email"
+            type="email"
+            name="email"
+            error={errors.email}
+            fullwidth
+          />
 
-          <div className="auth-form__input">
-            {errors.password.length > 0 &&
-              errors.password.map((err) => (
-                <div ket={err} className="auth-form__error">
-                  {err}
-                </div>
-              ))}
-            <label htmlFor="password">
-              password
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={input.password}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
+          <InputField
+            value={input.password}
+            onChange={handleChange}
+            label="password"
+            id="password"
+            type="password"
+            name="password"
+            error={errors.password}
+            fullwidth
+          />
 
           {registerLoading ? (
             <LoadingButton />

@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/slices/usersSlice";
 
+import validatePassword from "../../utils/validatePassword";
+import validateLogin from "../../utils/validateLogin";
+
 import Button from "../../components/Button/Button";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import AppLink from "../../components/Link/AppLink";
 import AuthContainer from "../../components/AuthContainer/AuthContainer";
-
-import validatePassword from "../../utils/validatePassword";
-import validateLogin from "../../utils/validateLogin";
+import InputField from "../../components/InputField/InputField";
 import AuthForm from "../../components/AuthForm/AuthForm";
 import AuthPage from "../../components/AuthPage/AuthPage";
 
@@ -94,40 +95,27 @@ const Login = () => {
           <h1>Login</h1>
         </div>
         <AuthForm onSubmit={handleSubmit}>
-          <div className="auth-form__input">
-            {errors.login && (
-              <div className="auth-form__error">{errors.login}</div>
-            )}
-            <label htmlFor="login">
-              email or username
-              <input
-                id="login"
-                type="text"
-                name="login"
-                value={input.login}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
+          <InputField
+            value={input.login}
+            onChange={handleChange}
+            label="email or username"
+            id="login"
+            type="text"
+            name="login"
+            error={errors.login}
+            fullwidth
+          />
 
-          <div className="auth-form__input">
-            {errors.password.length > 0 &&
-              errors.password.map((err) => (
-                <div ket={err} className="auth-form__error">
-                  {err}
-                </div>
-              ))}
-            <label htmlFor="password">
-              password
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={input.password}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
+          <InputField
+            value={input.password}
+            onChange={handleChange}
+            label="password"
+            id="password"
+            type="password"
+            name="password"
+            error={errors.password}
+            fullwidth
+          />
 
           {loginLoading ? (
             <LoadingButton />

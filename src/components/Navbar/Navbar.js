@@ -2,11 +2,15 @@ import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
-import { FiMenu } from "react-icons/fi";
+import { IoMenu } from "react-icons/io5";
 
-const Navbar = ({ toggleMenu }) => {
+const Navbar = ({ toggleMenu, setShowModal }) => {
   const handleMenuClick = () => {
     toggleMenu();
+  };
+
+  const handleAddTaskButton = () => {
+    setShowModal(true);
   };
 
   return (
@@ -18,7 +22,7 @@ const Navbar = ({ toggleMenu }) => {
           }}
         >
           <button className="navbar-button" onClick={handleMenuClick}>
-            <FiMenu />
+            <IoMenu />
           </button>
         </IconContext.Provider>
         <Link to="/" className="navbar-button">
@@ -27,7 +31,9 @@ const Navbar = ({ toggleMenu }) => {
       </div>
 
       <div>
-        <button className="navbar-button">add</button>
+        <button className="navbar-button" onClick={handleAddTaskButton}>
+          add
+        </button>
         <Link to="/" className="navbar-button">
           me
         </Link>

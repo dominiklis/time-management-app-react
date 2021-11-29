@@ -70,8 +70,39 @@ const users = {
   renew: () => requests.get("/users/renew"),
 };
 
+const tasks = {
+  create: (name, description, day, startTime, endTime) => {
+    const newTask = {
+      name,
+      description,
+    };
+
+    if (day) newTask.dateToComplete = new Date(`${day} 00:00`).toISOString();
+
+    if (startTime) {
+      if (!day) {
+        const today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        newTask.dateToComplete = today.toISOString();
+        day = today.toISOString().split("T")[0];
+      }
+
+      newTask.startTime = new Date(`${day} ${startTime}`).toISOString();
+    }
+
+    if (endTime && startTime)
+      newTask.endTime = new Date(`${day} ${endTime}`).toISOString();
+
+    return requests.post("/tasks", newTask);
+  },
+};
+
 const apiCalls = {
   users,
+  tasks,
 };
 
 export default apiCalls;

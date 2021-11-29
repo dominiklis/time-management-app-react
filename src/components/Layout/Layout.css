@@ -14,5 +14,9 @@
 
 .layout__page {
   width: 100%;
+}
+
+.layout__page--padding {
+  width: 100%;
   padding: 1em;
 }
