@@ -1,0 +1,17 @@
+.loading-indicator {
+  border: 0.2em solid transparent;
+  border-top: 0.2em solid var(--clr-prim5);
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

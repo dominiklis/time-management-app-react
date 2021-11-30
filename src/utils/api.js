@@ -1,6 +1,7 @@
 import axios from "axios";
 import validator from "validator";
 import { userTokenKey } from "../store/slices/usersSlice";
+import { getToday } from "./days";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
@@ -71,6 +72,7 @@ const users = {
 };
 
 const tasks = {
+  get: () => requests.get("/tasks"),
   create: (name, description, day, startTime, endTime) => {
     const newTask = {
       name,
@@ -81,11 +83,7 @@ const tasks = {
 
     if (startTime) {
       if (!day) {
-        const today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        today.setMilliseconds(0);
+        const today = getToday();
         newTask.dateToComplete = today.toISOString();
         day = today.toISOString().split("T")[0];
       }

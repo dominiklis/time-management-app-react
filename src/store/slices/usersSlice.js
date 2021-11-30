@@ -7,7 +7,7 @@ const saveTokenLocalStorace = (token) => {
   localStorage.setItem(userTokenKey, token);
 };
 
-const removeTokenFromLocalStorace = (token) => {
+const removeTokenFromLocalStorace = () => {
   localStorage.removeItem(userTokenKey);
 };
 
@@ -15,6 +15,7 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, { rejectWithValue }) => {
     const { login, password } = userData;
+
     try {
       const response = await apiCalls.users.login(login, password);
       return response;
@@ -28,6 +29,7 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (userData, { rejectWithValue }) => {
     const { name, email, password } = userData;
+
     try {
       const response = await apiCalls.users.register(name, email, password);
       return response;

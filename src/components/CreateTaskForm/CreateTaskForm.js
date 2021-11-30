@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTaskForm.css";
-
-import apiCalls from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { createTask } from "../../store/slices/tasksSlice";
 
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
@@ -12,9 +12,14 @@ import TimeInput from "../TimeInput/TimeInput";
 const nameError = "name cannot be empty";
 
 const CreateTaskForm = ({ afterSubmit }) => {
-  const [initialRender, setInitialRender] = useState(true);
+  const dispatch = useDispatch();
 
-  const [waitingForResponse, setWaitingForResponse] = useState(false);
+  const {
+    loadings: { createTask: createTaskLoading },
+    errors: { createTask: createTaskError },
+  } = useSelector((state) => state.tasks);
+
+  const [initialRender, setInitialRender] = useState(true);
 
   const [input, setInput] = useState({
     name: "",
@@ -41,16 +46,7 @@ const CreateTaskForm = ({ afterSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setWaitingForResponse(true);
-    await apiCalls.tasks.create(
-      input.name,
-      input.description,
-      input.dateToComplete,
-      input.startTime,
-      input.endTime
-    );
-
-    setWaitingForResponse(false);
+    await dispatch(createTask(input)).unwrap();
     afterSubmit();
   };
 
@@ -119,7 +115,7 @@ const CreateTaskForm = ({ afterSubmit }) => {
         error={errors.endTime}
       />
 
-      {waitingForResponse ? (
+      {createTaskLoading ? (
         <LoadingButton />
       ) : (
         <Button

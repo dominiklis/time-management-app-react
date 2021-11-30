@@ -16,10 +16,13 @@ import AuthPage from "../../components/AuthPage/AuthPage";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const location = useLocation();
+
   const from = location.state?.from?.pathname || "/";
 
   const dispatch = useDispatch();
+  
   const {
     user,
     token,

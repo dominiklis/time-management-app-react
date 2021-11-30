@@ -1,4 +1,5 @@
-import usersReducer from "./usersSlice";
 import appReducer from "./appSlice";
+import usersReducer from "./usersSlice";
+import tasksReducer from "./tasksSlice";
 
-export { usersReducer, appReducer };
+export { appReducer, usersReducer, tasksReducer };
