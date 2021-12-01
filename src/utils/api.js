@@ -59,8 +59,10 @@ const users = {
 
     return requests.post("/users/login", { email, name, password });
   },
+
   register: (name, email, password) =>
     requests.post("/users/register", { email, name, password }),
+
   update: (newName, newEmail, newPassword, currentPassword) =>
     requests.put("/users", {
       newName,
@@ -68,11 +70,13 @@ const users = {
       newPassword,
       currentPassword,
     }),
+
   renew: () => requests.get("/users/renew"),
 };
 
 const tasks = {
   get: () => requests.get("/tasks"),
+
   create: (name, description, day, startTime, endTime) => {
     const newTask = {
       name,
@@ -95,6 +99,18 @@ const tasks = {
       newTask.endTime = new Date(`${day} ${endTime}`).toISOString();
 
     return requests.post("/tasks", newTask);
+  },
+
+  update: (
+    taskId,
+    name,
+    description,
+    dateToComplete,
+    completed,
+    startTime,
+    endTime
+  ) => {
+    return requests.put(`/tasks/${taskId}`, { completed });
   },
 };
 

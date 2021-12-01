@@ -1,0 +1,25 @@
+.floating-button {
+  position: fixed;
+  bottom: 1.75em;
+  right: 1.7em;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: var(--clr-prim3);
+  color: var(--clr-gray1);
+  font-size: 1.3em;
+  padding: 0.6em;
+  border-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.floating-button:hover {
+  background-color: var(--clr-prim2);
+}
+
+.floating-button:active {
+  background-color: var(--clr-prim1);
+}

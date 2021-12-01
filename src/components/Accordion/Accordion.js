@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Accordion.css";
 
-import { FiChevronDown } from "react-icons/fi";
 import { IconContext } from "react-icons";
+import { FiChevronUp } from "react-icons/fi";
 
 const Accordion = ({ children, header, headerColor, hidden }) => {
   const [hideContent, setHideContent] = useState(hidden || false);
@@ -10,13 +10,8 @@ const Accordion = ({ children, header, headerColor, hidden }) => {
   const handleLabelClick = () => setHideContent((prev) => !prev);
 
   let headerWariant = "";
-
-  if (headerColor) {
-    if (headerColor === "primary")
-      headerWariant = " accordion__header--primary";
-    if (headerColor === "warning")
-      headerWariant = " accordion__header--warning";
-  }
+  if (headerColor === "primary") headerWariant = " accordion__header--primary";
+  if (headerColor === "warning") headerWariant = " accordion__header--warning";
 
   return (
     <div className={`accordion${hideContent ? " accordion--hidden" : ""}`}>
@@ -25,7 +20,7 @@ const Accordion = ({ children, header, headerColor, hidden }) => {
         <IconContext.Provider
           value={{ className: `accordion__icon${headerWariant}` }}
         >
-          <FiChevronDown />
+          <FiChevronUp />
         </IconContext.Provider>
       </div>
       <div className="accordion__content">{children}</div>

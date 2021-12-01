@@ -12,6 +12,7 @@ import {
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import TaskCard from "../../components/TaskCard/TaskCard";
 import Accordion from "../../components/Accordion/Accordion";
+import Page from "../../components/Page/Page";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
@@ -36,7 +37,7 @@ const Home = () => {
   if (tasks.length === 0) return <div>Add your first task.</div>;
 
   return (
-    <div>
+    <Page>
       <Accordion header="Overdue" headerColor="warning" hidden>
         {overdueTasks(tasks).map((task) => (
           <TaskCard key={task.taskId} {...task} overdue />
@@ -54,7 +55,7 @@ const Home = () => {
           <TaskCard key={task.taskId} {...task} />
         ))}
       </Accordion>
-    </div>
+    </Page>
   );
 };
 

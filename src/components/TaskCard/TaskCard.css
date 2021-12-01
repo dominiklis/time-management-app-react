@@ -8,6 +8,8 @@
 
 .task-card__header {
   padding: 0.25em 0.75em 0.25em 0;
+  display: flex;
+  align-content: center;
 }
 
 .task-card__content {
@@ -20,8 +22,12 @@
   align-items: center;
 }
 
-.task-card__icons {
+.task-card__icon {
   vertical-align: middle;
+}
+
+.task-card__checked-icon {
+  color: var(--clr-suc4);
 }
 
 .task-card__date-section {
@@ -48,4 +54,13 @@
 .task-card__button:active {
   color: var(--clr-prim3);
   background-color: rgba(0, 0, 0, 0.025);
+}
+
+.task-card__button:disabled .task-card__checked-icon {
+  color: var(--clr-gray4);
+}
+
+.task-card__button:disabled:hover {
+  background-color: transparent;
+  cursor: default;
 }

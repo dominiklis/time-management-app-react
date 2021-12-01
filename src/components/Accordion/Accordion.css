@@ -45,5 +45,5 @@
   margin: 0;
   opacity: 0;
   padding: 0;
-  transition: all 0.15s ease-in;
+  transition: all 0.15s ease-out;
 }

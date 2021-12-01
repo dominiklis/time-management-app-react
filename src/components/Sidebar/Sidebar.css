@@ -6,6 +6,11 @@
   transition: all 0.3s ease-in;
 }
 
+.sidebar__content {
+  position: fixed;
+  top: 5em;
+}
+
 @media screen and (max-width: 600px) {
   .sidebar {
     position: fixed;

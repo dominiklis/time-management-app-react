@@ -6,6 +6,7 @@ export const getTasks = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiCalls.tasks.get();
+
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -26,6 +27,38 @@ export const createTask = createAsyncThunk(
         startTime,
         endTime
       );
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const updateTask = createAsyncThunk(
+  "tasks/updateTask",
+  async (taskData, { rejectWithValue }) => {
+    const {
+      taskId,
+      name,
+      description,
+      completed,
+      dateToComplete,
+      startTime,
+      endTime,
+    } = taskData;
+
+    try {
+      const response = await apiCalls.tasks.update(
+        taskId,
+        name,
+        description,
+        dateToComplete,
+        completed,
+        startTime,
+        endTime
+      );
+
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -39,10 +72,12 @@ const initialState = {
   loadings: {
     gettingTasks: false,
     createTask: false,
+    updateTask: false,
   },
   errors: {
     gettingTasks: "",
     createTask: "",
+    updateTask: "",
   },
 };
 
@@ -80,6 +115,27 @@ export const tasksSlice = createSlice({
 
         state.loadings.createTask = false;
         state.tasksLoaded = true;
+      })
+
+      // update task
+      .addCase(updateTask.pending, (state) => {
+        state.loadings.updateTask = true;
+        state.errors.updateTask = "";
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const updatedTasks = state.tasks.map((task) => {
+            if (task.taskId === action.payload.data.taskId) {
+              task.completed = !task.completed;
+            }
+
+            return task;
+          });
+
+          state.tasks = updatedTasks;
+        }
+
+        state.loadings.updateTask = false;
       });
   },
 });

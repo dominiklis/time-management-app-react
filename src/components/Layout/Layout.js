@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import Modal from "../Modal/Modal";
+import FloatingButton from "../FloatingButton/FloatingButton";
 
 const Layout = () => {
   const { user, token } = useSelector((state) => state.users);
@@ -16,6 +17,8 @@ const Layout = () => {
   const toggleMenu = () => {
     setHideMenu((prev) => !prev);
   };
+
+  const handleOpenModal = () => setShowModal(true);
 
   useEffect(() => {
     if (window.innerWidth <= 600) setHideMenu(true);
@@ -40,6 +43,9 @@ const Layout = () => {
         >
           <Outlet />
         </main>
+        {token && user.id && user.email && user.name && (
+          <FloatingButton onClick={handleOpenModal} />
+        )}
       </div>
     </div>
   );
