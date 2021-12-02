@@ -35,11 +35,11 @@ const Layout = () => {
           <Sidebar hideMenu={hideMenu} />
         )}
         <main
-          className={
+          className={`layout__page ${
             token && user.id && user.email && user.name
-              ? "layout__page--padding"
-              : "layout__page"
-          }
+              ? " layout__page--padding"
+              : ""
+          }`}
         >
           <Outlet />
         </main>

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { FiSquare, FiCheckSquare, FiEdit2, FiCalendar } from "react-icons/fi";
 import { IconContext } from "react-icons/lib";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
+
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskCard = ({

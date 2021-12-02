@@ -22,7 +22,10 @@ const getTomorrow = () => {
 };
 
 const formatDate = (date) => {
-  return new Date(date).toLocaleDateString();
+  let newDate = new Date(date).toLocaleDateString();
+  let [day, month, year] = newDate.split(".");
+  if (day.length === 1) day = "0" + day;
+  return `${day}.${month}.${year}`;
 };
 
 const formatTime = (date) => {
