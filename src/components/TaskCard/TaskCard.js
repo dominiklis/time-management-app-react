@@ -14,16 +14,19 @@ const TaskCard = ({
   authorId,
   authorName,
   authorEmail,
-  name,
-  description,
-  completed,
+  taskName,
+  taskDescription,
+  taskCompleted,
   createdAt,
   completedAt,
   dateToComplete,
   startTime,
   endTime,
   accessedAt,
-  accessLevel,
+  canShare,
+  canChangePermissions,
+  canEdit,
+  canDelete,
   overdue,
 }) => {
   const dispatch = useDispatch();
@@ -32,7 +35,7 @@ const TaskCard = ({
 
   const handleCompletedButton = async () => {
     setUpdating(true);
-    await dispatch(updateTask({ taskId, completed: !completed })).unwrap();
+    await dispatch(updateTask({ taskId, completed: !taskCompleted })).unwrap();
     setUpdating(false);
   };
 
@@ -42,11 +45,11 @@ const TaskCard = ({
         <button
           className="task-card__button"
           onClick={handleCompletedButton}
-          disabled={!accessLevel.split(", ").includes("edit")}
+          disabled={!canEdit}
         >
           {updating ? (
             <LoadingIndicator size="small" />
-          ) : completed ? (
+          ) : taskCompleted ? (
             <IconContext.Provider
               value={{ className: "task-card__icon task-card__checked-icon" }}
             >
@@ -60,7 +63,7 @@ const TaskCard = ({
         </button>
       </div>
       <div className="task-card__content">
-        <div className="task-card__name">{name}</div>
+        <div className="task-card__name">{taskName}</div>
         {dateToComplete && (
           <div
             className={`task-card__date-section${
@@ -81,10 +84,7 @@ const TaskCard = ({
         )}
       </div>
       <div className="task-card__actions">
-        <button
-          className="task-card__button"
-          disabled={!accessLevel.split(", ").includes("edit")}
-        >
+        <button className="task-card__button" disabled={!canEdit}>
           <IconContext.Provider value={{ className: "task-card__icon" }}>
             <FiEdit2 />
           </IconContext.Provider>

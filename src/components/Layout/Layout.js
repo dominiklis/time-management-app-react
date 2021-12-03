@@ -25,7 +25,11 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="layout">
+    <div
+      className={`layout${
+        !token || !user.id || !user.email || !user.name ? " layout--top" : ""
+      }`}
+    >
       {showModal && <Modal setShowModal={setShowModal} />}
       {token && user.id && user.email && user.name && (
         <Navbar toggleMenu={toggleMenu} setShowModal={setShowModal} />

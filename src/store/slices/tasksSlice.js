@@ -126,7 +126,7 @@ export const tasksSlice = createSlice({
         if (action.payload.success && state.tasksLoaded) {
           const updatedTasks = state.tasks.map((task) => {
             if (task.taskId === action.payload.data.taskId) {
-              task.completed = !task.completed;
+              task.taskCompleted = !task.taskCompleted;
             }
 
             return task;
