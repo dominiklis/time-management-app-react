@@ -1,6 +1,6 @@
 .button {
   transition: background-color 0.1s ease;
-  background-color: var(--clr-prim3);
+  background-color: var(--clr-gray9);
   color: var(--clr-gray1);
   font-size: 1.1em;
   padding: 0.4em 1.5em;
@@ -10,10 +10,72 @@
 }
 
 .button:hover {
-  background-color: var(--clr-prim2);
+  background-color: var(--clr-gray6);
 }
 
 .button:disabled {
-  background-color: var(--clr-prim1);
+  background-color: var(--clr-gray3);
   cursor: default;
+}
+
+.button--primary {
+  background-color: var(--clr-prim3);
+}
+
+.button--primary:hover {
+  background-color: var(--clr-prim2);
+}
+
+.button--primary:disabled {
+  background-color: var(--clr-prim1);
+}
+
+.button--secondary {
+  background-color: var(--clr-sec3);
+}
+
+.button--secondary:hover {
+  background-color: var(--clr-sec2);
+}
+
+.button--secondary:disabled {
+  background-color: var(--clr-sec1);
+}
+
+.button--error {
+  background-color: var(--clr-err3);
+}
+
+.button--error:hover {
+  background-color: var(--clr-err2);
+}
+
+.button--error:disabled {
+  background-color: var(--clr-err1);
+}
+
+.button--warning {
+  background-color: var(--clr-war5);
+}
+
+.button--warning:hover {
+  background-color: var(--clr-war3);
+  color: var(--clr-gray9);
+}
+
+.button--warning:disabled {
+  background-color: var(--clr-war1);
+  color: var(--clr-gray9);
+}
+
+.button--success {
+  background-color: var(--clr-suc3);
+}
+
+.button--success:hover {
+  background-color: var(--clr-suc2);
+}
+
+.button--success:disabled {
+  background-color: var(--clr-suc1);
 }

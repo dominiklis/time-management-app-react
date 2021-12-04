@@ -39,19 +39,26 @@ const Home = () => {
 
   return (
     <Page>
-      <Accordion header="Overdue" headerColor="warning" hidden>
+      <Accordion
+        header={`Overdue (${overdueTasks(tasks).length})`}
+        headerColor="warning"
+        hidden
+      >
         {overdueTasks(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} overdue />
         ))}
       </Accordion>
 
-      <Accordion header="No date" hidden>
+      <Accordion header={`No date (${tasksWithoutDate(tasks).length})`} hidden>
         {tasksWithoutDate(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} />
         ))}
       </Accordion>
 
-      <Accordion header="Today" headerColor="primary">
+      <Accordion
+        header={`Today (${tasksForToday(tasks).length})`}
+        headerColor="primary"
+      >
         {tasksForToday(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} />
         ))}

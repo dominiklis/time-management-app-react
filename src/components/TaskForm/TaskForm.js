@@ -98,6 +98,7 @@ const TaskForm = ({ onSubmit, className, input, handleChange, loading }) => {
             errors.startTime ||
             errors.endTime
           }
+          color="primary"
         >
           create
         </Button>

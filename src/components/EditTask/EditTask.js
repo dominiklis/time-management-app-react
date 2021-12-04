@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./EditTask.css";
+
 import Button from "../Button/Button";
 import TaskForm from "../TaskForm/TaskForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +47,7 @@ const EditTask = ({
   const handleCloseButton = () => setEditTask(false);
 
   return (
-    <div>
+    <div className="edit-task">
       <div className="edit-task__header">
         <h3 className="edit-task__header-text">Edit task</h3>
         <Button

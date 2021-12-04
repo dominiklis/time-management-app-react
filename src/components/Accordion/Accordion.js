@@ -10,8 +10,12 @@ const Accordion = ({ children, header, headerColor, hidden }) => {
   const handleLabelClick = () => setHideContent((prev) => !prev);
 
   let headerWariant = "";
-  if (headerColor === "primary") headerWariant = " accordion__header--primary";
-  if (headerColor === "warning") headerWariant = " accordion__header--warning";
+  if (headerColor === "primary") {
+    headerWariant = " accordion__header--primary";
+  }
+  if (headerColor === "warning") {
+    headerWariant = " accordion__header--warning";
+  }
 
   return (
     <div className={`accordion${hideContent ? " accordion--hidden" : ""}`}>
