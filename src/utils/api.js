@@ -1,7 +1,9 @@
 import axios from "axios";
 import validator from "validator";
+import { updateTask } from "../store/slices/tasksSlice";
 import { userTokenKey } from "../store/slices/usersSlice";
 import { getToday } from "./days";
+import { isIsoDate } from "./isIsoString";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
@@ -77,10 +79,10 @@ const users = {
 const tasks = {
   get: () => requests.get("/tasks"),
 
-  create: (name, description, day, startTime, endTime) => {
+  create: (taskName, taskDescription, day, startTime, endTime) => {
     const newTask = {
-      name,
-      description,
+      taskName,
+      taskDescription,
     };
 
     if (day) newTask.dateToComplete = new Date(`${day} 00:00`).toISOString();
@@ -103,14 +105,49 @@ const tasks = {
 
   update: (
     taskId,
-    name,
-    description,
+    taskName,
+    taskDescription,
     dateToComplete,
-    completed,
+    taskCompleted,
     startTime,
     endTime
   ) => {
-    return requests.put(`/tasks/${taskId}`, { completed });
+    const updatedTask = {
+      taskName,
+      taskDescription,
+      dateToComplete,
+      taskCompleted,
+      startTime,
+      endTime,
+    };
+
+    if (dateToComplete && !isIsoDate(dateToComplete))
+      updatedTask.dateToComplete = new Date(
+        `${dateToComplete} 00:00`
+      ).toISOString();
+
+    if (startTime && !isIsoDate(startTime)) {
+      if (!dateToComplete) {
+        const today = getToday();
+        updatedTask.dateToComplete = today.toISOString();
+        dateToComplete = today.toISOString().split("T")[0];
+      }
+
+      updatedTask.startTime = new Date(
+        `${dateToComplete} ${startTime}`
+      ).toISOString();
+    } else if (startTime === "") updatedTask.startTime = null;
+
+    if (endTime && startTime && !isIsoDate(endTime))
+      updatedTask.endTime = new Date(
+        `${dateToComplete} ${endTime}`
+      ).toISOString();
+    else if (endTime === "") updatedTask.endTime = null;
+
+    if (typeof taskCompleted === "boolean")
+      updateTask.taskCompleted = taskCompleted;
+
+    return requests.put(`/tasks/${taskId}`, updatedTask);
   },
 };
 

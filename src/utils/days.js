@@ -21,19 +21,21 @@ const getTomorrow = () => {
   return tomorrow;
 };
 
-const formatDate = (date) => {
+const formatDate = (date, forFormInput = false) => {
   let newDate = new Date(date).toLocaleDateString();
   let [day, month, year] = newDate.split(".");
   if (day.length === 1) day = "0" + day;
+
+  if (forFormInput) return `${year}-${month}-${day}`;
   return `${day}.${month}.${year}`;
 };
 
 const formatTime = (date) => {
   let hours = new Date(date).getHours();
-  if (hours < 9) hours = "0" + hours;
+  if (hours < 10) hours = "0" + hours;
 
   let minutes = new Date(date).getMinutes();
-  if (minutes < 9) minutes = "0" + minutes;
+  if (minutes < 10) minutes = "0" + minutes;
 
   return `${hours}:${minutes}`;
 };

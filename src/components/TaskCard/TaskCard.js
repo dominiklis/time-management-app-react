@@ -10,6 +10,8 @@ import { formatDate, formatInterval, formatTime } from "../../utils/days";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskCard = ({
+  onClick,
+  setEditTask,
   taskId,
   authorId,
   authorName,
@@ -35,9 +37,21 @@ const TaskCard = ({
 
   const handleCompletedButton = async () => {
     setUpdating(true);
-    await dispatch(updateTask({ taskId, completed: !taskCompleted })).unwrap();
+    await dispatch(
+      updateTask({
+        taskId,
+        taskName,
+        taskDescription,
+        taskCompleted: !taskCompleted,
+        dateToComplete,
+        startTime,
+        endTime,
+      })
+    ).unwrap();
     setUpdating(false);
   };
+
+  const handleEditButton = () => setEditTask(true);
 
   return (
     <div className="task-card">
@@ -62,7 +76,10 @@ const TaskCard = ({
           )}
         </button>
       </div>
-      <div className="task-card__content">
+      <div
+        className={`task-card__content${onClick ? " task-card--pointer" : ""}`}
+        onClick={onClick}
+      >
         <div className="task-card__name">{taskName}</div>
         {dateToComplete && (
           <div
@@ -84,7 +101,11 @@ const TaskCard = ({
         )}
       </div>
       <div className="task-card__actions">
-        <button className="task-card__button" disabled={!canEdit}>
+        <button
+          className="task-card__button"
+          disabled={!canEdit}
+          onClick={handleEditButton}
+        >
           <IconContext.Provider value={{ className: "task-card__icon" }}>
             <FiEdit2 />
           </IconContext.Provider>

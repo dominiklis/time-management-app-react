@@ -1,0 +1,20 @@
+.task-details__assignemnts {
+  font-size: 0.8em;
+  color: var(--clr-gray5);
+}
+
+.task-details__header {
+  font-size: 0.9em;
+  color: var(--clr-gray7);
+  margin-top: 0.5em;
+}
+
+.task-details__created-info {
+  font-size: 0.8em;
+  color: var(--clr-gray5);
+}
+
+.task-details__author-name {
+  color: var(--clr-prim4);
+  font-weight: bold;
+}

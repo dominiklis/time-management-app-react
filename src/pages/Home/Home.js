@@ -13,6 +13,7 @@ import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator
 import TaskCard from "../../components/TaskCard/TaskCard";
 import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
+import TaskElement from "../../components/TaskElement/TaskElement";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
@@ -40,19 +41,19 @@ const Home = () => {
     <Page>
       <Accordion header="Overdue" headerColor="warning" hidden>
         {overdueTasks(tasks).map((task) => (
-          <TaskCard key={task.taskId} {...task} overdue />
+          <TaskElement key={task.taskId} task={task} overdue />
         ))}
       </Accordion>
 
       <Accordion header="No date" hidden>
         {tasksWithoutDate(tasks).map((task) => (
-          <TaskCard key={task.taskId} {...task} />
+          <TaskElement key={task.taskId} task={task} />
         ))}
       </Accordion>
 
       <Accordion header="Today" headerColor="primary">
         {tasksForToday(tasks).map((task) => (
-          <TaskCard key={task.taskId} {...task} />
+          <TaskElement key={task.taskId} task={task} />
         ))}
       </Accordion>
     </Page>

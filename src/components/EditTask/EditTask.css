@@ -1,0 +1,12 @@
+.edit-task__cancel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-task__header {
+  display: flex;
+}
+
+.edit-task__header-text {
+  flex: 1;
+}

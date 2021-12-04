@@ -17,12 +17,13 @@ export const getTasks = createAsyncThunk(
 export const createTask = createAsyncThunk(
   "tasks/createTask",
   async (taskData, { rejectWithValue }) => {
-    const { name, description, dateToComplete, startTime, endTime } = taskData;
+    const { taskName, taskDescription, dateToComplete, startTime, endTime } =
+      taskData;
 
     try {
       const response = await apiCalls.tasks.create(
-        name,
-        description,
+        taskName,
+        taskDescription,
         dateToComplete,
         startTime,
         endTime
@@ -40,9 +41,9 @@ export const updateTask = createAsyncThunk(
   async (taskData, { rejectWithValue }) => {
     const {
       taskId,
-      name,
-      description,
-      completed,
+      taskName,
+      taskDescription,
+      taskCompleted,
       dateToComplete,
       startTime,
       endTime,
@@ -51,10 +52,10 @@ export const updateTask = createAsyncThunk(
     try {
       const response = await apiCalls.tasks.update(
         taskId,
-        name,
-        description,
+        taskName,
+        taskDescription,
         dateToComplete,
-        completed,
+        taskCompleted,
         startTime,
         endTime
       );
@@ -126,7 +127,14 @@ export const tasksSlice = createSlice({
         if (action.payload.success && state.tasksLoaded) {
           const updatedTasks = state.tasks.map((task) => {
             if (task.taskId === action.payload.data.taskId) {
-              task.taskCompleted = !task.taskCompleted;
+              task.taskName = action.payload.data.taskName;
+              task.taskDescription = action.payload.data.taskDescription;
+              task.taskCompleted = action.payload.data.taskCompleted;
+              task.createdAt = action.payload.data.createdAt;
+              task.completedAt = action.payload.data.completedAt;
+              task.dateToComplete = action.payload.data.dateToComplete;
+              task.startTime = action.payload.data.startTime;
+              task.endTime = action.payload.data.endTime;
             }
 
             return task;

@@ -5,6 +5,7 @@ import "../InputField/InputField.css";
 const timeError = "allowed format is HH:MM";
 
 const TimeInput = ({
+  value: valueToEdit,
   onChange,
   label,
   id,
@@ -13,7 +14,7 @@ const TimeInput = ({
   setError,
   error,
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(valueToEdit ? valueToEdit : "");
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -24,17 +25,19 @@ const TimeInput = ({
     let [hours, minutes] = e.target.value.split(":");
     if (!hours || !minutes || hours.length !== 2 || minutes.length !== 2) {
       return setError(timeError, name);
+    } else if (isNaN(parseInt(hours[1])) || isNaN(parseInt(minutes[1]))) {
+      return setError(timeError, name);
     } else {
-      hours = parseInt(hours);
-      minutes = parseInt(minutes);
+      const hoursParsed = parseInt(hours);
+      const minutesParsed = parseInt(minutes);
 
       if (
-        isNaN(hours) ||
-        hours < 0 ||
-        hours > 24 ||
-        isNaN(minutes) ||
-        minutes < 0 ||
-        minutes > 60
+        isNaN(hoursParsed) ||
+        hoursParsed < 0 ||
+        hoursParsed > 24 ||
+        isNaN(minutesParsed) ||
+        minutesParsed < 0 ||
+        minutesParsed >= 60
       )
         setError(timeError, name);
       else {

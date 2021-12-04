@@ -4,7 +4,8 @@
   max-width: 280px;
   padding: 1em;
   transition: all 0.3s ease-in;
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
+  position: relative;
 }
 
 .sidebar__content {

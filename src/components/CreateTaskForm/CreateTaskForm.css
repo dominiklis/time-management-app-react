@@ -1,11 +1,11 @@
-.task-form {
+.create-task-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 2em;
 }
 
-.task-form button,
-.task-form .loading-button {
+.create-task-form button,
+.create-task-form .loading-button {
   margin-top: 2em;
 }

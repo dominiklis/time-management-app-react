@@ -1,15 +1,17 @@
 .task-card {
-  margin: 0.25em 0;
   display: flex;
   align-content: center;
   padding-bottom: 0.5em;
-  border-bottom: 1px solid var(--clr-gray3);
 }
 
 .task-card__header {
   padding: 0.25em 0.75em 0.25em 0;
   display: flex;
   align-content: center;
+}
+
+.task-card--pointer {
+  cursor: pointer;
 }
 
 .task-card__content {
