@@ -14,3 +14,7 @@
 .edit-task__header-text {
   flex: 1;
 }
+
+.edit-task__delete-button {
+  margin-right: 0.5em;
+}

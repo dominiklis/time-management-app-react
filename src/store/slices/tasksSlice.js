@@ -67,6 +67,19 @@ export const updateTask = createAsyncThunk(
   }
 );
 
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async (taskId, { rejectWithValue }) => {
+    try {
+      const response = await apiCalls.tasks.delete(taskId);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   tasks: [],
   tasksLoaded: false,
@@ -74,11 +87,13 @@ const initialState = {
     gettingTasks: false,
     createTask: false,
     updateTask: false,
+    deleteTask: false,
   },
   errors: {
     gettingTasks: "",
     createTask: "",
     updateTask: "",
+    deleteTask: "",
   },
 };
 
@@ -144,6 +159,27 @@ export const tasksSlice = createSlice({
         }
 
         state.loadings.updateTask = false;
+      })
+
+      // delete task
+      .addCase(deleteTask.pending, (state) => {
+        state.loadings.deleteTask = true;
+        state.errors.deleteTask = "";
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          let newTasks = [];
+
+          if (state.tasksLoaded) {
+            newTasks = state.tasks = state.tasks.filter(
+              (task) => task.taskId !== action.payload.data.taskId
+            );
+          }
+
+          state.tasks = newTasks;
+        }
+
+        state.loadings.deleteTask = false;
       });
   },
 });

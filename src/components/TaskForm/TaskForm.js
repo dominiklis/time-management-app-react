@@ -8,7 +8,15 @@ import TimeInput from "../TimeInput/TimeInput";
 
 const nameError = "name cannot be empty";
 
-const TaskForm = ({ onSubmit, className, input, handleChange, loading }) => {
+const TaskForm = ({
+  onSubmit,
+  className,
+  input,
+  handleChange,
+  loading,
+  disabled,
+  submitButtonText = "submit",
+}) => {
   const [errors, setErrors] = useState({
     taskName: "",
     startTime: "",
@@ -88,7 +96,7 @@ const TaskForm = ({ onSubmit, className, input, handleChange, loading }) => {
       />
 
       {loading ? (
-        <LoadingButton />
+        <LoadingButton color="primary" />
       ) : (
         <Button
           type="submit"
@@ -96,11 +104,12 @@ const TaskForm = ({ onSubmit, className, input, handleChange, loading }) => {
             !input.taskName ||
             errors.taskName ||
             errors.startTime ||
-            errors.endTime
+            errors.endTime ||
+            disabled
           }
           color="primary"
         >
-          create
+          {submitButtonText}
         </Button>
       )}
     </form>

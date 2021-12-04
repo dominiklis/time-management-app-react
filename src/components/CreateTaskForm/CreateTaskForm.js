@@ -38,6 +38,7 @@ const CreateTaskForm = ({ afterSubmit }) => {
       input={input}
       handleChange={handleChange}
       loading={createTaskLoading}
+      submitButtonText="create"
     />
   );
 };

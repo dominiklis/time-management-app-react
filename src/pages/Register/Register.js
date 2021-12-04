@@ -146,7 +146,7 @@ const Register = () => {
           />
 
           {registerLoading ? (
-            <LoadingButton />
+            <LoadingButton color="primary" />
           ) : (
             <Button
               type="submit"
@@ -158,6 +158,7 @@ const Register = () => {
                 errors.name ||
                 errors.password.length !== 0
               }
+              color="primary"
             >
               submit
             </Button>

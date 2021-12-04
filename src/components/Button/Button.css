@@ -65,7 +65,6 @@
 
 .button--warning:disabled {
   background-color: var(--clr-war1);
-  color: var(--clr-gray9);
 }
 
 .button--success {

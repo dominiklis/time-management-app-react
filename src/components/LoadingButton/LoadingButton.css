@@ -1,5 +1,5 @@
 .loading-button {
-  background-color: var(--clr-prim1);
+  background-color: var(--clr-gray3);
   color: var(--clr-gray1);
   font-size: 1.1em;
   padding: 0.4em 1.5em;
@@ -21,9 +21,49 @@
 
 .loading-button__indicator {
   border: 0.2em solid var(--clr-gray1);
-  border-top: 0.2em solid var(--clr-prim5);
+  border-top: 0.2em solid var(--clr-gray9);
   border-radius: 50%;
   width: 1.5em;
   height: 1.5em;
   animation: rotation 1s linear infinite;
+}
+
+.loading-button--primary {
+  background-color: var(--clr-prim1);
+}
+
+.loading-button--primary .loading-button__indicator {
+  border-top: 0.2em solid var(--clr-prim5);
+}
+
+.loading-button--secondary {
+  background-color: var(--clr-sec1);
+}
+
+.loading-button--secondary .loading-button__indicator {
+  border-top: 0.2em solid var(--clr-sec5);
+}
+
+.loading-button--error {
+  background-color: var(--clr-err1);
+}
+
+.loading-button--error .loading-button__indicator {
+  border-top: 0.2em solid var(--clr-err5);
+}
+
+.loading-button--warning {
+  background-color: var(--clr-war1);
+}
+
+.loading-button--warning .loading-button__indicator {
+  border-top: 0.2em solid var(--clr-war5);
+}
+
+.loading-button--success {
+  background-color: var(--clr-suc1);
+}
+
+.loading-button--success .loading-button__indicator {
+  border-top: 0.2em solid var(--clr-suc5);
 }

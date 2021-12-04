@@ -22,7 +22,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const dispatch = useDispatch();
-  
+
   const {
     user,
     token,
@@ -121,7 +121,7 @@ const Login = () => {
           />
 
           {loginLoading ? (
-            <LoadingButton />
+            <LoadingButton color="primary" />
           ) : (
             <Button
               type="submit"
@@ -131,6 +131,7 @@ const Login = () => {
                 errors.login ||
                 errors.password.length !== 0
               }
+              color="primary"
             >
               submit
             </Button>

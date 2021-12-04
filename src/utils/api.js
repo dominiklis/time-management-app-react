@@ -149,6 +149,8 @@ const tasks = {
 
     return requests.put(`/tasks/${taskId}`, updatedTask);
   },
+
+  delete: (taskId) => requests.delete(`/tasks/${taskId}`),
 };
 
 const apiCalls = {
