@@ -121,6 +121,11 @@ const tasks = {
       endTime,
     };
 
+    if (dateToComplete === "") {
+      dateToComplete = null;
+      updatedTask.dateToComplete = dateToComplete;
+    }
+
     if (dateToComplete && !isIsoDate(dateToComplete))
       updatedTask.dateToComplete = new Date(
         `${dateToComplete} 00:00`
@@ -145,7 +150,7 @@ const tasks = {
     else if (endTime === "") updatedTask.endTime = null;
 
     if (typeof taskCompleted === "boolean")
-      updateTask.taskCompleted = taskCompleted;
+      updatedTask.taskCompleted = taskCompleted;
 
     return requests.put(`/tasks/${taskId}`, updatedTask);
   },
