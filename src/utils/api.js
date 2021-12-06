@@ -156,6 +156,20 @@ const tasks = {
   },
 
   delete: (taskId) => requests.delete(`/tasks/${taskId}`),
+
+  // steps
+
+  addStep: (taskId, stepText) =>
+    requests.post(`/tasks/${taskId}/steps`, { taskId, stepText }),
+
+  updateStep: (stepId, taskId, stepText, stepCompleted) =>
+    requests.put(`/tasks/${taskId}/steps/${stepId}`, {
+      stepText,
+      stepCompleted,
+    }),
+
+  deleteStep: (stepId, taskId) =>
+    requests.delete(`/tasks/${taskId}/steps/${stepId}`),
 };
 
 const apiCalls = {

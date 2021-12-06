@@ -3,23 +3,23 @@ import "./TaskCard.css";
 
 import { updateTask } from "../../store/slices/tasksSlice";
 import { useDispatch } from "react-redux";
-import { FiSquare, FiCheckSquare, FiEdit2, FiCalendar } from "react-icons/fi";
-import { IconContext } from "react-icons/lib";
+import { FiEdit2, FiCalendar } from "react-icons/fi";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
 
-import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import CheckButton from "../CheckButton/CheckButton";
+import IconButton from "../IconButton/IconButton";
 
 const TaskCard = ({
   onClick,
   setEditTask,
   taskId,
-  authorId,
-  authorName,
-  authorEmail,
+  // authorId,
+  // authorName,
+  // authorEmail,
   taskName,
   taskDescription,
   taskCompleted,
-  createdAt,
+  // createdAt,
   completedAt,
   dateToComplete,
   startTime,
@@ -37,6 +37,7 @@ const TaskCard = ({
 
   const handleCompletedButton = async () => {
     setUpdating(true);
+
     await dispatch(
       updateTask({
         taskId,
@@ -48,6 +49,7 @@ const TaskCard = ({
         endTime,
       })
     ).unwrap();
+
     setUpdating(false);
   };
 
@@ -56,25 +58,13 @@ const TaskCard = ({
   return (
     <div className="task-card">
       <div className="task-card__header">
-        <button
-          className="task-card__button"
+        <CheckButton
+          loading={updating}
           onClick={handleCompletedButton}
           disabled={!canEdit}
-        >
-          {updating ? (
-            <LoadingIndicator size="small" />
-          ) : taskCompleted ? (
-            <IconContext.Provider
-              value={{ className: "task-card__icon task-card__checked-icon" }}
-            >
-              <FiCheckSquare />
-            </IconContext.Provider>
-          ) : (
-            <IconContext.Provider value={{ className: "task-card__icon" }}>
-              <FiSquare />
-            </IconContext.Provider>
-          )}
-        </button>
+          size="small"
+          check={taskCompleted}
+        />
       </div>
       <div
         className={`task-card__content${onClick ? " task-card--pointer" : ""}`}
@@ -101,15 +91,9 @@ const TaskCard = ({
         )}
       </div>
       <div className="task-card__actions">
-        <button
-          className="task-card__button"
-          disabled={!canEdit}
-          onClick={handleEditButton}
-        >
-          <IconContext.Provider value={{ className: "task-card__icon" }}>
-            <FiEdit2 />
-          </IconContext.Provider>
-        </button>
+        <IconButton disabled={!canEdit} onClick={handleEditButton}>
+          <FiEdit2 />
+        </IconButton>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+
+import "./TaskElement.css";
+
 import EditTask from "../EditTask/EditTask";
 import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
-import "./TaskElement.css";
 
 const TaskElement = ({ task }) => {
   const [editTask, setEditTask] = useState(false);

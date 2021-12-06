@@ -10,7 +10,6 @@ import {
 } from "../../utils/filterTasks";
 
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
-import TaskCard from "../../components/TaskCard/TaskCard";
 import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
 import TaskElement from "../../components/TaskElement/TaskElement";

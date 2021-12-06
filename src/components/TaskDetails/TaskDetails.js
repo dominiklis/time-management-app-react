@@ -1,6 +1,9 @@
 import React from "react";
-import { formatDate, formatTime } from "../../utils/days";
 import "./TaskDetails.css";
+
+import { formatDate, formatTime } from "../../utils/days";
+
+import TaskSteps from "../TaskSteps/TaskSteps";
 
 const TaskDetails = ({
   taskId,
@@ -21,6 +24,7 @@ const TaskDetails = ({
   canEdit,
   canDelete,
   overdue,
+  steps,
 }) => {
   return (
     <div className="task-details">
@@ -37,6 +41,8 @@ const TaskDetails = ({
           <div className="task-details__description">{taskDescription}</div>
         </>
       )}
+
+      <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
     </div>
   );
 };

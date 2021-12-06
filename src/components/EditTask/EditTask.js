@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./EditTask.css";
 
-import Button from "../Button/Button";
-import TaskForm from "../TaskForm/TaskForm";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, updateTask } from "../../store/slices/tasksSlice";
 import { formatDate, formatTime } from "../../utils/days";
+
+import Button from "../Button/Button";
+import TaskForm from "../TaskForm/TaskForm";
 import LoadingButton from "../LoadingButton/LoadingButton";
 
 const EditTask = ({

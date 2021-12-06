@@ -1,0 +1,29 @@
+.icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.icon-button:hover {
+  border-radius: 2em;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-button:active {
+  color: var(--clr-prim3);
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.icon-button:disabled .icon-button__iconed-icon {
+  color: var(--clr-gray4);
+}
+
+.icon-button:disabled:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.icon-button__icon {
+  vertical-align: middle;
+}

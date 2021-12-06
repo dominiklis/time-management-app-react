@@ -1,0 +1,33 @@
+.check-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.check-button:hover {
+  border-radius: 2em;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.check-button:active {
+  color: var(--clr-prim3);
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.check-button:disabled .check-button__checked-icon {
+  color: var(--clr-gray4);
+}
+
+.check-button:disabled:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.check-button__icon {
+  vertical-align: middle;
+}
+
+.check-button__checked-icon {
+  color: var(--clr-suc4);
+}

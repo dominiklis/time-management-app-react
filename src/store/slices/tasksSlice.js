@@ -80,6 +80,56 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+export const addStep = createAsyncThunk(
+  "tasks/addStep",
+  async (stepData, { rejectWithValue }) => {
+    const { taskId, stepText } = stepData;
+
+    try {
+      const response = await apiCalls.tasks.addStep(taskId, stepText);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const updateStep = createAsyncThunk(
+  "tasks/updateStep",
+  async (stepData, { rejectWithValue }) => {
+    const { stepId, taskId, stepText, stepCompleted } = stepData;
+
+    try {
+      const response = await apiCalls.tasks.updateStep(
+        stepId,
+        taskId,
+        stepText,
+        stepCompleted
+      );
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteStep = createAsyncThunk(
+  "tasks/deleteStep",
+  async (stepData, { rejectWithValue }) => {
+    const { stepId, taskId } = stepData;
+
+    try {
+      const response = await apiCalls.tasks.deleteStep(stepId, taskId);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   tasks: [],
   tasksLoaded: false,
@@ -88,12 +138,18 @@ const initialState = {
     createTask: false,
     updateTask: false,
     deleteTask: false,
+    addStep: false,
+    updateStep: false,
+    deleteStep: false,
   },
   errors: {
     gettingTasks: "",
     createTask: "",
     updateTask: "",
     deleteTask: "",
+    addStep: "",
+    updateStep: "",
+    deleteStep: "",
   },
 };
 
@@ -180,6 +236,70 @@ export const tasksSlice = createSlice({
         }
 
         state.loadings.deleteTask = false;
+      })
+
+      // add step
+      .addCase(addStep.pending, (state) => {
+        state.loadings.addStep = true;
+        state.errors.addStep = "";
+      })
+      .addCase(addStep.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          state.tasks[taskIndex].steps.push(action.payload.data);
+        }
+
+        state.loadings.addStep = false;
+      })
+
+      // update step
+      .addCase(updateStep.pending, (state) => {
+        state.loadings.updateStep = true;
+        state.errors.updateStep = "";
+      })
+      .addCase(updateStep.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          const updatedSteps = state.tasks[taskIndex].steps.map((step) => {
+            if (step.stepId === action.payload.data.stepId) {
+              step.stepText = action.payload.data.stepText;
+              step.stepCompleted = action.payload.data.stepCompleted;
+            }
+
+            return step;
+          });
+
+          state.tasks[taskIndex].steps = updatedSteps;
+        }
+
+        state.loadings.updateStep = false;
+      })
+
+      // delete steps
+      .addCase(deleteStep.pending, (state) => {
+        state.loadings.deleteStep = true;
+        state.errors.deleteStep = "";
+      })
+      .addCase(deleteStep.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          const updatedSteps = state.tasks[taskIndex].steps.filter(
+            (step) => step.stepId !== action.payload.data.stepId
+          );
+
+          state.tasks[taskIndex].steps = updatedSteps;
+        }
+
+        state.loadings.deleteStep = false;
       });
   },
 });

@@ -1,0 +1,40 @@
+.step {
+  display: flex;
+  align-content: center;
+}
+
+.step__header {
+  padding: 0.25em 0.75em 0.25em 0;
+  display: flex;
+  align-content: center;
+}
+
+.step__text {
+  margin-top: 0.25em;
+  padding: 0.25em 0.75em 0.25em 0;
+  display: flex;
+  align-content: center;
+  flex: 1;
+}
+
+.step__edit-form {
+  flex: 1;
+  display: flex;
+  align-content: center;
+}
+
+.step__edit-form form {
+  flex: 1;
+}
+
+.step__edit-cancel-button {
+  margin-left: 0.5em;
+  align-self: flex-start;
+}
+
+.step__actions {
+  margin-top: 0.25em;
+  padding: 0.25em 0 0.25em 0.75em;
+  display: flex;
+  align-content: center;
+}

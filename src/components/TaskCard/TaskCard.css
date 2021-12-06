@@ -24,14 +24,6 @@
   align-items: center;
 }
 
-.task-card__icon {
-  vertical-align: middle;
-}
-
-.task-card__checked-icon {
-  color: var(--clr-suc4);
-}
-
 .task-card__date-section {
   display: flex;
   align-items: center;
@@ -39,30 +31,4 @@
 
 .task-card__date {
   margin: 0 0.4em;
-}
-
-.task-card__button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.5em;
-}
-
-.task-card__button:hover {
-  border-radius: 2em;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.task-card__button:active {
-  color: var(--clr-prim3);
-  background-color: rgba(0, 0, 0, 0.025);
-}
-
-.task-card__button:disabled .task-card__checked-icon {
-  color: var(--clr-gray4);
-}
-
-.task-card__button:disabled:hover {
-  background-color: transparent;
-  cursor: default;
 }
