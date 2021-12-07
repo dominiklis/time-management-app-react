@@ -11,7 +11,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5em;
-  transition: all 0.3s ease-in-out;
   border-bottom: 1px solid var(--clr-gray4);
 }
 
@@ -25,18 +24,23 @@
 
 .accordion__label:hover,
 .accordion__label[aria-expanded="false"]:hover {
-  border-left: 3px solid var(--clr-gray9);
-  background-color: var(--clr-gray2);
+  border-left: 3px solid var(--clr-gray5);
+  background: linear-gradient(
+    90deg,
+    var(--clr-gray2) 0%,
+    var(--clr-gray2) 25%,
+    var(--clr-gray1) 100%
+  );
 }
 
 .accordion--primary .accordion__label:hover,
 .accordion--primary .accordion__label[aria-expanded="false"]:hover {
-  border-left: 3px solid var(--clr-prim4);
+  border-left: 3px solid var(--clr-prim2);
 }
 
 .accordion--warning .accordion__label:hover,
 .accordion--warning .accordion__label[aria-expanded="false"]:hover {
-  border-left: 3px solid var(--clr-sec4);
+  border-left: 3px solid var(--clr-sec2);
 }
 
 .accordion__header {
@@ -69,7 +73,7 @@
   transition: max-height 0.75s ease-in-out;
 }
 
-.accordion__content[aria-expanded="true"] {
+.accordion__content[aria-expanded="false"] {
   overflow: hidden;
   max-height: 0px;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);

@@ -3,9 +3,19 @@ import "./IconButton.css";
 
 import { IconContext } from "react-icons/lib";
 
-const IconButton = ({ children, onClick, disabled, iconAdditionaClass }) => {
+const IconButton = ({
+  children,
+  onClick,
+  disabled,
+  className,
+  iconAdditionaClass,
+}) => {
   return (
-    <button className="icon-button" onClick={onClick} disabled={disabled}>
+    <button
+      className={`icon-button ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <IconContext.Provider
         value={{
           className: `icon-button__icon${

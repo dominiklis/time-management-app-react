@@ -34,7 +34,7 @@ const Accordion = ({ children, header, color, open }) => {
           <FiChevronUp />
         </IconContext.Provider>
       </div>
-      <div className="accordion__content" aria-expanded={!openAccordion}>
+      <div className="accordion__content" aria-expanded={openAccordion}>
         {children}
       </div>
     </div>

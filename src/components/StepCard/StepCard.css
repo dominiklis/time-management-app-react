@@ -10,17 +10,19 @@
 }
 
 .step__text {
-  margin-top: 0.25em;
-  padding: 0.25em 0.75em 0.25em 0;
-  display: flex;
-  align-content: center;
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 .step__edit-form {
   flex: 1;
   display: flex;
-  align-content: center;
+  padding: 0.3em;
+  border: 1px solid var(--clr-gray3);
+  border-radius: 0.4em;
 }
 
 .step__edit-form form {
@@ -30,6 +32,8 @@
 .step__edit-cancel-button {
   margin-left: 0.5em;
   align-self: flex-start;
+  position: relative;
+  top: 0.5em;
 }
 
 .step__actions {

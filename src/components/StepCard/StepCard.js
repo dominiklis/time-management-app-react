@@ -8,7 +8,6 @@ import { deleteStep, updateStep } from "../../store/slices/tasksSlice";
 import CheckButton from "../CheckButton/CheckButton";
 import IconButton from "../IconButton/IconButton";
 import StepTextForm from "../StepTextForm/StepTextForm";
-import Button from "../Button/Button";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
@@ -92,15 +91,14 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
             onChange={handleStepTextChange}
             loading={updateStepLoading}
           />
-          <Button className="step__edit-cancel-button" onClick={toggleEdit}>
-            cancel
-          </Button>
+
+          <IconButton className="step__edit-cancel-button" onClick={toggleEdit}>
+            <FiX />
+          </IconButton>
         </div>
       ) : (
         <div className="step__text">
-          <p>
-            {index}. {stepText}
-          </p>
+          {index}. {stepText}
         </div>
       )}
       <div className="step__actions">

@@ -1,6 +1,13 @@
+.task-details {
+  padding: 0.75em;
+  background-color: var(--clr-gray2);
+  border-radius: 0.2em;
+}
+
 .task-details__assignemnts {
   font-size: 0.8em;
   color: var(--clr-gray5);
+  margin-top: 0.5em;
 }
 
 .task-details__header {

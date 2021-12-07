@@ -14,7 +14,7 @@ const TaskElement = ({ task }) => {
   const toggleEditTask = () => setEditTask((prev) => !prev);
 
   return (
-    <div className="task">
+    <div className="task" aria-expanded={showDetails}>
       {editTask ? (
         <EditTask
           {...task}
@@ -30,11 +30,7 @@ const TaskElement = ({ task }) => {
               setEditTask={setEditTask}
             />
           </div>
-          <div
-            className={`task__details${
-              showDetails ? "" : " task__details--hide"
-            }`}
-          >
+          <div className="task__details" aria-expanded={showDetails}>
             <TaskDetails {...task} />
           </div>
         </>

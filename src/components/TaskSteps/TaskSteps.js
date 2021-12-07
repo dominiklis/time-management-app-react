@@ -30,7 +30,18 @@ const TaskSteps = ({ taskId, steps, canEdit }) => {
 
   return (
     <div className="task-steps">
-      {steps?.length > 0 && <h4>steps:</h4>}
+      {steps?.length > 0 && (
+        <div className="task-steps__header">
+          <h4>steps:</h4>
+          <span className="task-steps__completed">
+            {Math.round(
+              (100 * steps.filter((step) => step.stepCompleted).length) /
+                steps.length
+            )}
+            %
+          </span>
+        </div>
+      )}
       {steps?.map((step, index) => (
         <StepCard
           key={step.stepId}

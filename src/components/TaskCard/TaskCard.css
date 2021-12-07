@@ -1,7 +1,6 @@
 .task-card {
   display: flex;
   align-content: center;
-  padding-bottom: 0.5em;
 }
 
 .task-card__header {
@@ -16,6 +15,16 @@
 
 .task-card__content {
   flex: 1;
+  border-bottom: 1px solid transparent;
+}
+
+.task-card__completed-percent {
+  margin-right: 0.25em;
+  color: var(--clr-sec3);
+}
+
+.task-card:hover .task-card__content {
+  border-bottom: 1px solid var(--clr-gray5);
 }
 
 .task-card__actions {

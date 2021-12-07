@@ -1,5 +1,5 @@
 .task-steps {
-  margin: 1em 0;
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
 }
@@ -15,4 +15,17 @@
 
 .task-steps__form-button {
   margin-left: 0.5em;
+}
+
+.task-steps__header {
+  display: flex;
+}
+
+.task-steps__header h4 {
+  flex: 1;
+}
+
+.task-steps__completed {
+  margin-right: 0.5em;
+  color: var(--clr-sec3);
 }

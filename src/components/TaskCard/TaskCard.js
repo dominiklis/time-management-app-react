@@ -13,18 +13,15 @@ const TaskCard = ({
   onClick,
   setEditTask,
   taskId,
-  // authorId,
-  // authorName,
-  // authorEmail,
   taskName,
   taskDescription,
   taskCompleted,
-  // createdAt,
   completedAt,
   dateToComplete,
   startTime,
   endTime,
   accessedAt,
+  steps,
   canShare,
   canChangePermissions,
   canEdit,
@@ -71,6 +68,7 @@ const TaskCard = ({
         onClick={onClick}
       >
         <div className="task-card__name">{taskName}</div>
+
         {dateToComplete && (
           <div
             className={`task-card__date-section${
