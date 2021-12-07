@@ -8,8 +8,12 @@ const CreateTaskForm = ({ afterSubmit }) => {
   const dispatch = useDispatch();
 
   const {
-    loadings: { createTask: createTaskLoading },
-    errors: { createTask: createTaskError },
+    loadings: {
+      tasks: { createTask: createTaskLoading },
+    },
+    errors: {
+      tasks: { createTask: createTaskError },
+    },
   } = useSelector((state) => state.tasks);
 
   const [input, setInput] = useState({

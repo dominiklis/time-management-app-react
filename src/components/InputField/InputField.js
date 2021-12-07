@@ -10,6 +10,7 @@ const InputField = ({
   name,
   error,
   fullwidth,
+  placeholder,
 }) => {
   let errorsToShow = null;
 
@@ -39,6 +40,7 @@ const InputField = ({
           name={name}
           value={value}
           onChange={onChange}
+          placeholder={placeholder}
         />
       </label>
     </div>

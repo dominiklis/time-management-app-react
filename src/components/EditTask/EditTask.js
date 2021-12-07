@@ -23,8 +23,12 @@ const EditTask = ({
   const dispatch = useDispatch();
 
   const {
-    loadings: { updateTask: editTaskLoading, deleteTask: deleteTaskLoading },
-    errors: { updateTask: editTaskError, deleteTask: deleteTaskError },
+    loadings: {
+      tasks: { updateTask: editTaskLoading, deleteTask: deleteTaskLoading },
+    },
+    errors: {
+      tasks: { updateTask: editTaskError, deleteTask: deleteTaskError },
+    },
   } = useSelector((state) => state.tasks);
 
   const [input, setInput] = useState({

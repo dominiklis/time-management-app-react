@@ -14,7 +14,9 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
   const dispatch = useDispatch();
 
   const {
-    loadings: { updateStep: updateStepLoading },
+    loadings: {
+      steps: { updateStep: updateStepLoading },
+    },
   } = useSelector((state) => state.tasks);
 
   const [editing, setEditing] = useState(false);

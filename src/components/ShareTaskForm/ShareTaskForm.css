@@ -1,0 +1,41 @@
+.share-task {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--clr-gray4);
+  border-top: 1px solid var(--clr-gray4);
+}
+
+.share-task__form {
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .share-task__form {
+    flex-direction: column;
+  }
+}
+
+.share-task__inputs {
+  flex: 1;
+}
+
+.share-task__checkboxes {
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .share-task__checkboxes {
+    flex-direction: column;
+  }
+}
+
+.share-task__checkboxes .checkbox {
+  margin-right: 0.8em;
+}
+
+.share-task__form .button,
+.share-task__form .loading-button {
+  margin-left: 0.5em;
+  align-self: center;
+}

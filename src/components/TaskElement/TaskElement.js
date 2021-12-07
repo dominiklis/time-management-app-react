@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "./TaskElement.css";
 
 import EditTask from "../EditTask/EditTask";

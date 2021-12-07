@@ -11,7 +11,9 @@ const TaskSteps = ({ taskId, steps, canEdit }) => {
   const dispatch = useDispatch();
 
   const {
-    loadings: { addStep: addStepLoading },
+    loadings: {
+      steps: { addStep: addStepLoading },
+    },
   } = useSelector((state) => state.tasks);
 
   const [stepText, setStepText] = useState("");
@@ -34,11 +36,7 @@ const TaskSteps = ({ taskId, steps, canEdit }) => {
         <div className="task-steps__header">
           <h4>steps:</h4>
           <span className="task-steps__completed">
-            {Math.round(
-              (100 * steps.filter((step) => step.stepCompleted).length) /
-                steps.length
-            )}
-            %
+            {steps.filter((step) => step.stepCompleted).length}/{steps.length}
           </span>
         </div>
       )}

@@ -1,9 +1,9 @@
 import axios from "axios";
 import validator from "validator";
-import { updateTask } from "../store/slices/tasksSlice";
 import { userTokenKey } from "../store/slices/usersSlice";
 import { getToday } from "./days";
 import { isIsoDate } from "./isIsoString";
+import validateId from "./validateId";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
@@ -170,6 +170,37 @@ const tasks = {
 
   deleteStep: (stepId, taskId) =>
     requests.delete(`/tasks/${taskId}/steps/${stepId}`),
+
+  // sharing tasks
+
+  shareTask: (
+    taskId,
+    login,
+    canShare,
+    canChangePermissions,
+    canEdit,
+    canDelete
+  ) => {
+    let userId,
+      userName,
+      userEmail = "";
+
+    if (validateId(login)) {
+      userId = login;
+    } else if (validator.isEmail(login)) {
+      userEmail = login;
+    } else userName = login;
+
+    return requests.post(`/tasks/${taskId}/users`, {
+      userId,
+      userName,
+      userEmail,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    });
+  },
 };
 
 const apiCalls = {

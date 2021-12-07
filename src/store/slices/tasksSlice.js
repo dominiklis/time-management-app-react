@@ -130,26 +130,71 @@ export const deleteStep = createAsyncThunk(
   }
 );
 
+export const shareTask = createAsyncThunk(
+  "tasks/shareTask",
+  async (sharingData, { rejectWithValue }) => {
+    const {
+      taskId,
+      login,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    } = sharingData;
+
+    try {
+      const response = await apiCalls.tasks.shareTask(
+        taskId,
+        login,
+        canShare,
+        canChangePermissions,
+        canEdit,
+        canDelete
+      );
+
+      console.log("RESPONSE:", response);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   tasks: [],
   tasksLoaded: false,
   loadings: {
-    gettingTasks: false,
-    createTask: false,
-    updateTask: false,
-    deleteTask: false,
-    addStep: false,
-    updateStep: false,
-    deleteStep: false,
+    tasks: {
+      gettingTasks: false,
+      createTask: false,
+      updateTask: false,
+      deleteTask: false,
+    },
+    steps: {
+      addStep: false,
+      updateStep: false,
+      deleteStep: false,
+    },
+    sharing: {
+      sharingTask: false,
+    },
   },
   errors: {
-    gettingTasks: "",
-    createTask: "",
-    updateTask: "",
-    deleteTask: "",
-    addStep: "",
-    updateStep: "",
-    deleteStep: "",
+    tasks: {
+      gettingTasks: "",
+      createTask: "",
+      updateTask: "",
+      deleteTask: "",
+    },
+    steps: {
+      addStep: "",
+      updateStep: "",
+      deleteStep: "",
+    },
+    sharing: {
+      sharingTask: "",
+    },
   },
 };
 
@@ -161,22 +206,22 @@ export const tasksSlice = createSlice({
     builder
       // getting tasks
       .addCase(getTasks.pending, (state) => {
-        state.loadings.gettingTasks = true;
-        state.errors.gettingTasks = "";
+        state.loadings.tasks.gettingTasks = true;
+        state.errors.tasks.gettingTasks = "";
       })
       .addCase(getTasks.fulfilled, (state, action) => {
         if (action.payload.success) {
           state.tasks = action.payload.data;
         }
 
-        state.loadings.gettingTasks = false;
+        state.loadings.tasks.gettingTasks = false;
         state.tasksLoaded = true;
       })
 
       // create task
       .addCase(createTask.pending, (state) => {
-        state.loadings.createTask = true;
-        state.errors.createTask = "";
+        state.loadings.tasks.createTask = true;
+        state.errors.tasks.createTask = "";
       })
       .addCase(createTask.fulfilled, (state, action) => {
         if (action.payload.success) {
@@ -185,14 +230,14 @@ export const tasksSlice = createSlice({
           }
         }
 
-        state.loadings.createTask = false;
+        state.loadings.tasks.createTask = false;
         state.tasksLoaded = true;
       })
 
       // update task
       .addCase(updateTask.pending, (state) => {
-        state.loadings.updateTask = true;
-        state.errors.updateTask = "";
+        state.loadings.tasks.updateTask = true;
+        state.errors.tasks.updateTask = "";
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         if (action.payload.success && state.tasksLoaded) {
@@ -214,13 +259,13 @@ export const tasksSlice = createSlice({
           state.tasks = updatedTasks;
         }
 
-        state.loadings.updateTask = false;
+        state.loadings.tasks.updateTask = false;
       })
 
       // delete task
       .addCase(deleteTask.pending, (state) => {
-        state.loadings.deleteTask = true;
-        state.errors.deleteTask = "";
+        state.loadings.tasks.deleteTask = true;
+        state.errors.tasks.deleteTask = "";
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         if (action.payload.success) {
@@ -235,13 +280,13 @@ export const tasksSlice = createSlice({
           state.tasks = newTasks;
         }
 
-        state.loadings.deleteTask = false;
+        state.loadings.tasks.deleteTask = false;
       })
 
       // add step
       .addCase(addStep.pending, (state) => {
-        state.loadings.addStep = true;
-        state.errors.addStep = "";
+        state.loadings.steps.addStep = true;
+        state.errors.steps.addStep = "";
       })
       .addCase(addStep.fulfilled, (state, action) => {
         if (action.payload.success && state.tasksLoaded) {
@@ -254,13 +299,13 @@ export const tasksSlice = createSlice({
           state.tasks[taskIndex].steps.push(action.payload.data);
         }
 
-        state.loadings.addStep = false;
+        state.loadings.steps.addStep = false;
       })
 
       // update step
       .addCase(updateStep.pending, (state) => {
-        state.loadings.updateStep = true;
-        state.errors.updateStep = "";
+        state.loadings.steps.updateStep = true;
+        state.errors.steps.updateStep = "";
       })
       .addCase(updateStep.fulfilled, (state, action) => {
         if (action.payload.success && state.tasksLoaded) {
@@ -280,13 +325,13 @@ export const tasksSlice = createSlice({
           state.tasks[taskIndex].steps = updatedSteps;
         }
 
-        state.loadings.updateStep = false;
+        state.loadings.steps.updateStep = false;
       })
 
       // delete steps
       .addCase(deleteStep.pending, (state) => {
-        state.loadings.deleteStep = true;
-        state.errors.deleteStep = "";
+        state.loadings.steps.deleteStep = true;
+        state.errors.steps.deleteStep = "";
       })
       .addCase(deleteStep.fulfilled, (state, action) => {
         if (action.payload.success && state.tasksLoaded) {
@@ -301,7 +346,28 @@ export const tasksSlice = createSlice({
           state.tasks[taskIndex].steps = updatedSteps;
         }
 
-        state.loadings.deleteStep = false;
+        state.loadings.steps.deleteStep = false;
+      })
+
+      // share tasks
+      .addCase(shareTask.pending, (state) => {
+        state.loadings.sharing.sharingTask = true;
+        state.errors.sharing.sharingTask = "";
+      })
+      .addCase(shareTask.fulfilled, (state, action) => {
+        console.log(action);
+
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          if (!state.tasks[taskIndex].users) state.tasks[taskIndex].users = [];
+
+          state.tasks[taskIndex].users.push(action.payload.data);
+        }
+
+        state.loadings.sharing.sharingTask = false;
       });
   },
 });

@@ -4,6 +4,7 @@ import "./TaskDetails.css";
 import { formatDate, formatTime } from "../../utils/days";
 
 import TaskSteps from "../TaskSteps/TaskSteps";
+import TaskUsers from "../TaskUsers/TaskUsers";
 
 const TaskDetails = ({
   taskId,
@@ -20,6 +21,7 @@ const TaskDetails = ({
   canDelete,
   overdue,
   steps,
+  users,
 }) => {
   return (
     <div className="task-details">
@@ -38,6 +40,12 @@ const TaskDetails = ({
       )}
 
       <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
+      <TaskUsers
+        taskId={taskId}
+        users={users}
+        canShare={canShare}
+        canChangePermissions={canChangePermissions}
+      />
     </div>
   );
 };
