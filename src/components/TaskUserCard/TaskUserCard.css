@@ -1,0 +1,15 @@
+.task-user-card {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5em;
+}
+
+.task-user-card__user-icons {
+  vertical-align: middle;
+  margin-right: 0.5em;
+  color: var(--clr-prim3);
+}
+
+.task-user-card__user-name {
+  flex: 1;
+}

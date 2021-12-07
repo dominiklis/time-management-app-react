@@ -29,7 +29,7 @@ const Home = () => {
 
   if (!tasksLoaded) {
     return (
-      <div className="home-page--loading">
+      <div className="home-page__loading">
         <LoadingIndicator />
       </div>
     );
@@ -54,15 +54,17 @@ const Home = () => {
         ))}
       </Accordion>
 
-      <Accordion
-        header={`Today (${tasksForToday(tasks).length})`}
-        color="primary"
-        open
-      >
-        {tasksForToday(tasks).map((task) => (
-          <TaskElement key={task.taskId} task={task} />
-        ))}
-      </Accordion>
+      <div className="home-page__today">
+        <Accordion
+          header={`Today (${tasksForToday(tasks).length})`}
+          color="primary"
+          open
+        >
+          {tasksForToday(tasks).map((task) => (
+            <TaskElement key={task.taskId} task={task} />
+          ))}
+        </Accordion>
+      </div>
     </Page>
   );
 };

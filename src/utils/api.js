@@ -77,6 +77,8 @@ const users = {
 };
 
 const tasks = {
+  // tasks
+
   get: () => requests.get("/tasks"),
 
   create: (taskName, taskDescription, day, startTime, endTime) => {
@@ -201,6 +203,21 @@ const tasks = {
       canDelete,
     });
   },
+
+  editSharing: (
+    taskId,
+    userId,
+    canShare,
+    canChangePermissions,
+    canEdit,
+    canDelete
+  ) =>
+    requests.put(`/tasks/${taskId}/users/${userId}`, {
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    }),
 };
 
 const apiCalls = {

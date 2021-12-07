@@ -9,7 +9,19 @@ import validateLogin from "../../utils/validateLogin";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import Checkbox from "../Checkbox/Checkbox";
 
-const ShareTaskForm = ({ onSubmit, taskId, canChangePermissions }) => {
+const ShareTaskForm = ({
+  header = "share this task",
+  buttonText = "share",
+  onSubmit,
+  taskId,
+  canChangePermissions,
+  userCanShare,
+  userCanChangePermissions,
+  userCanEdit,
+  userCanDelete,
+  editing,
+  loading,
+}) => {
   const {
     loadings: {
       sharing: { sharingTask: sharingTaskLoading },
@@ -18,10 +30,10 @@ const ShareTaskForm = ({ onSubmit, taskId, canChangePermissions }) => {
 
   const [input, setInput] = useState({
     login: "",
-    canShare: false,
-    canChangePermissions: false,
-    canEdit: false,
-    canDelete: false,
+    canShare: userCanShare,
+    canChangePermissions: userCanChangePermissions,
+    canEdit: userCanEdit,
+    canDelete: userCanDelete,
   });
 
   const [loginError, setLoginError] = useState("");
@@ -43,17 +55,19 @@ const ShareTaskForm = ({ onSubmit, taskId, canChangePermissions }) => {
 
   return (
     <div className="share-task" onSubmit={handleSubmit}>
-      <h5 className="share-task__header">share this task</h5>
+      <h5 className="share-task__header">{header}</h5>
       <form className="share-task__form">
         <div className="share-task__inputs">
-          <InputField
-            fullwidth
-            placeholder="username or email"
-            value={input.login}
-            onChange={handleInputChange}
-            error={loginError}
-            name="login"
-          />
+          {!editing && (
+            <InputField
+              fullwidth
+              placeholder="username or email"
+              value={input.login}
+              onChange={handleInputChange}
+              error={loginError}
+              name="login"
+            />
+          )}
           {canChangePermissions && (
             <div className="share-task__checkboxes">
               <Checkbox
@@ -61,33 +75,37 @@ const ShareTaskForm = ({ onSubmit, taskId, canChangePermissions }) => {
                 onChange={handleCheckboxesChange}
                 name="canShare"
                 label="can share"
+                disabled={loading}
               />
               <Checkbox
                 checked={input.canChangePermissions}
                 onChange={handleCheckboxesChange}
                 name="canChangePermissions"
                 label="can change permissions"
+                disabled={loading}
               />
               <Checkbox
                 checked={input.canEdit}
                 onChange={handleCheckboxesChange}
                 name="canEdit"
                 label="can edit"
+                disabled={loading}
               />
               <Checkbox
                 checked={input.canDelete}
                 onChange={handleCheckboxesChange}
                 name="canDelete"
                 label="can delete"
+                disabled={loading}
               />
             </div>
           )}
         </div>
-        {sharingTaskLoading ? (
+        {sharingTaskLoading || loading ? (
           <LoadingButton color="primary" />
         ) : (
-          <Button color="primary" disabled={loginError}>
-            share
+          <Button color="primary" disabled={!editing && loginError}>
+            {buttonText}
           </Button>
         )}
       </form>

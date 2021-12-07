@@ -41,6 +41,7 @@ const TaskDetails = ({
 
       <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
       <TaskUsers
+        authorId={authorId}
         taskId={taskId}
         users={users}
         canShare={canShare}

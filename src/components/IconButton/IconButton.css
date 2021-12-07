@@ -24,6 +24,10 @@
   cursor: default;
 }
 
+.icon-button:disabled:active {
+  color: var(--clr-gray4);
+}
+
 .icon-button__icon {
   vertical-align: middle;
 }

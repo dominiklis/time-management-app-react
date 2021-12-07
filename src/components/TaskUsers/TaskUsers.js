@@ -7,7 +7,13 @@ import { shareTask } from "../../store/slices/tasksSlice";
 import ShareTaskForm from "../ShareTaskForm/ShareTaskForm";
 import TaskUserCard from "../TaskUserCard/TaskUserCard";
 
-const TaskUsers = ({ taskId, users, canShare, canChangePermissions }) => {
+const TaskUsers = ({
+  authorId,
+  taskId,
+  users,
+  canShare,
+  canChangePermissions,
+}) => {
   const dispatch = useDispatch();
 
   const handleNewShareSubmit = async (formInputs) => {
@@ -25,7 +31,13 @@ const TaskUsers = ({ taskId, users, canShare, canChangePermissions }) => {
       )}
       users with access to this task: {users.length}
       {users.map((user) => (
-        <TaskUserCard key={user.userId} {...user} />
+        <TaskUserCard
+          taskId={taskId}
+          authorId={authorId}
+          canLoggedUserChangePermissions={canChangePermissions}
+          key={user.userId}
+          {...user}
+        />
       ))}
     </div>
   );

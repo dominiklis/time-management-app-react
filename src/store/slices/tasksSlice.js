@@ -152,7 +152,34 @@ export const shareTask = createAsyncThunk(
         canDelete
       );
 
-      console.log("RESPONSE:", response);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editSharing = createAsyncThunk(
+  "tasks/editSharing",
+  async (sharingData, { rejectWithValue }) => {
+    const {
+      taskId,
+      userId,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    } = sharingData;
+
+    try {
+      const response = await apiCalls.tasks.editSharing(
+        taskId,
+        userId,
+        canShare,
+        canChangePermissions,
+        canEdit,
+        canDelete
+      );
 
       return response;
     } catch (error) {
@@ -178,6 +205,7 @@ const initialState = {
     },
     sharing: {
       sharingTask: false,
+      editingSharing: false,
     },
   },
   errors: {
@@ -194,6 +222,7 @@ const initialState = {
     },
     sharing: {
       sharingTask: "",
+      editingSharing: "",
     },
   },
 };
@@ -355,8 +384,6 @@ export const tasksSlice = createSlice({
         state.errors.sharing.sharingTask = "";
       })
       .addCase(shareTask.fulfilled, (state, action) => {
-        console.log(action);
-
         if (action.payload.success && state.tasksLoaded) {
           const taskIndex = state.tasks.findIndex(
             (task) => task.taskId === action.payload.data.taskId
@@ -368,6 +395,34 @@ export const tasksSlice = createSlice({
         }
 
         state.loadings.sharing.sharingTask = false;
+      })
+
+      .addCase(editSharing.pending, (state) => {
+        state.loadings.sharing.editingSharing = true;
+        state.errors.sharing.editingSharing = "";
+      })
+      .addCase(editSharing.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          const updatedUsers = state.tasks[taskIndex].users.map((user) => {
+            if (user.userId === action.payload.data.userId) {
+              user.canShare = action.payload.data.canShare;
+              user.canChangePermissions =
+                action.payload.data.canChangePermissions;
+              user.canEdit = action.payload.data.canEdit;
+              user.canDelete = action.payload.data.canDelete;
+            }
+
+            return user;
+          });
+
+          state.tasks[taskIndex].users = updatedUsers;
+        }
+
+        state.loadings.sharing.editingSharing = false;
       });
   },
 });

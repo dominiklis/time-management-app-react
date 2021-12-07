@@ -1,12 +1,10 @@
-.home-page--loading {
+.home-page__loading {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
-.animation-fix {
-  width: 1em;
-  height: 1em;
-  background-color: var(--clr-gray2);
+.home-page__today {
+  margin-bottom: 100px;
 }
