@@ -4,30 +4,39 @@ import "./Accordion.css";
 import { IconContext } from "react-icons";
 import { FiChevronUp } from "react-icons/fi";
 
-const Accordion = ({ children, header, headerColor, hidden }) => {
-  const [hideContent, setHideContent] = useState(hidden || false);
+const Accordion = ({ children, header, color, open }) => {
+  const [openAccordion, setOpenAccordion] = useState(open || false);
 
-  const handleLabelClick = () => setHideContent((prev) => !prev);
+  const handleLabelClick = () => setOpenAccordion((prev) => !prev);
 
-  let headerWariant = "";
-  if (headerColor === "primary") {
-    headerWariant = " accordion__header--primary";
+  let colorWariant = "";
+  if (color === "primary") {
+    colorWariant = " accordion--primary";
   }
-  if (headerColor === "warning") {
-    headerWariant = " accordion__header--warning";
+  if (color === "warning") {
+    colorWariant = " accordion--warning";
   }
 
   return (
-    <div className={`accordion${hideContent ? " accordion--hidden" : ""}`}>
-      <div className="accordion__label" onClick={handleLabelClick}>
-        <h2 className={`accordion__header${headerWariant}`}>{header}</h2>
+    <div className={`accordion${colorWariant}`} aria-expanded={openAccordion}>
+      <div
+        className="accordion__label"
+        aria-expanded={openAccordion}
+        onClick={handleLabelClick}
+      >
+        <h2 className="accordion__header">{header}</h2>
         <IconContext.Provider
-          value={{ className: `accordion__icon${headerWariant}` }}
+          value={{
+            className: "accordion__icon",
+          }}
+          aria-expanded={openAccordion}
         >
           <FiChevronUp />
         </IconContext.Provider>
       </div>
-      <div className="accordion__content">{children}</div>
+      <div className="accordion__content" aria-expanded={!openAccordion}>
+        {children}
+      </div>
     </div>
   );
 };

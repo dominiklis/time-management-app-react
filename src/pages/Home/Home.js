@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Home.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getTasks } from "../../store/slices/tasksSlice";
 
@@ -40,15 +41,14 @@ const Home = () => {
     <Page>
       <Accordion
         header={`Overdue (${overdueTasks(tasks).length})`}
-        headerColor="warning"
-        hidden
+        color="warning"
       >
         {overdueTasks(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} overdue />
         ))}
       </Accordion>
 
-      <Accordion header={`No date (${tasksWithoutDate(tasks).length})`} hidden>
+      <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
         {tasksWithoutDate(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} />
         ))}
@@ -56,7 +56,8 @@ const Home = () => {
 
       <Accordion
         header={`Today (${tasksForToday(tasks).length})`}
-        headerColor="primary"
+        color="primary"
+        open
       >
         {tasksForToday(tasks).map((task) => (
           <TaskElement key={task.taskId} task={task} />

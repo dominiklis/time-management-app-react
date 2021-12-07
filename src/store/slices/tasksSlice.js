@@ -249,6 +249,8 @@ export const tasksSlice = createSlice({
             (task) => task.taskId === action.payload.data.taskId
           );
 
+          if (!state.tasks[taskIndex].steps) state.tasks[taskIndex].steps = [];
+
           state.tasks[taskIndex].steps.push(action.payload.data);
         }
 

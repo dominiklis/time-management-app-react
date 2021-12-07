@@ -1,49 +1,76 @@
 .accordion {
-  margin-bottom: 0.75em;
+  margin: 0.5em 0;
+  padding: 0.25em 0;
+  border-bottom: 1px solid var(--clr-gray6);
 }
 
 .accordion__label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   cursor: pointer;
-  border-bottom: 1px solid var(--clr-gray5);
-  height: 2.25em;
-  user-select: none;
+  border-left: 3px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid var(--clr-gray4);
+}
+
+.accordion__label h2 {
+  padding: 0;
+}
+
+.accordion__label[aria-expanded="false"] {
+  border-color: transparent;
+}
+
+.accordion__label:hover,
+.accordion__label[aria-expanded="false"]:hover {
+  border-left: 3px solid var(--clr-gray9);
+  background-color: var(--clr-gray2);
+}
+
+.accordion--primary .accordion__label:hover,
+.accordion--primary .accordion__label[aria-expanded="false"]:hover {
+  border-left: 3px solid var(--clr-prim4);
+}
+
+.accordion--warning .accordion__label:hover,
+.accordion--warning .accordion__label[aria-expanded="false"]:hover {
+  border-left: 3px solid var(--clr-sec4);
 }
 
 .accordion__header {
-  padding-bottom: 0.2em;
+  padding-bottom: 0.5em;
 }
 
-.accordion__header--primary {
+.accordion--primary .accordion__header {
   color: var(--clr-prim4);
 }
 
-.accordion__header--warning {
+.accordion--warning .accordion__header {
   color: var(--clr-sec4);
+}
+
+.accordion__label[aria-expanded="false"] .accordion__icon {
+  transform: rotate(180deg);
 }
 
 .accordion__icon {
   transition: all 0.2s ease-in;
   font-size: 1.5em;
-}
-
-.accordion--hidden .accordion__icon {
-  transform: rotate(180deg);
+  vertical-align: middle;
 }
 
 .accordion__content {
   margin: 0.25em;
   padding: 0.1em;
-  transition: all 0.3s ease-in;
+  overflow: auto;
+  max-height: 9999px;
+  transition: max-height 0.75s ease-in-out;
 }
 
-.accordion--hidden .accordion__content,
-.accordion--hidden .accordion__content * {
-  font-size: 0;
-  margin: 0;
-  padding: 0;
-  transition: all 0.3s ease-out;
-  border-bottom: none;
+.accordion__content[aria-expanded="true"] {
+  overflow: hidden;
+  max-height: 0px;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
 }

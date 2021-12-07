@@ -4,3 +4,9 @@
   align-items: center;
   height: 100%;
 }
+
+.animation-fix {
+  width: 1em;
+  height: 1em;
+  background-color: var(--clr-gray2);
+}
