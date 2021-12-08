@@ -188,6 +188,21 @@ export const editSharing = createAsyncThunk(
   }
 );
 
+export const deleteSharing = createAsyncThunk(
+  "tasks/deleteSharing",
+  async (sharingData, { rejectWithValue }) => {
+    const { taskId, userId } = sharingData;
+
+    try {
+      const response = await apiCalls.tasks.deleteSharing(taskId, userId);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   tasks: [],
   tasksLoaded: false,
@@ -206,6 +221,7 @@ const initialState = {
     sharing: {
       sharingTask: false,
       editingSharing: false,
+      deleteSharing: false,
     },
   },
   errors: {
@@ -223,6 +239,7 @@ const initialState = {
     sharing: {
       sharingTask: "",
       editingSharing: "",
+      deleteSharing: "",
     },
   },
 };
@@ -423,6 +440,26 @@ export const tasksSlice = createSlice({
         }
 
         state.loadings.sharing.editingSharing = false;
+      })
+
+      .addCase(deleteSharing.pending, (state) => {
+        state.loadings.sharing.deleteSharing = true;
+        state.errors.sharing.deleteSharing = "";
+      })
+      .addCase(deleteSharing.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data.taskId
+          );
+
+          const updatedUsers = state.tasks[taskIndex].users.filter(
+            (user) => user.userId !== action.payload.data.userId
+          );
+
+          state.tasks[taskIndex].users = updatedUsers;
+        }
+
+        state.loadings.sharing.deleteSharing = false;
       });
   },
 });

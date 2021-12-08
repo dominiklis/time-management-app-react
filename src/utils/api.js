@@ -218,6 +218,9 @@ const tasks = {
       canEdit,
       canDelete,
     }),
+
+  deleteSharing: (taskId, userId) =>
+    requests.delete(`/tasks/${taskId}/users/${userId}`),
 };
 
 const apiCalls = {

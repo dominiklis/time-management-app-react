@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./TaskUserCard.css";
 
+import { useDispatch, useSelector } from "react-redux";
+import { deleteSharing, editSharing } from "../../store/slices/tasksSlice";
 import { IconContext } from "react-icons/lib";
 import { FiEdit2, FiUser, FiTrash2, FiX } from "react-icons/fi";
-import IconButton from "../IconButton/IconButton";
 
+import IconButton from "../IconButton/IconButton";
 import ShareTaskForm from "../ShareTaskForm/ShareTaskForm";
-import { editSharing } from "../../store/slices/tasksSlice";
-import { useDispatch, useSelector } from "react-redux";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskUserCard = ({
   taskId,
@@ -28,6 +29,7 @@ const TaskUserCard = ({
   } = useSelector((state) => state.tasks);
 
   const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const handleEditButton = () => setEditing((prev) => !prev);
 
@@ -45,8 +47,12 @@ const TaskUserCard = ({
     setEditing(false);
   };
 
-  const handleDeleteButton = () => {
-    console.log("delete");
+  const handleDeleteButton = async () => {
+    setDeleting(true);
+
+    await dispatch(deleteSharing({ taskId, userId }));
+
+    setDeleting(false);
   };
 
   return (
@@ -84,17 +90,30 @@ const TaskUserCard = ({
         ) : (
           <>
             <IconButton
-              disabled={!canLoggedUserChangePermissions || userId === authorId}
+              disabled={
+                !canLoggedUserChangePermissions ||
+                userId === authorId ||
+                deleting
+              }
               onClick={handleEditButton}
             >
               <FiEdit2 />
             </IconButton>
-            <IconButton
-              disabled={!canLoggedUserChangePermissions || userId === authorId}
-              onClick={handleDeleteButton}
-            >
-              <FiTrash2 />
-            </IconButton>
+
+            {deleting ? (
+              <IconButton disabled={true}>
+                <LoadingIndicator size="small" />
+              </IconButton>
+            ) : (
+              <IconButton
+                disabled={
+                  !canLoggedUserChangePermissions || userId === authorId
+                }
+                onClick={handleDeleteButton}
+              >
+                <FiTrash2 />
+              </IconButton>
+            )}
           </>
         )}
       </div>

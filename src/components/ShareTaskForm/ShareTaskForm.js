@@ -51,6 +51,7 @@ const ShareTaskForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ taskId, ...input });
+    setInput((prev) => ({ ...prev, login: "" }));
   };
 
   return (
