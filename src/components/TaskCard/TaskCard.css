@@ -23,8 +23,9 @@
   color: var(--clr-sec3);
 }
 
-.task-card:hover .task-card__content {
-  border-bottom: 1px solid var(--clr-gray5);
+.task-card:hover .task-card__content .task-card__name,
+.task-card--active .task-card__name {
+  color: var(--clr-prim3);
 }
 
 .task-card__actions {
@@ -40,4 +41,9 @@
 
 .task-card__date {
   margin: 0 0.4em;
+}
+
+.task-card__date-section--overdue,
+.task-card__date-section--overdue * {
+  color: var(--clr-err3);
 }

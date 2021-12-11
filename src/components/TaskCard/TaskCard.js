@@ -26,6 +26,7 @@ const TaskCard = ({
   canChangePermissions,
   canEdit,
   canDelete,
+  taskActive,
   overdue,
 }) => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const TaskCard = ({
   const handleEditButton = () => setEditTask(true);
 
   return (
-    <div className="task-card">
+    <div className={`task-card${taskActive ? " task-card--active" : ""}`}>
       <div className="task-card__header">
         <CheckButton
           loading={updating}

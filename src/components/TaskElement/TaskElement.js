@@ -5,7 +5,7 @@ import EditTask from "../EditTask/EditTask";
 import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
 
-const TaskElement = ({ task }) => {
+const TaskElement = ({ task, overdue, disableBottomBorder }) => {
   const [editTask, setEditTask] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -13,7 +13,10 @@ const TaskElement = ({ task }) => {
   const toggleEditTask = () => setEditTask((prev) => !prev);
 
   return (
-    <div className="task" aria-expanded={showDetails}>
+    <div
+      className={`task${disableBottomBorder ? " task--no-border" : ""}`}
+      aria-expanded={showDetails}
+    >
       {editTask ? (
         <EditTask
           {...task}
@@ -27,6 +30,8 @@ const TaskElement = ({ task }) => {
               {...task}
               onClick={editTask ? null : toggleShowDetails}
               setEditTask={setEditTask}
+              taskActive={showDetails}
+              overdue={overdue}
             />
           </div>
           <div className="task__details" aria-expanded={showDetails}>

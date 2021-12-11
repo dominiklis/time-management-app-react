@@ -1,7 +1,6 @@
 .task-details {
   padding: 0.75em;
-  background-color: var(--clr-gray2);
-  border-radius: 0.2em;
+  border-right: 1px solid var(--clr-gray4);
 }
 
 .task-details__assignemnts {

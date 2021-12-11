@@ -3,6 +3,7 @@
   margin: 0.25em 0;
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid var(--clr-gray9);
 }
 
 .task__details {
@@ -18,4 +19,8 @@
   overflow: hidden;
   max-height: 0px;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.task--no-border {
+  border-bottom: none;
 }

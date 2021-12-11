@@ -8,10 +8,17 @@
   cursor: pointer;
   border-left: 3px solid transparent;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0.5em;
-  border-bottom: 1px solid var(--clr-gray4);
+  border-left: 3px solid var(--clr-gray3);
+}
+
+.accordion--primary .accordion__label {
+  border-left: 3px solid var(--clr-prim1);
+}
+
+.accordion--warning .accordion__label {
+  border-left: 3px solid var(--clr-sec1);
 }
 
 .accordion__label h2 {
@@ -55,14 +62,15 @@
   color: var(--clr-sec4);
 }
 
-.accordion__label[aria-expanded="false"] .accordion__icon {
-  transform: rotate(180deg);
+.accordion__label[aria-expanded="true"] .accordion__icon {
+  transform: rotate(90deg);
 }
 
 .accordion__icon {
   transition: all 0.2s ease-in;
   font-size: 1.5em;
   vertical-align: middle;
+  margin-right: 0.2em;
 }
 
 .accordion__content {

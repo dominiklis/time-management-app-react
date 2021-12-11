@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Accordion.css";
 
 import { IconContext } from "react-icons";
-import { FiChevronUp } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 
 const Accordion = ({ children, header, color, open }) => {
   const [openAccordion, setOpenAccordion] = useState(open || false);
@@ -24,15 +24,15 @@ const Accordion = ({ children, header, color, open }) => {
         aria-expanded={openAccordion}
         onClick={handleLabelClick}
       >
-        <h2 className="accordion__header">{header}</h2>
         <IconContext.Provider
           value={{
             className: "accordion__icon",
           }}
           aria-expanded={openAccordion}
         >
-          <FiChevronUp />
+          <FiChevronRight />
         </IconContext.Provider>
+        <h2 className="accordion__header">{header}</h2>
       </div>
       <div className="accordion__content" aria-expanded={openAccordion}>
         {children}
