@@ -39,3 +39,9 @@
   margin-left: 0.5em;
   align-self: center;
 }
+
+.share-task__submit-error {
+  text-align: center;
+  font-weight: bold;
+  color: var(--clr-err4);
+}

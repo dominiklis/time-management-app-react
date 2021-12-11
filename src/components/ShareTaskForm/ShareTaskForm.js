@@ -10,6 +10,8 @@ import LoadingButton from "../LoadingButton/LoadingButton";
 import Checkbox from "../Checkbox/Checkbox";
 
 const ShareTaskForm = ({
+  error,
+  showError,
   header = "share this task",
   buttonText = "share",
   onSubmit,
@@ -56,6 +58,7 @@ const ShareTaskForm = ({
 
   return (
     <div className="share-task" onSubmit={handleSubmit}>
+      {showError && <div className="share-task__submit-error">{error}</div>}
       <h5 className="share-task__header">{header}</h5>
       <form className="share-task__form">
         <div className="share-task__inputs">

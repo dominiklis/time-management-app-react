@@ -409,6 +409,8 @@ export const tasksSlice = createSlice({
           if (!state.tasks[taskIndex].users) state.tasks[taskIndex].users = [];
 
           state.tasks[taskIndex].users.push(action.payload.data);
+        } else {
+          state.errors.sharing.sharingTask = action.payload.message;
         }
 
         state.loadings.sharing.sharingTask = false;

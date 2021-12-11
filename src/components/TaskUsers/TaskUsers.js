@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TaskUsers.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shareTask } from "../../store/slices/tasksSlice";
 
 import ShareTaskForm from "../ShareTaskForm/ShareTaskForm";
@@ -16,14 +16,27 @@ const TaskUsers = ({
 }) => {
   const dispatch = useDispatch();
 
+  const {
+    errors: {
+      sharing: { sharingTask: sharingTaskError },
+    },
+  } = useSelector((state) => state.tasks);
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const handleNewShareSubmit = async (formInputs) => {
+    setFormSubmitted(false);
     await dispatch(shareTask(formInputs));
+    setFormSubmitted(true);
   };
 
   return (
     <div className="task-users">
+      {/* {formSubmitted && <div>TEST</div>} */}
       {canShare && (
         <ShareTaskForm
+          error={sharingTaskError}
+          showError={formSubmitted}
           taskId={taskId}
           canChangePermissions={canChangePermissions}
           onSubmit={handleNewShareSubmit}
