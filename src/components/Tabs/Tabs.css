@@ -1,0 +1,14 @@
+.tabs {
+  margin-top: 0.5em;
+}
+
+.tabs__labels {
+  cursor: pointer;
+  display: flex;
+  margin-top: 0.25em;
+}
+
+.tabs__content {
+  padding: 0.5em;
+  border: 1px solid var(--clr-gray9);
+}

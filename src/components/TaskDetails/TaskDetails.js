@@ -5,6 +5,7 @@ import { formatDate, formatTime } from "../../utils/days";
 
 import TaskSteps from "../TaskSteps/TaskSteps";
 import TaskUsers from "../TaskUsers/TaskUsers";
+import Tabs from "../Tabs/Tabs";
 
 const TaskDetails = ({
   taskId,
@@ -39,13 +40,27 @@ const TaskDetails = ({
         </>
       )}
 
-      <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
-      <TaskUsers
-        authorId={authorId}
-        taskId={taskId}
-        users={users}
-        canShare={canShare}
-        canChangePermissions={canChangePermissions}
+      <Tabs
+        content={[
+          {
+            label: "steps",
+            content: (
+              <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
+            ),
+          },
+          {
+            label: "share",
+            content: (
+              <TaskUsers
+                authorId={authorId}
+                taskId={taskId}
+                users={users}
+                canShare={canShare}
+                canChangePermissions={canChangePermissions}
+              />
+            ),
+          },
+        ]}
       />
     </div>
   );

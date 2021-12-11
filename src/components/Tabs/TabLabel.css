@@ -1,0 +1,35 @@
+.tab-label {
+  border: 1px solid transparent;
+  border-bottom: none;
+  flex: 1;
+  padding: 0.2em;
+}
+
+.tab-label--active {
+  border: 1px solid var(--clr-gray9);
+  border-bottom: none;
+}
+
+.tab-label:hover {
+  border: 1px solid var(--clr-gray4);
+  border-bottom: none;
+}
+
+.tab-label--active:hover {
+  border: 1px solid var(--clr-gray6);
+  border-bottom: none;
+}
+
+.tab-label h4 {
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  color: var(--clr-gray6);
+}
+
+.tab-label--active h4 {
+  color: var(--clr-prim5);
+}
+
+.tab-label--active:hover h4 {
+  color: var(--clr-prim4);
+}
