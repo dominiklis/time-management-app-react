@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./StepCard.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { FiEdit2, FiX } from "react-icons/fi";
+import { FiEdit2, FiX, FiTrash2 } from "react-icons/fi";
 import { deleteStep, updateStep } from "../../store/slices/tasksSlice";
 
 import CheckButton from "../CheckButton/CheckButton";
@@ -80,7 +80,7 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
           loading={updating}
           check={stepCompleted}
           onClick={handleCompletedButton}
-          disabled={!canEdit || deleting}
+          disabled={!canEdit || deleting || editing}
           size="small"
         />
       </div>
@@ -99,30 +99,32 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
           </IconButton>
         </div>
       ) : (
-        <div className="step__text">
-          {index}. {stepText}
-        </div>
+        <>
+          <div className="step__text">
+            {index}. {stepText}
+          </div>
+          <div className="step__actions">
+            {canEdit && !editing && (
+              <IconButton disabled={!canEdit || deleting} onClick={toggleEdit}>
+                <FiEdit2 />
+              </IconButton>
+            )}
+            {canEdit &&
+              (deleting ? (
+                <IconButton disabled={true}>
+                  <LoadingIndicator size="small" />
+                </IconButton>
+              ) : (
+                <IconButton
+                  disabled={!canEdit || editing}
+                  onClick={handleDeleteButton}
+                >
+                  <FiTrash2 />
+                </IconButton>
+              ))}
+          </div>
+        </>
       )}
-      <div className="step__actions">
-        {canEdit && !editing && (
-          <IconButton disabled={!canEdit || deleting} onClick={toggleEdit}>
-            <FiEdit2 />
-          </IconButton>
-        )}
-        {canEdit &&
-          (deleting ? (
-            <IconButton disabled={true}>
-              <LoadingIndicator size="small" />
-            </IconButton>
-          ) : (
-            <IconButton
-              disabled={!canEdit || editing}
-              onClick={handleDeleteButton}
-            >
-              <FiX />
-            </IconButton>
-          ))}
-      </div>
     </div>
   );
 };

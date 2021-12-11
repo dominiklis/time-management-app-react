@@ -57,6 +57,7 @@ const TaskSteps = ({ taskId, steps, canEdit }) => {
             onChange={handleStepTextChange}
             loading={addStepLoading}
             buttonText="add"
+            buttonColor="secondary"
           />
         </div>
       )}
