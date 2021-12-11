@@ -11,4 +11,5 @@
 .tabs__content {
   padding: 0.5em;
   border: 1px solid var(--clr-gray9);
+  border-top: none;
 }
