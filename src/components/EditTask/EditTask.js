@@ -19,15 +19,13 @@ const EditTask = ({
   endTime,
   afterSubmit,
   taskCompleted,
+  disableDeleteButton,
 }) => {
   const dispatch = useDispatch();
 
   const {
     loadings: {
       tasks: { updateTask: editTaskLoading, deleteTask: deleteTaskLoading },
-    },
-    errors: {
-      tasks: { updateTask: editTaskError, deleteTask: deleteTaskError },
     },
   } = useSelector((state) => state.tasks);
 
@@ -70,7 +68,7 @@ const EditTask = ({
           <Button
             color="secondary"
             onClick={handleDeleteButton}
-            disabled={editTaskLoading}
+            disabled={editTaskLoading || disableDeleteButton}
             className="edit-task__delete-button"
           >
             delete

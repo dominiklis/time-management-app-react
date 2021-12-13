@@ -13,6 +13,7 @@ const TaskUsers = ({
   users,
   canShare,
   canChangePermissions,
+  loggedUserId,
 }) => {
   const dispatch = useDispatch();
 
@@ -32,7 +33,6 @@ const TaskUsers = ({
 
   return (
     <div className="task-users">
-      {/* {formSubmitted && <div>TEST</div>} */}
       {canShare && (
         <ShareTaskForm
           error={sharingTaskError}
@@ -50,6 +50,7 @@ const TaskUsers = ({
           canLoggedUserChangePermissions={canChangePermissions}
           key={user.userId}
           {...user}
+          loggedUserId={loggedUserId}
         />
       ))}
     </div>

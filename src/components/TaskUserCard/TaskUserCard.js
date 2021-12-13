@@ -20,6 +20,7 @@ const TaskUserCard = ({
   canEdit,
   canChangePermissions,
   canDelete,
+  loggedUserId,
 }) => {
   const dispatch = useDispatch();
   const {
@@ -93,7 +94,8 @@ const TaskUserCard = ({
               disabled={
                 !canLoggedUserChangePermissions ||
                 userId === authorId ||
-                deleting
+                deleting ||
+                userId === loggedUserId
               }
               onClick={handleEditButton}
             >

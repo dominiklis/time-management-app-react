@@ -1,6 +1,7 @@
 import React from "react";
 import "./TaskDetails.css";
 
+import { useSelector } from "react-redux";
 import { formatDate, formatTime } from "../../utils/days";
 
 import TaskSteps from "../TaskSteps/TaskSteps";
@@ -24,13 +25,20 @@ const TaskDetails = ({
   steps,
   users,
 }) => {
+  const { user } = useSelector((state) => state.users);
+
   return (
     <div className="task-details">
       <div className="task-details__assignemnts">[project name]</div>
 
       <div className="task-details__created-info">
-        created {`${formatDate(createdAt)} ${formatTime(createdAt)}`} by{" "}
-        <span className="task-details__author-name">{authorName}</span>
+        created {`${formatDate(createdAt)} ${formatTime(createdAt)}`}
+        {user.id !== authorId && (
+          <>
+            {" "}
+            by <span className="task-details__author-name">{authorName}</span>
+          </>
+        )}
       </div>
 
       {taskDescription && (
@@ -57,6 +65,7 @@ const TaskDetails = ({
                 users={users}
                 canShare={canShare}
                 canChangePermissions={canChangePermissions}
+                loggedUserId={user.id}
               />
             ),
           },

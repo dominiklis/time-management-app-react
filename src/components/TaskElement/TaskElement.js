@@ -22,6 +22,7 @@ const TaskElement = ({ task, overdue, disableBottomBorder }) => {
           {...task}
           setEditTask={setEditTask}
           afterSubmit={toggleEditTask}
+          disableDeleteButton={!task.canDelete}
         />
       ) : (
         <>
