@@ -10,7 +10,16 @@ import IconButton from "../IconButton/IconButton";
 import StepTextForm from "../StepTextForm/StepTextForm";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
+const Step = ({
+  stepId,
+  taskId,
+  canEdit,
+  index,
+  stepText,
+  stepCompleted,
+  position,
+  onDelete,
+}) => {
   const dispatch = useDispatch();
 
   const {
@@ -39,6 +48,7 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
         taskId,
         stepCompleted,
         stepText: stepTextInput,
+        position,
       })
     ).unwrap();
 
@@ -54,6 +64,7 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
         taskId,
         stepCompleted: !stepCompleted,
         stepText,
+        position,
       })
     ).unwrap();
 
@@ -71,6 +82,7 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
     ).unwrap();
 
     setDeleting(false);
+    onDelete(stepId);
   };
 
   return (
@@ -100,9 +112,8 @@ const Step = ({ stepId, taskId, canEdit, index, stepText, stepCompleted }) => {
         </div>
       ) : (
         <>
-          <div className="step__text">
-            {index}. {stepText}
-          </div>
+          <div className="step__position">{index}.</div>
+          <div className="step__text"> {stepText}</div>
           <div className="step__actions">
             {canEdit && !editing && (
               <IconButton disabled={!canEdit || deleting} onClick={toggleEdit}>

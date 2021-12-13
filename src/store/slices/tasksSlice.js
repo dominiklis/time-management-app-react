@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiCalls from "../../utils/api";
 
+// tasks
 export const getTasks = createAsyncThunk(
   "tasks/getTasks",
   async (_, { rejectWithValue }) => {
@@ -80,13 +81,14 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+// steps
 export const addStep = createAsyncThunk(
   "tasks/addStep",
   async (stepData, { rejectWithValue }) => {
-    const { taskId, stepText } = stepData;
+    const { taskId, stepText, position } = stepData;
 
     try {
-      const response = await apiCalls.tasks.addStep(taskId, stepText);
+      const response = await apiCalls.tasks.addStep(taskId, stepText, position);
 
       return response;
     } catch (error) {
@@ -98,14 +100,15 @@ export const addStep = createAsyncThunk(
 export const updateStep = createAsyncThunk(
   "tasks/updateStep",
   async (stepData, { rejectWithValue }) => {
-    const { stepId, taskId, stepText, stepCompleted } = stepData;
+    const { stepId, taskId, stepText, stepCompleted, position } = stepData;
 
     try {
       const response = await apiCalls.tasks.updateStep(
         stepId,
         taskId,
         stepText,
-        stepCompleted
+        stepCompleted,
+        position
       );
 
       return response;
@@ -130,6 +133,22 @@ export const deleteStep = createAsyncThunk(
   }
 );
 
+export const reorganizeStepsOrder = createAsyncThunk(
+  "tasks/reorganizeStepsOrder",
+  async (stepsData, { rejectWithValue }) => {
+    const { taskId, steps } = stepsData;
+
+    try {
+      const response = await apiCalls.tasks.updateMultipleSteps(taskId, steps);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// sharing
 export const shareTask = createAsyncThunk(
   "tasks/shareTask",
   async (sharingData, { rejectWithValue }) => {
@@ -217,6 +236,7 @@ const initialState = {
       addStep: false,
       updateStep: false,
       deleteStep: false,
+      updateMultipleSteps: false,
     },
     sharing: {
       sharingTask: false,
@@ -235,6 +255,7 @@ const initialState = {
       addStep: "",
       updateStep: "",
       deleteStep: "",
+      updateMultipleSteps: "",
     },
     sharing: {
       sharingTask: "",
@@ -247,7 +268,18 @@ const initialState = {
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    setStepsForTask: (state, action) => {
+      const taskIndex = state.tasks.findIndex(
+        (task) => task.taskId === action.payload.taskId
+      );
+
+      state.tasks[taskIndex] = {
+        ...state.tasks[taskIndex],
+        steps: action.payload.steps,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       // getting tasks
@@ -374,6 +406,25 @@ export const tasksSlice = createSlice({
         state.loadings.steps.updateStep = false;
       })
 
+      // update multiple tasks
+      .addCase(reorganizeStepsOrder.pending, (state) => {
+        state.loadings.steps.updateMultipleSteps = true;
+        state.errors.steps.updateMultipleSteps = "";
+      })
+      .addCase(reorganizeStepsOrder.fulfilled, (state, action) => {
+        if (action.payload.success && state.tasksLoaded) {
+          const taskIndex = state.tasks.findIndex(
+            (task) => task.taskId === action.payload.data[0].taskId
+          );
+
+          state.tasks[taskIndex].steps = action.payload.data;
+        } else {
+          state.errors.steps.updateMultipleSteps = action.payload.data;
+        }
+
+        state.loadings.steps.updateMultipleSteps = false;
+      })
+
       // delete steps
       .addCase(deleteStep.pending, (state) => {
         state.loadings.steps.deleteStep = true;
@@ -466,6 +517,6 @@ export const tasksSlice = createSlice({
   },
 });
 
-// export const {} = tasksSlice.actions;
+export const { setStepsForTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

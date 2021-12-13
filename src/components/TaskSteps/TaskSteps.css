@@ -29,3 +29,36 @@
   margin-right: 0.5em;
   color: var(--clr-sec3);
 }
+
+.task-steps__list {
+  list-style-type: none;
+}
+
+.task-steps__list-item {
+  display: flex;
+  align-items: center;
+}
+
+.task-steps__list-item .step {
+  flex: 1;
+}
+
+.task-steps__list-item--dragging {
+  background-color: var(--clr-sec1);
+}
+
+.task-steps__drag-handle {
+  display: inline-block;
+  padding: 0.25em;
+  cursor: pointer;
+}
+
+.task-steps__drag-icon {
+  vertical-align: middle;
+  color: transparent;
+  transition: all 0.1s ease-in;
+}
+
+.task-steps__list-item:hover .task-steps__drag-icon {
+  color: var(--clr-gray5);
+}

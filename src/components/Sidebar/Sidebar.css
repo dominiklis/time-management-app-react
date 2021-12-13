@@ -3,9 +3,10 @@
   width: 75%;
   max-width: 280px;
   padding: 1em;
-  transition: all 0.3s ease-in;
+  transition: all 0.1s ease-in;
   min-height: calc(100vh - 4rem);
   position: relative;
+  z-index: 100;
 }
 
 .sidebar__content {
@@ -26,4 +27,8 @@
   padding: 0;
   opacity: 0;
   overflow: hidden;
+}
+
+.sidebar.hidden * {
+  display: none;
 }
