@@ -21,6 +21,16 @@ const getTomorrow = () => {
   return tomorrow;
 };
 
+const getNextMonth = () => {
+  let nextMonth = getToday();
+  if (nextMonth.getMonth() === 11)
+    nextMonth = new Date(nextMonth.getFullYear() + 1, 0, 1);
+  else
+    nextMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 1);
+
+  return nextMonth;
+};
+
 const formatDate = (date, forFormInput = false) => {
   let newDate = new Date(date).toLocaleDateString();
   let [day, month, year] = newDate.split(".");
@@ -47,4 +57,11 @@ const formatInterval = (date1, date2) => {
   return `${start} - ${end}`;
 };
 
-export { getToday, getTomorrow, formatDate, formatTime, formatInterval };
+export {
+  getToday,
+  getTomorrow,
+  getNextMonth,
+  formatDate,
+  formatTime,
+  formatInterval,
+};

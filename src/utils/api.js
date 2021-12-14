@@ -44,7 +44,8 @@ const handleError = (error) => {
 };
 
 const requests = {
-  get: (url) => axios.get(url).then(getResponse).catch(handleError),
+  get: (url, params) =>
+    axios.get(url, { params }).then(getResponse).catch(handleError),
   post: (url, body) =>
     axios.post(url, body).then(getResponse).catch(handleError),
   put: (url, body) => axios.put(url, body).then(getResponse).catch(handleError),
@@ -79,7 +80,7 @@ const users = {
 const tasks = {
   // tasks
 
-  get: () => requests.get("/tasks"),
+  get: (params) => requests.get("/tasks", params),
 
   create: (taskName, taskDescription, day, startTime, endTime) => {
     const newTask = {

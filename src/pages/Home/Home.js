@@ -14,13 +14,20 @@ import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator
 import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
 import TaskElement from "../../components/TaskElement/TaskElement";
+import { getNextMonth } from "../../utils/days";
+
+const homeParams = {
+  end: getNextMonth(),
+  withoutDate: true,
+};
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   const loadTasks = async () => {
-    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
+    if (tasks.length === 0 && !tasksLoaded)
+      await dispatch(getTasks(homeParams)).unwrap();
   };
 
   useEffect(() => {

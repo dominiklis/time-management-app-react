@@ -4,9 +4,9 @@ import apiCalls from "../../utils/api";
 // tasks
 export const getTasks = createAsyncThunk(
   "tasks/getTasks",
-  async (_, { rejectWithValue }) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const response = await apiCalls.tasks.get();
+      const response = await apiCalls.tasks.get(params);
 
       return response;
     } catch (error) {
