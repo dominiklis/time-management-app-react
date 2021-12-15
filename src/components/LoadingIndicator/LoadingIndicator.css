@@ -12,6 +12,11 @@
   height: 1em;
 }
 
+.loading-indicator--light-circle {
+  border: 0.2em solid var(--clr-gray1);
+  border-top: 0.2em solid var(--clr-prim2);
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

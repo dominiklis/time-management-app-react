@@ -1,0 +1,19 @@
+.navigation-button {
+  transition: background-color 0.1s ease;
+  background-color: transparent;
+  font-size: 1.1em;
+  padding: 0.2em 0.5em;
+  border: 2px solid var(--clr-gray9);
+  border-radius: 0.2em;
+  cursor: pointer;
+}
+
+.navigation-button:hover {
+  border: 2px solid var(--clr-gray6);
+  color: var(--clr-prim3);
+}
+
+.navigation-button:active {
+  border: 2px solid var(--clr-gray4);
+  color: var(--clr-prim3);
+}

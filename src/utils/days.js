@@ -21,12 +21,36 @@ const getTomorrow = () => {
   return tomorrow;
 };
 
-const getNextMonth = () => {
-  let nextMonth = getToday();
-  if (nextMonth.getMonth() === 11)
-    nextMonth = new Date(nextMonth.getFullYear() + 1, 0, 1);
+const getPrevMonth = (currentDate) => {
+  let nextMonth = null;
+
+  if (!currentDate) currentDate = getToday();
+
+  if (currentDate.getMonth() === 0)
+    nextMonth = new Date(currentDate.getFullYear() - 1, 11, 1);
   else
-    nextMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 1);
+    nextMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      1
+    );
+
+  return nextMonth;
+};
+
+const getNextMonth = (currentDate) => {
+  let nextMonth = null;
+
+  if (!currentDate) currentDate = getToday();
+
+  if (currentDate.getMonth() === 11)
+    nextMonth = new Date(currentDate.getFullYear() + 1, 0, 1);
+  else
+    nextMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    );
 
   return nextMonth;
 };
@@ -57,11 +81,31 @@ const formatInterval = (date1, date2) => {
   return `${start} - ${end}`;
 };
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const formatMonthAndYear = (date) =>
+  `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+
 export {
   getToday,
   getTomorrow,
+  getPrevMonth,
   getNextMonth,
   formatDate,
   formatTime,
   formatInterval,
+  formatMonthAndYear,
 };

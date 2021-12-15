@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./Home.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -10,36 +10,25 @@ import {
   tasksWithoutDate,
 } from "../../utils/filterTasks";
 
-import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
 import TaskElement from "../../components/TaskElement/TaskElement";
-import { getNextMonth } from "../../utils/days";
-
-const homeParams = {
-  end: getNextMonth(),
-  withoutDate: true,
-};
+import LoadingPage from "../../components/LoadingPage/LoadingPage";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
-  const loadTasks = async () => {
-    if (tasks.length === 0 && !tasksLoaded)
-      await dispatch(getTasks(homeParams)).unwrap();
-  };
+  const loadTasks = useCallback(async () => {
+    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
+  }, [dispatch, tasks.length, tasksLoaded]);
 
   useEffect(() => {
     loadTasks();
-  }, []);
+  }, [loadTasks]);
 
   if (!tasksLoaded) {
-    return (
-      <div className="home-page__loading">
-        <LoadingIndicator />
-      </div>
-    );
+    return <LoadingPage />;
   }
 
   if (tasks.length === 0) return <div>Add your first task.</div>;

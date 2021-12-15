@@ -1,0 +1,26 @@
+.all-tasks-page__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.all-tasks-page__navigation {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .all-tasks-page__navigation {
+    justify-content: center;
+  }
+}
+
+.all-tasks-page__current-month {
+  margin: 0 0.4em;
+  font-size: 1.2em;
+  flex-basis: 9em;
+  text-align: center;
+}

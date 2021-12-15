@@ -1,0 +1,16 @@
+.loading-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loading-page--dark-background {
+  background-color: var(--clr-prim5);
+}
+
+.loading-page--full-screen {
+  background-color: var(--clr-prim5);
+  min-width: 100vw;
+  min-height: 100vh;
+}

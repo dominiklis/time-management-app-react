@@ -79,7 +79,6 @@ const users = {
 
 const tasks = {
   // tasks
-
   get: (params) => requests.get("/tasks", params),
 
   create: (taskName, taskDescription, day, startTime, endTime) => {

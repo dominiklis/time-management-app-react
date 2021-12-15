@@ -1,36 +1,40 @@
+import { useEffect } from "react";
+
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setInitialLoad } from "./store/slices/appSlice";
+import { renewToken, userTokenKey } from "./store/slices/usersSlice";
+
+import Layout from "./components/Layout/Layout";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
+import LoadingPage from "./components/LoadingPage/LoadingPage";
+
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
-import Layout from "./components/Layout/Layout";
-import RequireAuth from "./components/RequireAuth/RequireAuth";
-import { useDispatch, useSelector } from "react-redux";
-import { renewToken, userTokenKey } from "./store/slices/usersSlice";
-import { useEffect } from "react";
-import { setInitialLoad } from "./store/slices/appSlice";
-import Loading from "./pages/Loading/Loading";
+import AllTasks from "./pages/AllTasks/AllTasks";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
 
   const dispatch = useDispatch();
 
-  const setUp = async () => {
-    const userToken = localStorage.getItem(userTokenKey);
-
-    if (userToken) {
-      await dispatch(renewToken()).unwrap();
-    }
-
-    dispatch(setInitialLoad(true));
-  };
-
   useEffect(() => {
+    const setUp = async () => {
+      const userToken = localStorage.getItem(userTokenKey);
+
+      if (userToken) {
+        await dispatch(renewToken()).unwrap();
+      }
+
+      dispatch(setInitialLoad(true));
+    };
+
     setUp();
   }, [dispatch]);
 
   if (!initialLoad) {
-    return <Loading />;
+    return <LoadingPage darkBackground fullScreen />;
   }
 
   return (
@@ -42,6 +46,22 @@ function App() {
             element={
               <RequireAuth>
                 <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="all"
+            element={
+              <RequireAuth>
+                <AllTasks />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="all/:monthYear"
+            element={
+              <RequireAuth>
+                <AllTasks />
               </RequireAuth>
             }
           />
