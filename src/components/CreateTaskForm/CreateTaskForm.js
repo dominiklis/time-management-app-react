@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./CreateTaskForm.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createTask } from "../../store/slices/tasksSlice";
@@ -31,7 +31,9 @@ const CreateTaskForm = ({ afterSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(createTask(input)).unwrap();
+    await dispatch(
+      createTask({ ...input, taskCompleted: false, projectId: null })
+    ).unwrap();
     afterSubmit();
   };
 

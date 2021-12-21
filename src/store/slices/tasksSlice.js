@@ -18,16 +18,25 @@ export const getTasks = createAsyncThunk(
 export const createTask = createAsyncThunk(
   "tasks/createTask",
   async (taskData, { rejectWithValue }) => {
-    const { taskName, taskDescription, dateToComplete, startTime, endTime } =
-      taskData;
+    const {
+      taskName,
+      taskDescription,
+      taskCompleted,
+      dateToComplete,
+      startTime,
+      endTime,
+      projectId,
+    } = taskData;
 
     try {
       const response = await apiCalls.tasks.create(
         taskName,
         taskDescription,
+        taskCompleted,
         dateToComplete,
         startTime,
-        endTime
+        endTime,
+        projectId
       );
 
       return response;
@@ -48,6 +57,7 @@ export const updateTask = createAsyncThunk(
       dateToComplete,
       startTime,
       endTime,
+      projectId,
     } = taskData;
 
     try {
@@ -58,7 +68,8 @@ export const updateTask = createAsyncThunk(
         dateToComplete,
         taskCompleted,
         startTime,
-        endTime
+        endTime,
+        projectId
       );
 
       return response;
@@ -329,6 +340,8 @@ export const tasksSlice = createSlice({
               task.dateToComplete = action.payload.data.dateToComplete;
               task.startTime = action.payload.data.startTime;
               task.endTime = action.payload.data.endTime;
+              task.projectId = action.payload.data.projectId;
+              task.projectName = action.payload.data.projectName;
             }
 
             return task;

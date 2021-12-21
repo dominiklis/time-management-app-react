@@ -7,6 +7,7 @@ import { formatDate, formatTime } from "../../utils/days";
 import TaskSteps from "../TaskSteps/TaskSteps";
 import TaskUsers from "../TaskUsers/TaskUsers";
 import Tabs from "../Tabs/Tabs";
+import AppLink from "../Link/AppLink";
 
 const TaskDetails = ({
   taskId,
@@ -24,12 +25,19 @@ const TaskDetails = ({
   overdue,
   steps,
   users,
+  projectId,
+  projectName,
 }) => {
   const { user } = useSelector((state) => state.users);
 
   return (
     <div className="task-details">
-      <div className="task-details__assignemnts">[project name]</div>
+      {projectId && projectName && (
+        <div className="task-details__assignemnts">
+          task assigned to project:{" "}
+          <AppLink to={`/projects/${projectId}`}>{projectName}</AppLink>
+        </div>
+      )}
 
       <div className="task-details__created-info">
         created {`${formatDate(createdAt)} ${formatTime(createdAt)}`}

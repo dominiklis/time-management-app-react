@@ -81,10 +81,20 @@ const tasks = {
   // tasks
   get: (params) => requests.get("/tasks", params),
 
-  create: (taskName, taskDescription, day, startTime, endTime) => {
+  create: (
+    taskName,
+    taskDescription,
+    taskCompleted,
+    day,
+    startTime,
+    endTime,
+    projectId
+  ) => {
     const newTask = {
       taskName,
       taskDescription,
+      taskCompleted,
+      projectId,
     };
 
     if (day) newTask.dateToComplete = new Date(`${day} 00:00`).toISOString();
@@ -112,7 +122,8 @@ const tasks = {
     dateToComplete,
     taskCompleted,
     startTime,
-    endTime
+    endTime,
+    projectId
   ) => {
     const updatedTask = {
       taskName,
@@ -121,6 +132,7 @@ const tasks = {
       taskCompleted,
       startTime,
       endTime,
+      projectId,
     };
 
     if (dateToComplete === "") {

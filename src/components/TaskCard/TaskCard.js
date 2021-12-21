@@ -28,6 +28,8 @@ const TaskCard = ({
   canDelete,
   taskActive,
   overdue,
+  projectId,
+  projectName,
 }) => {
   const dispatch = useDispatch();
 
@@ -45,6 +47,7 @@ const TaskCard = ({
         dateToComplete,
         startTime,
         endTime,
+        projectId,
       })
     ).unwrap();
 

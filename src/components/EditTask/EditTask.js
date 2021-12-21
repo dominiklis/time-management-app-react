@@ -20,6 +20,7 @@ const EditTask = ({
   afterSubmit,
   taskCompleted,
   disableDeleteButton,
+  projectId,
 }) => {
   const dispatch = useDispatch();
 
@@ -44,7 +45,9 @@ const EditTask = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(updateTask({ taskId, ...input, taskCompleted })).unwrap();
+    await dispatch(
+      updateTask({ taskId, ...input, taskCompleted, projectId })
+    ).unwrap();
     setEditTask(false);
   };
 
