@@ -1,0 +1,12 @@
+.create-project-form {
+  margin-bottom: 0.5em;
+}
+
+.create-project-form__fields {
+  display: flex;
+}
+
+.create-project-form .button,
+.create-project-form .loading-button {
+  margin-left: 0.5em;
+}

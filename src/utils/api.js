@@ -239,9 +239,24 @@ const tasks = {
     requests.delete(`/tasks/${taskId}/users/${userId}`),
 };
 
+const projects = {
+  // projects
+  get: () => requests.get("/projects"),
+
+  create: (projectName, projectDescription) => {
+    const newProject = {
+      projectName,
+      projectDescription: projectDescription ?? null,
+    };
+
+    return requests.post("/projects", newProject);
+  },
+};
+
 const apiCalls = {
   users,
   tasks,
+  projects,
 };
 
 export default apiCalls;

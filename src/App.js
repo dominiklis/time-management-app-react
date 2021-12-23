@@ -13,6 +13,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import AllTasks from "./pages/AllTasks/AllTasks";
+import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
@@ -62,6 +63,14 @@ function App() {
             element={
               <RequireAuth>
                 <AllTasks />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="projects"
+            element={
+              <RequireAuth>
+                <ProjectsPage />
               </RequireAuth>
             }
           />
