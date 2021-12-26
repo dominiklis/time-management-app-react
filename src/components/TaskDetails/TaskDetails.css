@@ -1,23 +1,22 @@
 .task-details {
   padding: 0.75em;
-  border-right: 1px solid var(--clr-gray4);
 }
 
 .task-details__assignemnts {
   font-size: 0.8em;
-  color: var(--clr-gray5);
+  color: var(--clr-gray4);
   margin-top: 0.5em;
 }
 
 .task-details__header {
   font-size: 0.9em;
-  color: var(--clr-gray7);
+  color: var(--clr-gray3);
   margin-top: 0.5em;
 }
 
 .task-details__created-info {
   font-size: 0.8em;
-  color: var(--clr-gray5);
+  color: var(--clr-gray4);
 }
 
 .task-details__author-name {

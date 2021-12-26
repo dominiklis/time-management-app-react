@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./TimeInput.css";
 import "../InputField/InputField.css";
 
 const timeError = "allowed format is HH:MM";
@@ -13,6 +12,7 @@ const TimeInput = ({
   fullwidth,
   setError,
   error,
+  lightBorder,
 }) => {
   const [value, setValue] = useState(valueToEdit ? valueToEdit : "");
 
@@ -46,6 +46,15 @@ const TimeInput = ({
     }
   };
 
+  const getInputStyle = () => {
+    let className = "input-field__input";
+
+    if (fullwidth) className += " input-field__input--fullwidth";
+    if (lightBorder) className += " input-field__input--light-border";
+
+    return className;
+  };
+
   return (
     <div className="input-field">
       {value.length > 0 && error && (
@@ -54,9 +63,7 @@ const TimeInput = ({
       <label htmlFor={id} className="input-field__label">
         {label}
         <input
-          className={`input-field__input${
-            fullwidth ? " input-field__input--fullwidth" : ""
-          }`}
+          className={getInputStyle()}
           id={id}
           type="text"
           name={name}

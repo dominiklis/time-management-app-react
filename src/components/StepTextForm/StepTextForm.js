@@ -14,7 +14,12 @@ const StepTextForm = ({
 }) => {
   return (
     <form className="step-text-form" onSubmit={onSubmit}>
-      <InputField value={value} onChange={onChange} fullwidth></InputField>
+      <InputField
+        value={value}
+        onChange={onChange}
+        fullwidth
+        lightBorder
+      ></InputField>
       {loading ? (
         <LoadingButton className="step-text-form-button" color={buttonColor} />
       ) : (

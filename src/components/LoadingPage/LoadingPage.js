@@ -3,23 +3,18 @@ import "./LoadingPage.css";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const LoadingPage = ({ darkBackground, fullScreen }) => {
+const LoadingPage = ({ fixed }) => {
   const getStyle = () => {
     let className = "loading-page";
-    if (darkBackground) {
-      className += " loading-page--dark-background";
-    }
 
-    if (fullScreen) {
-      className += " loading-page--full-screen";
-    }
+    if (fixed) className += " loading-page--fixed";
 
     return className;
   };
 
   return (
     <div className={getStyle()}>
-      <LoadingIndicator lightCircle={darkBackground} />
+      <LoadingIndicator />
     </div>
   );
 };

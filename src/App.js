@@ -35,7 +35,7 @@ function App() {
   }, [dispatch]);
 
   if (!initialLoad) {
-    return <LoadingPage darkBackground fullScreen />;
+    return <LoadingPage fixed />;
   }
 
   return (

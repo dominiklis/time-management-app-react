@@ -51,6 +51,7 @@ const TaskForm = ({
         name="taskName"
         error={errors.taskName}
         fullwidth
+        lightBorder
       />
 
       <TextArea
@@ -61,6 +62,7 @@ const TaskForm = ({
         type="text"
         name="taskDescription"
         fullwidth
+        lightBorder
       />
 
       <InputField
@@ -71,6 +73,7 @@ const TaskForm = ({
         type="date"
         name="dateToComplete"
         fullwidth
+        lightBorder
       />
 
       <TimeInput
@@ -82,6 +85,7 @@ const TaskForm = ({
         name="startTime"
         setError={setTimeError}
         error={errors.startTime}
+        lightBorder
       />
 
       <TimeInput
@@ -93,6 +97,7 @@ const TaskForm = ({
         name="endTime"
         setError={setTimeError}
         error={errors.endTime}
+        lightBorder
       />
 
       {loading ? (

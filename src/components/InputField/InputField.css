@@ -10,18 +10,19 @@
 }
 
 .input-field__label:focus-within {
-  color: var(--clr-prim3);
+  color: var(--clr-prim2);
 }
 
 .input-field__input,
 .input-field__textarea {
   margin-top: 0.15em;
   padding: 0.1em;
-  border: 1px solid var(--clr-gray3);
+  border: 1px solid var(--clr-gray7);
   border-radius: 0.2em;
   outline: none;
   display: block;
   font-size: 1.15em;
+  background-color: var(--clr-gray7);
 }
 
 .input-field__input--fullwidth,
@@ -29,8 +30,14 @@
   width: 100%;
 }
 
-.input-field__input:focus {
-  border: 1px solid var(--clr-prim3);
+.input-field__input--light-border,
+.input-field__textarea--light-border {
+  border-color: var(--clr-gray5);
+}
+
+.input-field__input:focus,
+.input-field__textarea {
+  border: 1px solid var(--clr-prim2);
 }
 
 .input-field__error {

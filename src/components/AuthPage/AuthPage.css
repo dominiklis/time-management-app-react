@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--clr-prim5);
+  background-color: var(--clr-gray9);
 }
 
 .auth-page__error {

@@ -23,4 +23,5 @@
   font-size: 1.2em;
   flex-basis: 9em;
   text-align: center;
+  color: var(--clr-gray3);
 }

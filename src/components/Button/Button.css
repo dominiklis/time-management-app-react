@@ -2,9 +2,9 @@
   transition: background-color 0.1s ease;
   background-color: var(--clr-gray9);
   color: var(--clr-gray1);
-  font-size: 1.1em;
-  padding: 0.4em 1.5em;
-  border-radius: 0.625em;
+  font-size: 1em;
+  padding: 0.2em 1em;
+  border-radius: 0.5em;
   border-color: transparent;
   cursor: pointer;
 }

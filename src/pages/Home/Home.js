@@ -28,13 +28,13 @@ const Home = () => {
   }, [loadTasks]);
 
   if (!tasksLoaded) {
-    return <LoadingPage />;
+    return <LoadingPage fullScreen />;
   }
 
   if (tasks.length === 0) return <div>Add your first task.</div>;
 
   return (
-    <Page>
+    <Page title="Tasks For Today">
       <Accordion
         header={`Overdue (${overdueTasks(tasks).length})`}
         color="warning"

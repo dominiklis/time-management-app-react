@@ -1,11 +1,10 @@
 import React from "react";
 import "./LoadingIndicator.css";
 
-const LoadingIndicator = ({ size, lightCircle }) => {
+const LoadingIndicator = ({ size }) => {
   const getStyle = () => {
     let className = "loading-indicator";
     if (size === "small") className += " loading-indicator--small";
-    if (lightCircle) className += " loading-indicator--light-circle";
 
     return className;
   };

@@ -1,6 +1,7 @@
 .loading-indicator {
   border: 0.2em solid transparent;
-  border-top: 0.2em solid var(--clr-prim5);
+  border: 0.2em solid var(--clr-gray1);
+  border-top: 0.2em solid var(--clr-prim2);
   border-radius: 50%;
   width: 3em;
   height: 3em;

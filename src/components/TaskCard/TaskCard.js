@@ -56,8 +56,14 @@ const TaskCard = ({
 
   const handleEditButton = () => setEditTask(true);
 
+  const getTaskCardStyle = () => {
+    let className = "task-card";
+    if (taskActive) className += " task-card--active";
+    return className;
+  };
+
   return (
-    <div className={`task-card${taskActive ? " task-card--active" : ""}`}>
+    <div className={getTaskCardStyle()}>
       <div className="task-card__header">
         <CheckButton
           loading={updating}

@@ -70,6 +70,7 @@ const ShareTaskForm = ({
               onChange={handleInputChange}
               error={loginError}
               name="login"
+              lightBorder
             />
           )}
           {canChangePermissions && (

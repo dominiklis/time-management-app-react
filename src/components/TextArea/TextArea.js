@@ -11,16 +11,24 @@ const TextArea = ({
   error,
   fullwidth,
   rows = 4,
+  lightBorder,
 }) => {
+  const getTextAreaStyle = () => {
+    let className = "input-field__textarea";
+
+    if (fullwidth) className += " input-field__textarea--fullwidth";
+    if (lightBorder) className += " input-field__textarea--light-border";
+
+    return className;
+  };
+
   return (
     <div className="input-field">
       {error && <div className="input-field__error">{error}</div>}
       <label htmlFor={id} className="input-field__label">
         {label}
         <textarea
-          className={`input-field__textarea${
-            fullwidth ? " input-field__textarea--fullwidth" : ""
-          }`}
+          className={getTextAreaStyle()}
           id={id}
           type={type}
           name={name}

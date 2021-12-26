@@ -1,4 +1,9 @@
 .page {
   max-width: 1080px;
-  margin: 0 auto;
+  margin: 1.5em auto 0;
+}
+
+.page__title {
+  font-weight: normal;
+  margin-bottom: 0.5em;
 }

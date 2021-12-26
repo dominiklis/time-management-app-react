@@ -23,11 +23,3 @@
   background-color: transparent;
   cursor: default;
 }
-
-.check-button__icon {
-  vertical-align: middle;
-}
-
-.check-button__checked-icon {
-  color: var(--clr-suc4);
-}

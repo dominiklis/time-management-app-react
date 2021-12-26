@@ -14,11 +14,7 @@ const CheckButton = ({ loading, onClick, disabled, size, check }) => {
           <LoadingIndicator size={size} />
         </IconButton>
       ) : check ? (
-        <IconButton
-          disabled={disabled}
-          onClick={onClick}
-          iconAdditionaClass="check-button__checked-icon"
-        >
+        <IconButton disabled={disabled} onClick={onClick} color="success">
           <FiCheckSquare />
         </IconButton>
       ) : (

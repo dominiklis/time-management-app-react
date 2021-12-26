@@ -30,8 +30,6 @@ const Register = () => {
 
   const [initialRender, setInitialRender] = useState(true);
 
-  // const [waitingForResponse, setWaitingForResponse] = useState(false);
-
   const [input, setInput] = useState({
     name: "",
     email: "",

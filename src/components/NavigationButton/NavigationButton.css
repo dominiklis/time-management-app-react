@@ -3,17 +3,18 @@
   background-color: transparent;
   font-size: 1.1em;
   padding: 0.2em 0.5em;
-  border: 2px solid var(--clr-gray9);
+  border: 2px solid var(--clr-gray5);
   border-radius: 0.2em;
   cursor: pointer;
+  color: var(--clr-gray1);
 }
 
 .navigation-button:hover {
-  border: 2px solid var(--clr-gray6);
-  color: var(--clr-prim3);
+  border: 2px solid var(--clr-gray4);
+  color: var(--clr-prim2);
 }
 
 .navigation-button:active {
   border: 2px solid var(--clr-gray4);
-  color: var(--clr-prim3);
+  color: var(--clr-prim2);
 }

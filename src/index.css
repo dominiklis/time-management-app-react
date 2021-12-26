@@ -4,14 +4,14 @@
   --clr-gray3: #d4d4d4;
   --clr-gray4: #b8b8b8;
   --clr-gray5: #909090;
-  --clr-gray6: #858585;
+  --clr-gray6: #575757;
   --clr-gray7: #4d4d4d;
   --clr-gray8: #3d3d3d;
   --clr-gray9: #2b2b2b;
 
   --clr-prim1: #bbdefb;
   --clr-prim2: #64b5f6;
-  --clr-prim3: #2196f3;
+  --clr-prim3: #2597f5;
   --clr-prim4: #1976d2;
   --clr-prim5: #083c8b;
 
@@ -60,7 +60,7 @@ li,
 div,
 input,
 textarea {
-  color: var(--clr-gray9);
+  color: var(--clr-gray1);
 }
 
 body,
@@ -73,7 +73,7 @@ body * {
 }
 
 body {
-  background-color: transparent;
+  background-color: var(--clr-gray8);
 }
 
 ::-webkit-scrollbar {
@@ -82,9 +82,9 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--clr-gray2);
+  background: var(--clr-gray8);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-gray3);
+  background: var(--clr-gray7);
 }

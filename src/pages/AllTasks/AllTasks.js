@@ -10,14 +10,14 @@ import {
   getPrevMonth,
   getToday,
 } from "../../utils/days";
+import { getTasksOfPeriod } from "../../utils/filterTasks";
+import { getTasks } from "../../store/slices/tasksSlice";
 
 import Page from "../../components/Page/Page";
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Accordion from "../../components/Accordion/Accordion";
 import TaskElement from "../../components/TaskElement/TaskElement";
-import { getTasksOfPeriod } from "../../utils/filterTasks";
-import { getTasks } from "../../store/slices/tasksSlice";
 
 const getPath = (date) => {
   return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
@@ -71,21 +71,20 @@ const AllTasks = () => {
     }
   }, [getTasksForSelectMonth, monthYear, navigate, tasks]);
 
-  useEffect(() => {
-    const loadTasks = async () => {
-      if (tasks.length === 0 && !tasksLoaded)
-        await dispatch(getTasks()).unwrap();
-    };
+  const loadTasks = useCallback(async () => {
+    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
+  }, [dispatch, tasks.length, tasksLoaded]);
 
+  useEffect(() => {
     loadTasks();
-  }, []);
+  }, [loadTasks]);
 
   if (!tasksLoaded || !month) {
     return <LoadingPage />;
   }
 
   return (
-    <Page>
+    <Page title="All Tasks">
       <div className="all-tasks-page__navigation">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
         <div className="all-tasks-page__current-month">

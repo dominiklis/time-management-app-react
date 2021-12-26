@@ -1,6 +1,12 @@
 .task-card {
   display: flex;
   align-content: center;
+  padding: 0.5em;
+  border-bottom: 1px solid transparent;
+}
+
+.task-card.task-card--active {
+  border-bottom: 1px solid var(--clr-gray5);
 }
 
 .task-card__header {
@@ -25,7 +31,7 @@
 
 .task-card:hover .task-card__content .task-card__name,
 .task-card--active .task-card__name {
-  color: var(--clr-prim3);
+  color: var(--clr-prim2);
 }
 
 .task-card__actions {

@@ -30,4 +30,9 @@
 
 .icon-button__icon {
   vertical-align: middle;
+  color: var(--clr-gray1);
+}
+
+.icon-button__icon--success {
+  color: var(--clr-suc2);
 }

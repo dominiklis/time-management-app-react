@@ -5,12 +5,17 @@
   height: 100%;
 }
 
-.loading-page--dark-background {
-  background-color: var(--clr-prim5);
+.loading-page--fixed {
+  position: fixed;
+  top: 0;
+  left: 50%;
 }
 
-.loading-page--full-screen {
-  background-color: var(--clr-prim5);
-  min-width: 100vw;
-  min-height: 100vh;
+@media screen and (max-width: 600px) {
+  .loading-page {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

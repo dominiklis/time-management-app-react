@@ -28,8 +28,7 @@ const ProjectsPage = () => {
   }
 
   return (
-    <Page>
-      <h1>projects</h1>
+    <Page title="Your Projects">
       <CreateProjectForm />
 
       <h4>your projects:</h4>

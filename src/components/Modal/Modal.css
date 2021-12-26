@@ -20,18 +20,18 @@
 }
 
 .modal__content {
-  background-color: var(--clr-gray1);
   width: 80%;
   max-width: 900px;
   max-height: 80%;
   padding: 1rem;
   position: relative;
-  border-radius: 2em;
+  border-radius: 0.5em;
   overflow: auto;
+  background-color: var(--clr-gray8);
 }
 
 .modal__header {
-  color: var(--clr-prim5);
+  color: var(--clr-prim2);
   margin-left: 0.5em;
 }
 
@@ -45,9 +45,10 @@
 }
 
 .modal__close-icon {
+  color: var(--clr-gray1);
   font-size: 2em;
 }
 
 .modal__close-button:hover .modal__close-icon {
-  color: var(--clr-prim3);
+  color: var(--clr-prim1);
 }
