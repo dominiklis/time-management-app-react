@@ -1,5 +1,5 @@
 .accordion {
-  margin: 0.5em 0;
+  margin: 1em 0;
   padding: 0.25em 0;
   border-bottom: 1px solid var(--clr-gray6);
 }
@@ -46,15 +46,17 @@
 }
 
 .accordion__header {
+  font-size: 1.15em;
+  font-weight: normal;
   padding-bottom: 0.5em;
 }
 
 .accordion--primary .accordion__header {
-  color: var(--clr-prim3);
+  color: var(--clr-prim2);
 }
 
 .accordion--warning .accordion__header {
-  color: var(--clr-sec3);
+  color: var(--clr-sec2);
 }
 
 .accordion__label[aria-expanded="true"] .accordion__icon {

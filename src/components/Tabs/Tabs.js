@@ -15,6 +15,7 @@ const Tabs = ({ content }) => {
             label={el.label}
             onClick={() => setActiveTabIndex(index)}
             active={activeTabIndex === index}
+            singleTab={content.length === 1}
           />
         ))}
       </div>

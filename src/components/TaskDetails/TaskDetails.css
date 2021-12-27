@@ -23,3 +23,7 @@
   color: var(--clr-prim4);
   font-weight: bold;
 }
+
+.task-details__description {
+  margin-bottom: 1.25em;
+}

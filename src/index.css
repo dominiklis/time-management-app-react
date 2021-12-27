@@ -1,6 +1,6 @@
 :root {
   --clr-gray1: #fafafa;
-  --clr-gray2: #f0f0f0;
+  --clr-gray2: #ebebeb;
   --clr-gray3: #d4d4d4;
   --clr-gray4: #b8b8b8;
   --clr-gray5: #909090;
@@ -27,7 +27,7 @@
   --clr-err4: #d32f2f;
   --clr-err5: #b71c1c;
 
-  --clr-war1: #fff176;
+  --clr-war1: #fff8be;
   --clr-war2: #fff176;
   --clr-war3: #ffeb3b;
   --clr-war4: #fbc02d;
@@ -86,5 +86,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-gray7);
+  background: var(--clr-gray5);
 }

@@ -12,4 +12,5 @@
   padding: 0.5em;
   border: 1px solid var(--clr-gray5);
   border-top: none;
+  border-radius: 0 0 0.5em 0.5em;
 }

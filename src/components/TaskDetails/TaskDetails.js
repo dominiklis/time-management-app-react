@@ -30,6 +30,31 @@ const TaskDetails = ({
 }) => {
   const { user } = useSelector((state) => state.users);
 
+  const getTabsContent = () => {
+    const stepsTab = {
+      label: "steps",
+      content: <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />,
+    };
+
+    const usersTab = {
+      label: "share",
+      content: (
+        <TaskUsers
+          authorId={authorId}
+          taskId={taskId}
+          users={users}
+          canShare={canShare}
+          canChangePermissions={canChangePermissions}
+          loggedUserId={user.id}
+        />
+      ),
+    };
+
+    if (!steps && !canEdit) return [usersTab];
+
+    return [stepsTab, usersTab];
+  };
+
   return (
     <div className="task-details">
       {projectId && projectName && (
@@ -56,29 +81,7 @@ const TaskDetails = ({
         </>
       )}
 
-      <Tabs
-        content={[
-          {
-            label: "steps",
-            content: (
-              <TaskSteps taskId={taskId} steps={steps} canEdit={canEdit} />
-            ),
-          },
-          {
-            label: "share",
-            content: (
-              <TaskUsers
-                authorId={authorId}
-                taskId={taskId}
-                users={users}
-                canShare={canShare}
-                canChangePermissions={canChangePermissions}
-                loggedUserId={user.id}
-              />
-            ),
-          },
-        ]}
-      />
+      <Tabs content={getTabsContent()} />
     </div>
   );
 };

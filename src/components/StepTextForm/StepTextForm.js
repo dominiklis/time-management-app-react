@@ -1,4 +1,5 @@
 import React from "react";
+import "./StepTextForm.css";
 
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";

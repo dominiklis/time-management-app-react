@@ -2,20 +2,23 @@ import React from "react";
 import "./Button.css";
 
 const Button = ({ children, type, disabled, onClick, color, className }) => {
-  let colorStyle = "";
+  const getStyle = () => {
+    let cln = "button";
 
-  if (color === "primary") colorStyle = " button--primary";
-  if (color === "secondary") colorStyle = " button--secondary";
-  if (color === "error") colorStyle = " button--error";
-  if (color === "warning") colorStyle = " button--warning";
-  if (color === "success") colorStyle = " button--success";
+    if (className) cln += ` ${className}`;
 
-  let additionalClass = "";
-  if (className) additionalClass = " " + className;
+    if (color === "primary") cln += " button--primary";
+    else if (color === "secondary") cln += " button--secondary";
+    else if (color === "error") cln += " button--error";
+    else if (color === "warning") cln += " button--warning";
+    else if (color === "success") cln += " button--success";
+
+    return cln;
+  };
 
   return (
     <button
-      className={`button${colorStyle}${additionalClass}`}
+      className={getStyle()}
       type={type}
       disabled={disabled}
       onClick={onClick}

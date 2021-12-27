@@ -24,11 +24,6 @@
   border-bottom: 1px solid transparent;
 }
 
-.task-card__completed-percent {
-  margin-right: 0.25em;
-  color: var(--clr-sec3);
-}
-
 .task-card:hover .task-card__content .task-card__name,
 .task-card--active .task-card__name {
   color: var(--clr-prim2);
@@ -51,5 +46,5 @@
 
 .task-card__date-section--overdue,
 .task-card__date-section--overdue * {
-  color: var(--clr-err3);
+  color: var(--clr-war1);
 }

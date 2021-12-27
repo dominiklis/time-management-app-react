@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
+import "./ProjectsPage.css";
+
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getProjects } from "../../store/slices/projectsSlice";
+
 import CreateProjectForm from "../../components/CreateProjectForm/CreateProjectForm";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Page from "../../components/Page/Page";
-import { getProjects } from "../../store/slices/projectsSlice";
-import "./ProjectsPage.css";
+import ProjectCard from "../../components/ProjectCard/ProjectCard";
 
 const ProjectsPage = () => {
   const { projects, projectsLoaded } = useSelector((state) => state.projects);
@@ -31,9 +35,17 @@ const ProjectsPage = () => {
     <Page title="Your Projects">
       <CreateProjectForm />
 
-      <h4>your projects:</h4>
       {projects.map((project) => (
-        <div>{project.projectName}</div>
+        <Link
+          className="projects__link"
+          to={`/projects/${project.projectId}`}
+          key={project.projectId}
+        >
+          <ProjectCard
+            projectName={project.projectName}
+            authorName={project.authorName}
+          />
+        </Link>
       ))}
     </Page>
   );

@@ -15,7 +15,7 @@ const TaskElement = ({ task, overdue, disableBottomBorder }) => {
   return (
     <div
       className={`task${disableBottomBorder ? " task--no-border" : ""}`}
-      aria-expanded={showDetails}
+      aria-expanded={showDetails || editTask}
     >
       {editTask ? (
         <EditTask

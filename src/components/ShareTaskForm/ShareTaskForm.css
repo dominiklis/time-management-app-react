@@ -5,6 +5,11 @@
   border-bottom: 1px solid var(--clr-gray4);
 }
 
+.share-task__header {
+  font-weight: normal;
+  margin-bottom: 0.5em;
+}
+
 .share-task__form {
   display: flex;
 }

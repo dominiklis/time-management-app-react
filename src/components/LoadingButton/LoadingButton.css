@@ -23,8 +23,8 @@
   border: 0.2em solid var(--clr-gray1);
   border-top: 0.2em solid var(--clr-gray9);
   border-radius: 50%;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.4em;
+  height: 1.4em;
   animation: rotation 1s linear infinite;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .loading-button--primary .loading-button__indicator {
-  border-top: 0.2em solid var(--clr-prim5);
+  border-top: 0.2em solid var(--clr-prim3);
 }
 
 .loading-button--secondary {
@@ -41,7 +41,7 @@
 }
 
 .loading-button--secondary .loading-button__indicator {
-  border-top: 0.2em solid var(--clr-sec5);
+  border-top: 0.2em solid var(--clr-sec3);
 }
 
 .loading-button--error {
@@ -49,7 +49,7 @@
 }
 
 .loading-button--error .loading-button__indicator {
-  border-top: 0.2em solid var(--clr-err5);
+  border-top: 0.2em solid var(--clr-err3);
 }
 
 .loading-button--warning {
@@ -57,7 +57,7 @@
 }
 
 .loading-button--warning .loading-button__indicator {
-  border-top: 0.2em solid var(--clr-war5);
+  border-top: 0.2em solid var(--clr-war3);
 }
 
 .loading-button--success {
@@ -65,5 +65,5 @@
 }
 
 .loading-button--success .loading-button__indicator {
-  border-top: 0.2em solid var(--clr-suc5);
+  border-top: 0.2em solid var(--clr-suc3);
 }

@@ -42,7 +42,9 @@ const TaskUsers = ({
           onSubmit={handleNewShareSubmit}
         />
       )}
-      users with access to this task: {users.length}
+      <h6 className="task-users__header">
+        users with access to this task: {users.length}
+      </h6>
       {users.map((user) => (
         <TaskUserCard
           taskId={taskId}

@@ -3,11 +3,12 @@
   border-bottom: 1px solid var(--clr-gray5);
   flex: 1;
   padding: 0.2em;
+  border-radius: 0.5em 0.5em 0 0;
 }
 
 .tab-label--active {
   border: 1px solid var(--clr-gray5);
-  border-bottom: 1px dashed var(--clr-gray6);
+  border-bottom-color: transparent;
 }
 
 .tab-label h4 {
@@ -35,4 +36,8 @@
 
 .tab-label--active:hover h4 {
   color: var(--clr-prim2);
+}
+
+.tab-label--single {
+  cursor: auto;
 }

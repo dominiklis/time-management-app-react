@@ -1,0 +1,9 @@
+.step-text-form {
+  display: flex;
+  align-items: center;
+}
+
+.step-text-form .button,
+.step-text-form .loading-button {
+  margin-left: 0.5em;
+}

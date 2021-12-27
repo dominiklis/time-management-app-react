@@ -2,12 +2,12 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.5em;
+  padding: 0.75em;
 }
 
 .icon-button:hover {
   border-radius: 2em;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 .icon-button:active {
@@ -15,8 +15,17 @@
   background-color: rgba(0, 0, 0, 0.025);
 }
 
-.icon-button:disabled .icon-button__iconed-icon {
-  color: var(--clr-gray4);
+.icon-button__icon {
+  vertical-align: middle;
+  color: var(--clr-gray2);
+}
+
+.icon-button:disabled .icon-button__icon {
+  color: var(--clr-gray5);
+}
+
+.icon-button:hover .icon-button__icon {
+  color: var(--clr-gray5);
 }
 
 .icon-button:disabled:hover {
@@ -26,11 +35,6 @@
 
 .icon-button:disabled:active {
   color: var(--clr-gray4);
-}
-
-.icon-button__icon {
-  vertical-align: middle;
-  color: var(--clr-gray1);
 }
 
 .icon-button__icon--success {
