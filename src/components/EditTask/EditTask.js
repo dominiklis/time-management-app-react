@@ -17,10 +17,9 @@ const EditTask = ({
   dateToComplete,
   startTime,
   endTime,
-  afterSubmit,
   taskCompleted,
-  disableDeleteButton,
   projectId,
+  disableDeleteButton,
 }) => {
   const dispatch = useDispatch();
 

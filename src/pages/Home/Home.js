@@ -41,12 +41,8 @@ const Home = () => {
           color="primary"
           open
         >
-          {tasksForToday(tasks).map((task, index) => (
-            <TaskElement
-              key={task.taskId}
-              task={task}
-              disableBottomBorder={index === tasksForToday(tasks).length - 1}
-            />
+          {tasksForToday(tasks).map((task) => (
+            <TaskElement key={task.taskId} task={task} />
           ))}
         </Accordion>
 
@@ -54,22 +50,14 @@ const Home = () => {
           header={`Overdue (${overdueTasks(tasks).length})`}
           color="warning"
         >
-          {overdueTasks(tasks).map((task, index) => (
-            <TaskElement
-              key={task.taskId}
-              task={task}
-              disableBottomBorder={index === overdueTasks(tasks).length - 1}
-            />
+          {overdueTasks(tasks).map((task) => (
+            <TaskElement key={task.taskId} task={task} />
           ))}
         </Accordion>
 
         <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
-          {tasksWithoutDate(tasks).map((task, index) => (
-            <TaskElement
-              key={task.taskId}
-              task={task}
-              disableBottomBorder={index === tasksWithoutDate(tasks).length - 1}
-            />
+          {tasksWithoutDate(tasks).map((task) => (
+            <TaskElement key={task.taskId} task={task} />
           ))}
         </Accordion>
       </div>

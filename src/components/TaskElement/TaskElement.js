@@ -1,45 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./TaskElement.css";
 
-import EditTask from "../EditTask/EditTask";
 import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
+import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 
-const TaskElement = ({ task, disableBottomBorder }) => {
-  const [editTask, setEditTask] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
-
-  const toggleShowDetails = () => setShowDetails((prev) => !prev);
-  const toggleEditTask = () => setEditTask((prev) => !prev);
-
+const TaskElement = ({ task }) => {
   return (
-    <div
-      className={`task${disableBottomBorder ? " task--no-border" : ""}`}
-      aria-expanded={showDetails || editTask}
-    >
-      {editTask ? (
-        <EditTask
-          {...task}
-          setEditTask={setEditTask}
-          afterSubmit={toggleEditTask}
-          disableDeleteButton={!task.canDelete}
-        />
-      ) : (
-        <>
-          <div className="task__card">
-            <TaskCard
-              {...task}
-              onClick={editTask ? null : toggleShowDetails}
-              setEditTask={setEditTask}
-              taskActive={showDetails}
-            />
-          </div>
-          <div className="task__details" aria-expanded={showDetails}>
-            <TaskDetails {...task} />
-          </div>
-        </>
-      )}
-    </div>
+    <ExpandableComponent
+      passOnClickHandler
+      alwaysVisibleComponent={<TaskCard {...task} />}
+      componentToBeExpanded={<TaskDetails {...task} />}
+    />
   );
 };
 

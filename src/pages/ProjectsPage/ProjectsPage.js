@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./ProjectsPage.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getProjects } from "../../store/slices/projectsSlice";
 
 import CreateProjectForm from "../../components/CreateProjectForm/CreateProjectForm";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Page from "../../components/Page/Page";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
+import ExpandableComponent from "../../components/ExpandableComponent/ExpandableComponent";
 
 const ProjectsPage = () => {
   const { projects, projectsLoaded } = useSelector((state) => state.projects);
@@ -36,16 +36,17 @@ const ProjectsPage = () => {
       <CreateProjectForm />
 
       {projects.map((project) => (
-        <Link
-          className="projects__link"
-          to={`/projects/${project.projectId}`}
+        <ExpandableComponent
+          hoverActiveStyles
           key={project.projectId}
-        >
-          <ProjectCard
-            projectName={project.projectName}
-            authorName={project.authorName}
-          />
-        </Link>
+          alwaysVisibleComponent={
+            <ProjectCard
+              projectName={project.projectName}
+              authorName={project.authorName}
+            />
+          }
+          componentToBeExpanded={<div>ELO</div>}
+        />
       ))}
     </Page>
   );

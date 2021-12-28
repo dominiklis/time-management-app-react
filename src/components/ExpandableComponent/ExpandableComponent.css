@@ -1,0 +1,58 @@
+.expandable {
+  background-color: var(--clr-gray7);
+  margin: 0.5em 0;
+  border-radius: 0.5em;
+}
+
+.expandable[aria-expanded="false"] .expandable__to-be-expanded {
+  padding: 0;
+}
+
+.expandable[aria-expanded="false"]:hover,
+.expandable[aria-expanded="true"]
+  .expandable__always-visible:hover.expandable__always-visible--pointer {
+  cursor: pointer;
+}
+
+.expandable__always-visible:hover {
+  background-color: var(--clr-gray6);
+}
+
+.expandable[aria-expanded="false"] .expandable__always-visible:hover {
+  border-radius: 0.5em;
+}
+
+.expandable__always-visible:active {
+  background-color: var(--clr-gray5);
+}
+
+.expandable__always-visible,
+.expandable__to-be-expanded {
+  padding: 0.5em 0.75em;
+}
+
+.expandable__always-visible {
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.expandable[aria-expanded="true"] .expandable__always-visible {
+  border-bottom: 1px solid var(--clr-gray6);
+}
+
+.expandable__always-visible[aria-expanded="true"]:active {
+  background-color: var(--clr-gray5);
+}
+
+.expandable__to-be-expanded {
+  border-radius: 0 0 0.5em 0.5em;
+  overflow: auto;
+  max-height: 9999px;
+  transition: all 0.2s ease-in-out;
+}
+
+.expandable__to-be-expanded[aria-expanded="false"] {
+  overflow: hidden;
+  max-height: 0px;
+  transition: all 0.1s cubic-bezier(0, 1, 0, 1);
+  opacity: 0;
+}

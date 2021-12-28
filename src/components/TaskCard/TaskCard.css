@@ -1,12 +1,7 @@
 .task-card {
   display: flex;
   align-content: center;
-  padding: 0.5em;
   border-bottom: 1px solid transparent;
-}
-
-.task-card.task-card--active {
-  border-bottom: 1px solid var(--clr-gray5);
 }
 
 .task-card__header {
@@ -15,17 +10,13 @@
   align-content: center;
 }
 
-.task-card--pointer {
-  cursor: pointer;
-}
-
 .task-card__content {
   flex: 1;
   border-bottom: 1px solid transparent;
+  cursor: pointer;
 }
 
-.task-card:hover .task-card__content .task-card__name,
-.task-card--active .task-card__name {
+.task-card:hover .task-card__content .task-card__name {
   color: var(--clr-prim2);
 }
 

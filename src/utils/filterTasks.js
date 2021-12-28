@@ -10,9 +10,8 @@ const overdueTasks = (tasks) => {
   });
 };
 
-const tasksWithoutDate = (tasks) => {
-  return tasks.filter((task) => !task.dateToComplete);
-};
+const tasksWithoutDate = (tasks) =>
+  tasks.filter((task) => !task.dateToComplete);
 
 const tasksForToday = (tasks) => {
   const today = getToday();
@@ -56,4 +55,13 @@ const getTasksOfPeriod = (tasks, start, end, sorted) => {
   return tasksFromGivenPeriod;
 };
 
-export { overdueTasks, tasksWithoutDate, tasksForToday, getTasksOfPeriod };
+const getTasksForProject = (tasks, projectId) =>
+  tasks.filter((task) => task.projectId !== projectId);
+
+export {
+  overdueTasks,
+  tasksWithoutDate,
+  tasksForToday,
+  getTasksOfPeriod,
+  getTasksForProject,
+};
