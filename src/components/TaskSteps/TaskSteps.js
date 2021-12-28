@@ -35,7 +35,14 @@ const TaskSteps = ({ taskId, steps, canEdit }) => {
   const handleStepSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(addStep({ taskId, stepText, position: steps?.length || 0 }));
+    await dispatch(
+      addStep({
+        taskId,
+        stepText,
+        position: steps?.length || 0,
+        stepCompleted: false,
+      })
+    );
 
     setStepText("");
   };

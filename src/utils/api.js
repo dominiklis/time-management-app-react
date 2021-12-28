@@ -172,9 +172,13 @@ const tasks = {
   delete: (taskId) => requests.delete(`/tasks/${taskId}`),
 
   // steps
-
-  addStep: (taskId, stepText, position) =>
-    requests.post(`/tasks/${taskId}/steps`, { taskId, stepText, position }),
+  addStep: (taskId, stepText, position, stepCompleted) =>
+    requests.post(`/tasks/${taskId}/steps`, {
+      taskId,
+      stepText,
+      position,
+      stepCompleted,
+    }),
 
   updateStep: (stepId, taskId, stepText, stepCompleted, position) =>
     requests.put(`/tasks/${taskId}/steps/${stepId}`, {

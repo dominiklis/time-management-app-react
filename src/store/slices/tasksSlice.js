@@ -96,10 +96,15 @@ export const deleteTask = createAsyncThunk(
 export const addStep = createAsyncThunk(
   "tasks/addStep",
   async (stepData, { rejectWithValue }) => {
-    const { taskId, stepText, position } = stepData;
+    const { taskId, stepText, position, stepCompleted } = stepData;
 
     try {
-      const response = await apiCalls.tasks.addStep(taskId, stepText, position);
+      const response = await apiCalls.tasks.addStep(
+        taskId,
+        stepText,
+        position,
+        stepCompleted
+      );
 
       return response;
     } catch (error) {
