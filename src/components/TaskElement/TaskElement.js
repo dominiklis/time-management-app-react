@@ -5,7 +5,7 @@ import EditTask from "../EditTask/EditTask";
 import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
 
-const TaskElement = ({ task, overdue, disableBottomBorder }) => {
+const TaskElement = ({ task, disableBottomBorder }) => {
   const [editTask, setEditTask] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -32,7 +32,6 @@ const TaskElement = ({ task, overdue, disableBottomBorder }) => {
               onClick={editTask ? null : toggleShowDetails}
               setEditTask={setEditTask}
               taskActive={showDetails}
-              overdue={overdue}
             />
           </div>
           <div className="task__details" aria-expanded={showDetails}>

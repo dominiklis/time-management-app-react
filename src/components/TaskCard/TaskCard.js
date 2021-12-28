@@ -27,7 +27,6 @@ const TaskCard = ({
   canEdit,
   canDelete,
   taskActive,
-  overdue,
   projectId,
   projectName,
 }) => {
@@ -80,11 +79,7 @@ const TaskCard = ({
         <div className="task-card__name">{taskName}</div>
 
         {dateToComplete && (
-          <div
-            className={`task-card__date-section${
-              overdue ? " task-card__date-section--overdue" : ""
-            }`}
-          >
+          <div className="task-card__date-section">
             <FiCalendar />
             <div className="task-card__date">{formatDate(dateToComplete)}</div>
             {startTime &&

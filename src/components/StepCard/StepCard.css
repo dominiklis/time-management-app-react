@@ -29,9 +29,8 @@
 .step__edit-form {
   flex: 1;
   display: flex;
+  align-items: center;
   padding: 0.3em;
-  border: 1px solid var(--clr-gray3);
-  border-radius: 0.4em;
 }
 
 .step__edit-form form {
@@ -40,9 +39,6 @@
 
 .step__edit-cancel-button {
   margin-left: 0.5em;
-  align-self: flex-start;
-  position: relative;
-  top: 0.5em;
 }
 
 .step__actions {

@@ -43,8 +43,3 @@
 .task-card__date {
   margin: 0 0.4em;
 }
-
-.task-card__date-section--overdue,
-.task-card__date-section--overdue * {
-  color: var(--clr-war1);
-}

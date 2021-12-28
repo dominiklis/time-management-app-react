@@ -12,6 +12,7 @@
   font-size: 0.9em;
   color: var(--clr-gray3);
   margin-top: 0.5em;
+  font-weight: normal;
 }
 
 .task-details__created-info {
@@ -20,8 +21,7 @@
 }
 
 .task-details__author-name {
-  color: var(--clr-prim4);
-  font-weight: bold;
+  color: var(--clr-prim2);
 }
 
 .task-details__description {

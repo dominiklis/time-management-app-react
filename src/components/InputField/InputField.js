@@ -28,12 +28,12 @@ const InputField = ({
   }
 
   const getInputStyle = () => {
-    let className = "input-field__input";
+    let cln = "input-field__input";
 
-    if (fullwidth) className += " input-field__input--fullwidth";
-    if (lightBorder) className += " input-field__input--light-border";
+    if (fullwidth) cln += " input-field__input--fullwidth";
+    if (lightBorder) cln += " input-field__input--light-border";
 
-    return className;
+    return cln;
   };
 
   return (

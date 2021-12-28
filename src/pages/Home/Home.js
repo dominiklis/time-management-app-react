@@ -58,7 +58,6 @@ const Home = () => {
             <TaskElement
               key={task.taskId}
               task={task}
-              overdue
               disableBottomBorder={index === overdueTasks(tasks).length - 1}
             />
           ))}
