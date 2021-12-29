@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./AllTasks.css";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   formatDate,
@@ -11,7 +11,6 @@ import {
   getToday,
 } from "../../utils/days";
 import { getTasksOfPeriod } from "../../utils/filterTasks";
-import { getTasks } from "../../store/slices/tasksSlice";
 
 import Page from "../../components/Page/Page";
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
@@ -27,7 +26,6 @@ const getPath = (date) => {
 
 const AllTasks = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const { monthYear } = useParams();
@@ -70,14 +68,6 @@ const AllTasks = () => {
       getTasksForSelectMonth(new Date(monthYear + "-01"));
     }
   }, [getTasksForSelectMonth, monthYear, navigate, tasks]);
-
-  const loadTasks = useCallback(async () => {
-    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
-  }, [dispatch, tasks.length, tasksLoaded]);
-
-  useEffect(() => {
-    loadTasks();
-  }, [loadTasks]);
 
   if (!tasksLoaded || !month) {
     return <LoadingPage />;

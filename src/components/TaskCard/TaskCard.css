@@ -16,6 +16,21 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 600px) {
+  .task-card__content {
+    max-width: 66%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.task-card__name {
+  /* text-overflow: ellipsis; */
+}
+
+.task-card__actions {
+}
+
 .task-card:hover .task-card__content .task-card__name {
   color: var(--clr-prim2);
 }

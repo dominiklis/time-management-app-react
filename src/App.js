@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +14,14 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import AllTasks from "./pages/AllTasks/AllTasks";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
+import { getTasks } from "./store/slices/tasksSlice";
+import { getProjects } from "./store/slices/projectsSlice";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
+  const { user, token } = useSelector((state) => state.users);
+  const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
+  const { projects, projectsLoaded } = useSelector((state) => state.projects);
 
   const dispatch = useDispatch();
 
@@ -25,14 +30,38 @@ function App() {
       const userToken = localStorage.getItem(userTokenKey);
 
       if (userToken) {
-        await dispatch(renewToken()).unwrap();
+        await dispatch(renewToken());
       }
-
-      dispatch(setInitialLoad(true));
     };
 
     setUp();
   }, [dispatch]);
+
+  const loadTasks = useCallback(async () => {
+    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
+  }, [dispatch, tasks.length, tasksLoaded]);
+
+  useEffect(() => {
+    if (user.id && token) {
+      loadTasks();
+    }
+  }, [loadTasks, token, user.id]);
+
+  const loadProjects = useCallback(async () => {
+    if (projects.length === 0 && !projectsLoaded)
+      await dispatch(getProjects()).unwrap();
+  }, [dispatch, projects.length, projectsLoaded]);
+
+  useEffect(() => {
+    if (user.id && token) {
+      loadProjects();
+    }
+  }, [loadProjects, token, user.id]);
+
+  useEffect(() => {
+    if (user.id && token && tasksLoaded && projectsLoaded)
+      dispatch(setInitialLoad(true));
+  }, [dispatch, user.id, token, tasksLoaded, projectsLoaded]);
 
   if (!initialLoad) {
     return <LoadingPage fixed />;

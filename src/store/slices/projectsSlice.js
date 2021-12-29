@@ -59,6 +59,7 @@ export const projectsSlice = createSlice({
           state.projects = action.payload.data;
         }
         state.loadings.gettingProjects = false;
+        state.projectsLoaded = true;
       })
 
       .addCase(createProject.pending, (state) => {

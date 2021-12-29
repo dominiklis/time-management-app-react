@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import "./Home.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getTasks } from "../../store/slices/tasksSlice";
+import { useSelector } from "react-redux";
 
 import {
   overdueTasks,
@@ -17,15 +16,6 @@ import LoadingPage from "../../components/LoadingPage/LoadingPage";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
-  const dispatch = useDispatch();
-
-  const loadTasks = useCallback(async () => {
-    if (tasks.length === 0 && !tasksLoaded) await dispatch(getTasks()).unwrap();
-  }, [dispatch, tasks.length, tasksLoaded]);
-
-  useEffect(() => {
-    loadTasks();
-  }, [loadTasks]);
 
   if (!tasksLoaded) {
     return <LoadingPage fullScreen />;
