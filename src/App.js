@@ -32,6 +32,8 @@ function App() {
       if (userToken) {
         await dispatch(renewToken());
       }
+
+      dispatch(setInitialLoad(true));
     };
 
     setUp();
@@ -57,11 +59,6 @@ function App() {
       loadProjects();
     }
   }, [loadProjects, token, user.id]);
-
-  useEffect(() => {
-    if (user.id && token && tasksLoaded && projectsLoaded)
-      dispatch(setInitialLoad(true));
-  }, [dispatch, user.id, token, tasksLoaded, projectsLoaded]);
 
   if (!initialLoad) {
     return <LoadingPage fixed />;

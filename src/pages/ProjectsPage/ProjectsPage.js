@@ -4,7 +4,6 @@ import "./ProjectsPage.css";
 import { useSelector } from "react-redux";
 
 import CreateProjectForm from "../../components/CreateProjectForm/CreateProjectForm";
-import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Page from "../../components/Page/Page";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import ExpandableComponent from "../../components/ExpandableComponent/ExpandableComponent";
@@ -12,12 +11,8 @@ import ExpandableComponent from "../../components/ExpandableComponent/Expandable
 const ProjectsPage = () => {
   const { projects, projectsLoaded } = useSelector((state) => state.projects);
 
-  if (!projectsLoaded) {
-    return <LoadingPage />;
-  }
-
   return (
-    <Page title="Your Projects">
+    <Page title="Your Projects" loadingPage={!projectsLoaded}>
       <CreateProjectForm />
 
       {projects.map((project) => (
