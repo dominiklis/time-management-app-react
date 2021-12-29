@@ -22,8 +22,8 @@ const ExpandableComponent = ({
   const getAlwaysVisibleStyles = () => {
     let cln = "expandable__always-visible";
 
-    if (!passOnClickHandler) cln += " .expandable__always-visible--pointer";
-    if (hoverActiveStyles) cln += " .expandable__always-visible--hover-active";
+    if (!passOnClickHandler) cln += " expandable__always-visible--pointer";
+    if (hoverActiveStyles) cln += " expandable__always-visible--hover-active";
 
     return cln;
   };
