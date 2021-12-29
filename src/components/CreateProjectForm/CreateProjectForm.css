@@ -5,8 +5,9 @@
   border-radius: 0.5em;
 }
 
-.create-project-form__fields {
+.create-project-form__content {
   display: flex;
+  align-items: center;
 }
 
 .create-project-form .button,

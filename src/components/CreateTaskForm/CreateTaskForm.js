@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTask } from "../../store/slices/tasksSlice";
 import TaskForm from "../TaskForm/TaskForm";
 
-const CreateTaskForm = ({ afterSubmit }) => {
+const CreateTaskForm = ({ afterSubmit, border, onlyTaskName, title }) => {
   const dispatch = useDispatch();
 
   const {
@@ -34,17 +34,42 @@ const CreateTaskForm = ({ afterSubmit }) => {
     await dispatch(
       createTask({ ...input, taskCompleted: false, projectId: null })
     ).unwrap();
-    afterSubmit();
+    afterSubmit?.();
+    setInput({
+      taskName: "",
+      taskDescription: "",
+      dateToComplete: "",
+      startTime: "",
+      endTime: "",
+    });
+  };
+
+  const getStyle = () => {
+    let cln = "create-task-form";
+
+    if (border) cln += " create-task-form--bordered";
+    if (onlyTaskName) cln += " create-task-form--single-field";
+
+    return cln;
+  };
+
+  const getContentStyle = () => {
+    let cln = "create-task-form__content";
+
+    return cln;
   };
 
   return (
     <TaskForm
+      title={title}
       onSubmit={handleSubmit}
-      className="create-task-form"
+      className={getStyle()}
+      contentClassName={getContentStyle()}
       input={input}
       handleChange={handleChange}
       loading={createTaskLoading}
       submitButtonText="create"
+      onlyTaskName={onlyTaskName}
     />
   );
 };
