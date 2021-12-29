@@ -6,7 +6,7 @@ import TaskDetails from "../TaskDetails/TaskDetails";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import EditTask from "../EditTask/EditTask";
 
-const TaskElement = ({ task, border }) => {
+const TaskElement = ({ task, border, alwaysExapnded }) => {
   const [editTask, setEditTask] = useState(false);
 
   const toggleEditTask = () => setEditTask((prev) => !prev);
@@ -29,9 +29,14 @@ const TaskElement = ({ task, border }) => {
         />
       ) : (
         <ExpandableComponent
+          alwaysExapnded={alwaysExapnded}
           passOnClickHandler
           alwaysVisibleComponent={
-            <TaskCard {...task} toggleEditTask={toggleEditTask} />
+            <TaskCard
+              {...task}
+              toggleEditTask={toggleEditTask}
+              defaultCursor={alwaysExapnded}
+            />
           }
           componentToBeExpanded={<TaskDetails {...task} />}
         />

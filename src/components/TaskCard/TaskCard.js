@@ -28,6 +28,10 @@ const TaskCard = ({
   projectName,
   onClick,
   toggleEditTask,
+  background,
+  border,
+  verticalMargin,
+  defaultCursor,
 }) => {
   const dispatch = useDispatch();
 
@@ -52,8 +56,28 @@ const TaskCard = ({
     setUpdating(false);
   };
 
+  const getStyles = () => {
+    let cln = "task-card";
+
+    if (background) cln += " task-card--background";
+    if (border) cln += " task-card--border";
+    if (verticalMargin) cln += " task-card--vertical-margin";
+
+    return cln;
+  };
+
+  const getContentStyles = () => {
+    let cln = "task-card__content";
+
+    if (defaultCursor) cln += " task-card__content--default-cursor";
+
+    return cln;
+  };
+
+  const handleClick = () => onClick(taskId);
+
   return (
-    <div className="task-card">
+    <div className={getStyles()}>
       <div className="task-card__header">
         <CheckButton
           loading={updating}
@@ -63,7 +87,7 @@ const TaskCard = ({
           check={taskCompleted}
         />
       </div>
-      <div className="task-card__content" onClick={onClick}>
+      <div className={getContentStyles()} onClick={handleClick}>
         <div className="task-card__name">{taskName}</div>
 
         {dateToComplete && (

@@ -5,11 +5,15 @@ const ExpandableComponent = ({
   alwaysVisibleComponent,
   componentToBeExpanded,
   passOnClickHandler,
-  hoverActiveStyles,
+  alwaysExapnded,
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(alwaysExapnded || false);
 
-  const handleExpand = () => setExpanded((prev) => !prev);
+  const handleExpand = () =>
+    setExpanded((prev) => {
+      if (alwaysExapnded) return true;
+      return !prev;
+    });
 
   const handleWholeVisibleComponentOnClick = () => {
     if (!passOnClickHandler) handleExpand();
@@ -23,7 +27,8 @@ const ExpandableComponent = ({
     let cln = "expandable__always-visible";
 
     if (!passOnClickHandler) cln += " expandable__always-visible--pointer";
-    if (hoverActiveStyles) cln += " expandable__always-visible--hover-active";
+    if (alwaysExapnded)
+      cln += " expandable__always-visible--disable-hover-active";
 
     return cln;
   };

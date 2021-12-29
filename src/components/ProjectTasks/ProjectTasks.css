@@ -4,6 +4,7 @@
 
 .project-tasks__section-header {
   border-bottom: 1px solid var(--clr-gray5);
+  margin-bottom: 0.5em;
 }
 
 .project-tasks__completed {
