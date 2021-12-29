@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
 import Modal from "../Modal/Modal";
 import FloatingButton from "../FloatingButton/FloatingButton";
+import CreateTaskForm from "../CreateTaskForm/CreateTaskForm";
 
 const Layout = () => {
   const { user, token } = useSelector((state) => state.users);
@@ -13,6 +14,7 @@ const Layout = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const getLayoutPageStyle = () => {
     let className = "layout__page";
@@ -24,8 +26,12 @@ const Layout = () => {
   };
 
   return (
-    <div className={`layout`}>
-      {showModal && <Modal setShowModal={setShowModal} />}
+    <div className="layout">
+      {showModal && (
+        <Modal setShowModal={setShowModal} modalTitle="Create Task">
+          <CreateTaskForm afterSubmit={handleClose} />
+        </Modal>
+      )}
       <div className="layout__content">
         {token && user.id && user.email && user.name && <Sidebar />}
         <main className={getLayoutPageStyle()}>
