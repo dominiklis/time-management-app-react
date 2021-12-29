@@ -1,0 +1,25 @@
+.project-details {
+}
+
+.project-details__created-info {
+  font-size: 0.8em;
+  color: var(--clr-gray4);
+}
+
+.project-details__author {
+}
+
+.project-details__author-name {
+  color: var(--clr-prim2);
+}
+
+.project-details__header {
+  font-size: 0.9em;
+  color: var(--clr-gray3);
+  margin-top: 0.5em;
+  font-weight: normal;
+}
+
+.project-details__description {
+  margin-bottom: 1.25em;
+}

@@ -56,7 +56,13 @@ const getTasksOfPeriod = (tasks, start, end, sorted) => {
 };
 
 const getTasksForProject = (tasks, projectId) =>
-  tasks.filter((task) => task.projectId !== projectId);
+  tasks.filter((task) => task.projectId === projectId);
+
+const getCompletedTasks = (tasks, completed) =>
+  tasks.filter((task) => {
+    if (task.taskCompleted === completed) return true;
+    return false;
+  });
 
 export {
   overdueTasks,
@@ -64,4 +70,5 @@ export {
   tasksForToday,
   getTasksOfPeriod,
   getTasksForProject,
+  getCompletedTasks,
 };

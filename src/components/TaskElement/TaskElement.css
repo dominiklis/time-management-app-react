@@ -1,0 +1,8 @@
+.task-element {
+  margin: 0.75em 0;
+}
+
+.task-element--bordered {
+  border: 1px solid var(--clr-gray5);
+  border-radius: 0.5em;
+}

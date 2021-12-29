@@ -1,3 +1,7 @@
 .projects__link {
   text-decoration: none;
 }
+
+.project-element:last-child {
+  margin-bottom: 100px;
+}
