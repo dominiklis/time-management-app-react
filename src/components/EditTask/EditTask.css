@@ -1,6 +1,6 @@
 .edit-task {
   background-color: var(--clr-gray7);
-  padding: 1em;
+  padding: 0.5em;
   margin: 0.5em 0;
   border-radius: 0.5em;
 }
@@ -12,6 +12,7 @@
 
 .edit-task__header {
   display: flex;
+  align-items: center;
 }
 
 .edit-task__header-text {

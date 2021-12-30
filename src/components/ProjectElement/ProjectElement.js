@@ -4,6 +4,7 @@ import "./ProjectElement.css";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import ProjectDetails from "../ProjectDetails/ProjectDetails";
+import EditProjectForm from "../EditProjectForm/EditProjectForm";
 
 const ProjectElement = ({
   authorEmail,
@@ -20,10 +21,20 @@ const ProjectElement = ({
 }) => {
   const [editProject, setEditProject] = useState(false);
 
+  const toggleEditProject = () => setEditProject((prev) => !prev);
+
   return (
     <div className="project-element">
       {editProject ? (
-        <div>editing project </div>
+        <EditProjectForm
+          setEditProject={setEditProject}
+          projectName={projectName}
+          projectDescription={projectDescription}
+          canChangePermissions={canChangePermissions}
+          canDelete={canDelete}
+          canEdit={canEdit}
+          canShare={canShare}
+        />
       ) : (
         <ExpandableComponent
           hoverActiveStyles
@@ -33,6 +44,7 @@ const ProjectElement = ({
           }
           componentToBeExpanded={
             <ProjectDetails
+              toggleEditProject={toggleEditProject}
               projectId={projectId}
               authorName={authorName}
               createdAt={createdAt}

@@ -31,7 +31,7 @@
 
 .expandable__always-visible,
 .expandable__to-be-expanded {
-  padding: 0.5em 0.75em;
+  padding: 0.5em 0.5em;
 }
 
 .expandable__always-visible {

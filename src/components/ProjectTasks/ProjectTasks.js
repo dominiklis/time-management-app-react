@@ -39,6 +39,7 @@ const ProjectTasks = ({ projectId }) => {
               background
               border
               verticalMargin
+              noEditButton
               onClick={handleOpenModal}
             />
           )
@@ -54,6 +55,7 @@ const ProjectTasks = ({ projectId }) => {
               background
               border
               verticalMargin
+              noEditButton
               onClick={handleOpenModal}
             />
           )

@@ -36,7 +36,7 @@
 }
 
 .input-field__input:focus,
-.input-field__textarea {
+.input-field__textarea:focus {
   border: 1px solid var(--clr-prim2);
 }
 

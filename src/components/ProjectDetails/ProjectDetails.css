@@ -1,12 +1,12 @@
-.project-details {
+.project-details__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .project-details__created-info {
   font-size: 0.8em;
   color: var(--clr-gray4);
-}
-
-.project-details__author {
 }
 
 .project-details__author-name {

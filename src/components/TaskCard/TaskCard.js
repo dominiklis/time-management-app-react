@@ -32,6 +32,7 @@ const TaskCard = ({
   border,
   verticalMargin,
   defaultCursor,
+  noEditButton,
 }) => {
   const dispatch = useDispatch();
 
@@ -105,11 +106,13 @@ const TaskCard = ({
           </div>
         )}
       </div>
-      <div className="task-card__actions">
-        <IconButton disabled={!canEdit} onClick={toggleEditTask}>
-          <FiEdit2 />
-        </IconButton>
-      </div>
+      {!noEditButton && (
+        <div className="task-card__actions">
+          <IconButton disabled={!canEdit} onClick={toggleEditTask}>
+            <FiEdit2 />
+          </IconButton>
+        </div>
+      )}
     </div>
   );
 };

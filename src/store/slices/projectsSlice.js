@@ -37,10 +37,14 @@ const initialState = {
   loadings: {
     gettingProjects: false,
     creatingProject: false,
+    editProject: false,
+    deleteProject: false,
   },
   errors: {
     gettingProjects: "",
     creatingProject: "",
+    editProject: "",
+    deleteProject: "",
   },
 };
 
