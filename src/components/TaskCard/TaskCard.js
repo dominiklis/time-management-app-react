@@ -139,7 +139,7 @@ const TaskCard = ({
               <LoadingIndicator size="small" />
             </IconButton>
           ) : (
-            <IconButton onClick={handleRemoveProjectId}>
+            <IconButton onClick={handleRemoveProjectId} disabled={!canEdit}>
               <CgClose />
             </IconButton>
           ))}
