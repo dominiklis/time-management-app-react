@@ -1,7 +1,7 @@
 .create-project-form {
   margin-bottom: 0.75em;
   border: 1px solid var(--clr-gray5);
-  padding: 1em;
+  padding: 0.5em;
   border-radius: 0.5em;
 }
 

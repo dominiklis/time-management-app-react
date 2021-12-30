@@ -14,10 +14,11 @@ const EditProjectForm = ({
   projectName,
   projectDescription,
   canChangePermissions,
-  canDelete,
   canEdit,
   canShare,
 }) => {
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     projectName: projectName,
     projectDescription: projectDescription,
@@ -27,8 +28,6 @@ const EditProjectForm = ({
     projectName: "",
   });
 
-  const dispatch = useDispatch();
-
   const {
     loadings: {
       editProject: editProjectLoading,
@@ -37,8 +36,6 @@ const EditProjectForm = ({
   } = useSelector((state) => state.projects);
 
   const handleCloseButton = () => setEditProject(false);
-
-  const handleDeleteButton = () => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,21 +69,6 @@ const EditProjectForm = ({
       <div className="edit-project-form__header">
         <h3 className="edit-project-form__header-text">Edit project</h3>
         <div className="edit-project-form__buttons">
-          {deleteProjectLoading ? (
-            <LoadingButton
-              color="secondary"
-              className="edit-project-form__delete-button"
-            />
-          ) : (
-            <Button
-              color="secondary"
-              onClick={handleDeleteButton}
-              disabled={!canDelete || editProjectLoading}
-              className="edit-project-form__delete-button"
-            >
-              delete
-            </Button>
-          )}
           <Button
             className="edit-project__cancel-button"
             onClick={handleCloseButton}

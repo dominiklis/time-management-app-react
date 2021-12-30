@@ -13,6 +13,10 @@
   color: var(--clr-prim2);
 }
 
+.project-details__actions .icon-button + .icon-button {
+  margin-left: 0.25em;
+}
+
 .project-details__header {
   font-size: 0.9em;
   color: var(--clr-gray3);

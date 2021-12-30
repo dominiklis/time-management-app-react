@@ -31,6 +31,19 @@ export const createProject = createAsyncThunk(
   }
 );
 
+export const deleteProject = createAsyncThunk(
+  "projects/deleteProject",
+  async (projectId, { rejectWithValue }) => {
+    try {
+      const response = await apiCalls.projects.delete(projectId);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   projects: [],
   projectsLoaded: false,
@@ -75,6 +88,26 @@ export const projectsSlice = createSlice({
           state.projects.push(action.payload.data);
         }
         state.loadings.creatingProject = false;
+      })
+
+      .addCase(deleteProject.pending, (state) => {
+        state.loadings.deleteProject = true;
+        state.errors.deleteProject = "";
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          let newProjects = [];
+
+          if (state.projectsLoaded) {
+            newProjects = state.projects.filter(
+              (project) => project.projectId !== action.payload.data.projectId
+            );
+          }
+
+          state.projects = newProjects;
+        }
+
+        state.loadings.deleteProject = false;
       });
   },
 });

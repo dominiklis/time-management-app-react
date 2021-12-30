@@ -1,19 +1,19 @@
 .create-task-form {
   display: flex;
   flex-direction: column;
-  padding: 1em 2em;
+  padding: 0.5em 2em;
 }
 
 @media screen and (max-width: 600px) {
   .create-task-form {
-    padding: 1em 0.25em;
+    padding: 0.5em 0.25em;
   }
 }
 
 .create-task-form--bordered {
   border: 1px solid var(--clr-gray5);
   border-radius: 0.5em;
-  padding: 1em;
+  padding: 0.5em;
   margin-bottom: 1em;
 }
 

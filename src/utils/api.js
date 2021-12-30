@@ -255,6 +255,8 @@ const projects = {
 
     return requests.post("/projects", newProject);
   },
+
+  delete: (projectId) => requests.delete(`/projects/${projectId}`),
 };
 
 const apiCalls = {

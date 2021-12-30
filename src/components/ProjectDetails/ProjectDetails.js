@@ -3,10 +3,14 @@ import "./ProjectDetails.css";
 
 import { formatDate, formatTime } from "../../utils/days";
 import { FiEdit2 } from "react-icons/fi";
+import { CgTrashEmpty } from "react-icons/cg";
 
 import ProjectTasks from "../ProjectTasks/ProjectTasks";
 import Tabs from "../Tabs/Tabs";
 import IconButton from "../IconButton/IconButton";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProject } from "../../store/slices/projectsSlice";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const ProjectDetails = ({
   toggleEditProject,
@@ -19,6 +23,12 @@ const ProjectDetails = ({
   canEdit,
   canShare,
 }) => {
+  const dispatch = useDispatch();
+
+  const {
+    loadings: { deleteProject: deleteProjectLoading },
+  } = useSelector((state) => state.projects);
+
   const getTabsContent = () => {
     const stepsTab = {
       label: "tasks",
@@ -33,6 +43,10 @@ const ProjectDetails = ({
     return [stepsTab, usersTab];
   };
 
+  const handleDeleteButton = async () => {
+    await dispatch(deleteProject(projectId)).unwrap();
+  };
+
   return (
     <div className="project-details">
       {/* {projectId} */}
@@ -41,9 +55,23 @@ const ProjectDetails = ({
           created {`${formatDate(createdAt)} ${formatTime(createdAt)}`} by{" "}
           <span className="project-details__author-name">{authorName}</span>
         </div>
-        <IconButton disabled={!canEdit} onClick={toggleEditProject}>
-          <FiEdit2 />
-        </IconButton>
+        <div className="project-details__actions">
+          <IconButton
+            onClick={toggleEditProject}
+            disabled={!canEdit || deleteProjectLoading}
+          >
+            <FiEdit2 />
+          </IconButton>
+          {deleteProjectLoading ? (
+            <IconButton disabled={true}>
+              <LoadingIndicator size="small" />
+            </IconButton>
+          ) : (
+            <IconButton disabled={!canDelete} onClick={handleDeleteButton}>
+              <CgTrashEmpty />
+            </IconButton>
+          )}
+        </div>
       </div>
 
       {projectDescription && (

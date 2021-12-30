@@ -33,8 +33,8 @@
   cursor: default;
 }
 
-.icon-button:disabled:active {
-  color: var(--clr-gray4);
+.icon-button:disabled:hover .icon-button__icon {
+  color: var(--clr-gray5);
 }
 
 .icon-button__icon--success {
