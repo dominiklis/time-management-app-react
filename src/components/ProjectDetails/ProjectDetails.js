@@ -3,7 +3,7 @@ import "./ProjectDetails.css";
 
 import { formatDate, formatTime } from "../../utils/days";
 import { FiEdit2 } from "react-icons/fi";
-import { CgTrashEmpty } from "react-icons/cg";
+import { CgTrashEmpty, CgMathPlus } from "react-icons/cg";
 
 import ProjectTasks from "../ProjectTasks/ProjectTasks";
 import Tabs from "../Tabs/Tabs";
@@ -22,6 +22,7 @@ const ProjectDetails = ({
   canDelete,
   canEdit,
   canShare,
+  handleAddTaskToProject,
 }) => {
   const dispatch = useDispatch();
 
@@ -47,6 +48,10 @@ const ProjectDetails = ({
     await dispatch(deleteProject(projectId)).unwrap();
   };
 
+  const handleAddTaskButton = () => {
+    handleAddTaskToProject(projectId);
+  };
+
   return (
     <div className="project-details">
       {/* {projectId} */}
@@ -56,6 +61,12 @@ const ProjectDetails = ({
           <span className="project-details__author-name">{authorName}</span>
         </div>
         <div className="project-details__actions">
+          <IconButton
+            onClick={handleAddTaskButton}
+            disabled={!canEdit || deleteProjectLoading}
+          >
+            <CgMathPlus />
+          </IconButton>
           <IconButton
             onClick={toggleEditProject}
             disabled={!canEdit || deleteProjectLoading}

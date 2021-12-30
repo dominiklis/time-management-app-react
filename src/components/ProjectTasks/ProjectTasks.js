@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "./ProjectTasks.css";
 
 import { useSelector } from "react-redux";
-import { getCompletedTasks, getTasksForProject } from "../../utils/filterTasks";
+import {
+  getCompletedTasks,
+  getTaskById,
+  getTasksForProject,
+} from "../../utils/filterTasks";
 import TaskElement from "../TaskElement/TaskElement";
 import TaskCard from "../TaskCard/TaskCard";
 import Modal from "../Modal/Modal";
@@ -10,20 +14,28 @@ import Modal from "../Modal/Modal";
 const ProjectTasks = ({ projectId }) => {
   const { tasks } = useSelector((state) => state.tasks);
 
-  const [showModal, setShowModal] = useState(false);
+  const [modalState, setModalState] = useState({
+    task: null,
+    showModal: false,
+  });
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+  const handleOpenModal = (taskId) =>
+    setModalState({ taskId, showModal: true });
+
+  const handleCloseModal = () =>
+    setModalState({ taskId: null, showModal: false });
 
   return (
     <div className="project-tasks">
-      {showModal && (
-        <Modal setShowModal={setShowModal} modalTitle="task details">
+      {modalState.showModal && (
+        <Modal
+          modalOpen={modalState.showModal}
+          handleClose={handleCloseModal}
+          modalTitle="task details"
+        >
           <TaskElement
             border
-            key={tasks[0].taskId}
-            task={tasks[0]}
+            task={getTaskById(tasks, modalState.taskId)}
             alwaysExapnded
           />
         </Modal>
@@ -40,7 +52,7 @@ const ProjectTasks = ({ projectId }) => {
               border
               verticalMargin
               noEditButton
-              onClick={handleOpenModal}
+              onClick={() => handleOpenModal(task.taskId)}
             />
           )
         )}

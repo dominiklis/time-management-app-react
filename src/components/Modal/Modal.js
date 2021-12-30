@@ -5,10 +5,8 @@ import "./Modal.css";
 import { IconContext } from "react-icons";
 import { IoClose } from "react-icons/io5";
 
-const Modal = ({ children, setShowModal, modalTitle }) => {
-  const handleClose = () => setShowModal(false);
-
-  if (setShowModal) {
+const Modal = ({ children, modalOpen, handleClose, modalTitle }) => {
+  if (modalOpen) {
     return ReactDOM.createPortal(
       <div className="modal">
         <div className="modal__background" onClick={handleClose}></div>

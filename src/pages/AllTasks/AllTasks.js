@@ -17,6 +17,9 @@ import NavigationButton from "../../components/NavigationButton/NavigationButton
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Accordion from "../../components/Accordion/Accordion";
 import TaskElement from "../../components/TaskElement/TaskElement";
+import Modal from "../../components/Modal/Modal";
+import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
+import FloatingButton from "../../components/FloatingButton/FloatingButton";
 
 const getPath = (date) => {
   return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
@@ -25,6 +28,11 @@ const getPath = (date) => {
 };
 
 const AllTasks = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
+
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
 
   const navigate = useNavigate();
@@ -75,6 +83,12 @@ const AllTasks = () => {
 
   return (
     <Page title="All Tasks">
+      {showModal && (
+        <Modal setShowModal={setShowModal} modalTitle="Create Task">
+          <CreateTaskForm afterSubmit={handleClose} />
+        </Modal>
+      )}
+      <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__navigation">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
         <div className="all-tasks-page__current-month">

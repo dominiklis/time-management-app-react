@@ -18,6 +18,7 @@ const ProjectElement = ({
   projectDescription,
   projectId,
   projectName,
+  handleAddTaskToProject,
 }) => {
   const [editProject, setEditProject] = useState(false);
 
@@ -54,6 +55,7 @@ const ProjectElement = ({
               canDelete={canDelete}
               canEdit={canEdit}
               canShare={canShare}
+              handleAddTaskToProject={handleAddTaskToProject}
             />
           }
         />

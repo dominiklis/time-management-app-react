@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTask } from "../../store/slices/tasksSlice";
 import TaskForm from "../TaskForm/TaskForm";
 
-const CreateTaskForm = ({ afterSubmit, border, onlyTaskName, title }) => {
+const CreateTaskForm = ({
+  afterSubmit,
+  border,
+  onlyTaskName,
+  title,
+  projectId,
+}) => {
   const dispatch = useDispatch();
 
   const {
     loadings: {
       tasks: { createTask: createTaskLoading },
-    },
-    errors: {
-      tasks: { createTask: createTaskError },
     },
   } = useSelector((state) => state.tasks);
 
@@ -32,7 +35,11 @@ const CreateTaskForm = ({ afterSubmit, border, onlyTaskName, title }) => {
     e.preventDefault();
 
     await dispatch(
-      createTask({ ...input, taskCompleted: false, projectId: null })
+      createTask({
+        ...input,
+        taskCompleted: false,
+        projectId: projectId || null,
+      })
     ).unwrap();
     afterSubmit?.();
     setInput({

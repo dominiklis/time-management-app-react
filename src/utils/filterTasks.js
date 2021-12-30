@@ -64,6 +64,9 @@ const getCompletedTasks = (tasks, completed) =>
     return false;
   });
 
+const getTaskById = (tasks, taskId) =>
+  tasks.find((task) => task.taskId === taskId);
+
 export {
   overdueTasks,
   tasksWithoutDate,
@@ -71,4 +74,5 @@ export {
   getTasksOfPeriod,
   getTasksForProject,
   getCompletedTasks,
+  getTaskById,
 };

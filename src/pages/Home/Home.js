@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 
 import { useSelector } from "react-redux";
@@ -13,14 +13,27 @@ import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
 import TaskElement from "../../components/TaskElement/TaskElement";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
+import Modal from "../../components/Modal/Modal";
+import FloatingButton from "../../components/FloatingButton/FloatingButton";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   if (tasks.length === 0 && tasksLoaded) return <div>Add your first task.</div>;
 
   return (
     <Page title="Tasks For Today" loadingPage={!tasksLoaded}>
+      {showModal && (
+        <Modal setShowModal={setShowModal} modalTitle="Create Task">
+          <CreateTaskForm afterSubmit={handleClose} />
+        </Modal>
+      )}
+      <FloatingButton onClick={handleOpenModal} />
       <CreateTaskForm border onlyTaskName title="create new task" />
 
       <div className="home-page">
