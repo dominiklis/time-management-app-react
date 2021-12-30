@@ -36,6 +36,7 @@ const TaskElement = ({ task, border, alwaysExapnded }) => {
               {...task}
               toggleEditTask={toggleEditTask}
               defaultCursor={alwaysExapnded}
+              showEditButton
             />
           }
           componentToBeExpanded={<TaskDetails {...task} />}

@@ -4,10 +4,12 @@ import "./TaskCard.css";
 import { updateTask } from "../../store/slices/tasksSlice";
 import { useDispatch } from "react-redux";
 import { FiEdit2, FiCalendar } from "react-icons/fi";
+import { CgClose } from "react-icons/cg";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
 
 import CheckButton from "../CheckButton/CheckButton";
 import IconButton from "../IconButton/IconButton";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskCard = ({
   taskId,
@@ -32,11 +34,13 @@ const TaskCard = ({
   border,
   verticalMargin,
   defaultCursor,
-  noEditButton,
+  showEditButton,
+  showRemoveProjectIdButton,
 }) => {
   const dispatch = useDispatch();
 
   const [updating, setUpdating] = useState(false);
+  const [waitingForResponse, setWaitingForResponse] = useState(false);
 
   const handleCompletedButton = async () => {
     setUpdating(true);
@@ -77,6 +81,23 @@ const TaskCard = ({
 
   const handleClick = () => onClick(taskId);
 
+  const handleRemoveProjectId = async () => {
+    setWaitingForResponse(true);
+
+    await dispatch(
+      updateTask({
+        taskId,
+        taskName,
+        taskDescription,
+        taskCompleted,
+        dateToComplete,
+        startTime,
+        endTime,
+        projectId: null,
+      })
+    );
+  };
+
   return (
     <div className={getStyles()}>
       <div className="task-card__header">
@@ -106,13 +127,23 @@ const TaskCard = ({
           </div>
         )}
       </div>
-      {!noEditButton && (
-        <div className="task-card__actions">
+      <div className="task-card__actions">
+        {showEditButton && (
           <IconButton disabled={!canEdit} onClick={toggleEditTask}>
             <FiEdit2 />
           </IconButton>
-        </div>
-      )}
+        )}
+        {showRemoveProjectIdButton &&
+          (waitingForResponse ? (
+            <IconButton>
+              <LoadingIndicator size="small" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleRemoveProjectId}>
+              <CgClose />
+            </IconButton>
+          ))}
+      </div>
     </div>
   );
 };

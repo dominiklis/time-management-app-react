@@ -59,6 +59,10 @@
   align-items: center;
 }
 
+.task-card__actions .icon-button + .icon-button {
+  margin-left: 0.25em;
+}
+
 .task-card__date-section {
   display: flex;
   align-items: center;

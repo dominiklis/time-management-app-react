@@ -51,7 +51,7 @@ const ProjectTasks = ({ projectId }) => {
               background
               border
               verticalMargin
-              noEditButton
+              showRemoveProjectIdButton
               onClick={() => handleOpenModal(task.taskId)}
             />
           )
@@ -67,7 +67,7 @@ const ProjectTasks = ({ projectId }) => {
               background
               border
               verticalMargin
-              noEditButton
+              showRemoveProjectIdButton
               onClick={handleOpenModal}
             />
           )
