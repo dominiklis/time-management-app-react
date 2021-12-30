@@ -256,6 +256,12 @@ const projects = {
     return requests.post("/projects", newProject);
   },
 
+  update: (projectId, projectName, projectDescription) =>
+    requests.put(`/projects/${projectId}`, {
+      projectName,
+      projectDescription,
+    }),
+
   delete: (projectId) => requests.delete(`/projects/${projectId}`),
 };
 

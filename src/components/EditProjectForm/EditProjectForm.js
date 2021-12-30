@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./EditProjectForm.css";
 
 import { useDispatch, useSelector } from "react-redux";
+import constants from "../../utils/constants";
+import { CgClose } from "react-icons/cg";
 
 import Button from "../Button/Button";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import InputField from "../InputField/InputField";
 import TextArea from "../TextArea/TextArea";
-import constants from "../../utils/constants";
+import IconButton from "../IconButton/IconButton";
+import { updateProject } from "../../store/slices/projectsSlice";
 
 const EditProjectForm = ({
+  projectId,
   setEditProject,
   projectName,
   projectDescription,
@@ -40,10 +44,8 @@ const EditProjectForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // await dispatch(
-    //   updateTask({ taskId, ...input, taskCompleted, projectId })
-    // ).unwrap();
-    // setEditTask(false);
+    await dispatch(updateProject({ projectId, ...input })).unwrap();
+    setEditProject(false);
   };
 
   const handleChange = (e) => {
@@ -69,12 +71,13 @@ const EditProjectForm = ({
       <div className="edit-project-form__header">
         <h3 className="edit-project-form__header-text">Edit project</h3>
         <div className="edit-project-form__buttons">
-          <Button
+          <IconButton
             className="edit-project__cancel-button"
             onClick={handleCloseButton}
+            disabled={editProjectLoading}
           >
-            cancel
-          </Button>
+            <CgClose />
+          </IconButton>
         </div>
       </div>
       <form onSubmit={handleSubmit}>

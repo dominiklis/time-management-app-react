@@ -27,6 +27,7 @@ const ProjectElement = ({
     <div className="project-element">
       {editProject ? (
         <EditProjectForm
+          projectId={projectId}
           setEditProject={setEditProject}
           projectName={projectName}
           projectDescription={projectDescription}

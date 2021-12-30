@@ -31,6 +31,25 @@ export const createProject = createAsyncThunk(
   }
 );
 
+export const updateProject = createAsyncThunk(
+  "tasks/updateProject",
+  async (projectData, { rejectWithValue }) => {
+    const { projectId, projectName, projectDescription } = projectData;
+
+    try {
+      const response = await apiCalls.projects.update(
+        projectId,
+        projectName,
+        projectDescription
+      );
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const deleteProject = createAsyncThunk(
   "projects/deleteProject",
   async (projectId, { rejectWithValue }) => {
@@ -88,6 +107,28 @@ export const projectsSlice = createSlice({
           state.projects.push(action.payload.data);
         }
         state.loadings.creatingProject = false;
+      })
+
+      .addCase(updateProject.pending, (state) => {
+        state.loadings.editProject = true;
+        state.errors.editProject = "";
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        if (action.payload.success && state.projectsLoaded) {
+          const updatedTasks = state.projects.map((project) => {
+            if (project.projectId === action.payload.data.projectId) {
+              project.projectName = action.payload.data.projectName;
+              project.projectDescription =
+                action.payload.data.projectDescription;
+            }
+
+            return project;
+          });
+
+          state.tasks = updatedTasks;
+        }
+
+        state.loadings.editProject = false;
       })
 
       .addCase(deleteProject.pending, (state) => {
