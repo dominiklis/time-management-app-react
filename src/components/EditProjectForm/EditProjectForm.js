@@ -59,12 +59,12 @@ const EditProjectForm = ({
   useEffect(() => {
     if (!initialRender) {
       if (!input.taskName || !input.taskName.trim()) {
-        setErrors((prev) => ({ ...prev, taskName: constants.nameError }));
+        setErrors((prev) => ({ ...prev, projectName: constants.nameError }));
       } else {
-        setErrors((prev) => ({ ...prev, taskName: "" }));
+        setErrors((prev) => ({ ...prev, projectName: "" }));
       }
     }
-  }, [input.projectDescription]);
+  }, [input.projectName]);
 
   return (
     <div className="edit-project-form">
