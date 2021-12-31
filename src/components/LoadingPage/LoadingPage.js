@@ -3,17 +3,9 @@ import "./LoadingPage.css";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const LoadingPage = ({ fixed }) => {
-  const getStyle = () => {
-    let className = "loading-page";
-
-    if (fixed) className += " loading-page--fixed";
-
-    return className;
-  };
-
+const LoadingPage = () => {
   return (
-    <div className={getStyle()}>
+    <div className="loading-page">
       <LoadingIndicator />
     </div>
   );

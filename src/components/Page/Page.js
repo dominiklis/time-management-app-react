@@ -4,7 +4,7 @@ import "./Page.css";
 
 const Page = ({ children, title, loadingPage }) => {
   if (loadingPage) {
-    return <LoadingPage fullScreen />;
+    return <LoadingPage />;
   }
 
   return (

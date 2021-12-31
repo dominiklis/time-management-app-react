@@ -1,12 +1,12 @@
 .create-task-form {
   display: flex;
   flex-direction: column;
-  padding: 0.5em 2em;
+  padding: 0.5em;
 }
 
 @media screen and (max-width: 600px) {
   .create-task-form {
-    padding: 0.5em 0.25em;
+    padding: 0.25em;
   }
 }
 

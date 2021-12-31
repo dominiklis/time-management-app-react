@@ -37,6 +37,14 @@
   color: var(--clr-gray5);
 }
 
+.icon-button__icon--secondary {
+  color: var(--clr-sec3);
+}
+
+.icon-button:hover .icon-button__icon--secondary {
+  color: var(--clr-sec2);
+}
+
 .icon-button__icon--success {
   color: var(--clr-suc2);
 }

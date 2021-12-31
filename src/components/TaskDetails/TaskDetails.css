@@ -4,6 +4,10 @@
   margin-top: 0.5em;
 }
 
+.task-details__assignemnts .icon-button {
+  margin-left: 0.25em;
+}
+
 .task-details__header {
   font-size: 0.9em;
   color: var(--clr-gray3);
@@ -22,4 +26,34 @@
 
 .task-details__description {
   margin-bottom: 1.25em;
+}
+
+.task-details__project-list-item {
+  background-color: var(--clr-gray7);
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.task-details__project-list-item:hover {
+  background-color: var(--clr-gray6);
+}
+
+.task-details__project-list-item:active {
+  background-color: var(--clr-gray5);
+}
+
+.task-details__project-list-item--selected {
+  border-bottom-color: var(--clr-gray3);
+}
+
+.task-details__project-list-item--align-vertically {
+  display: flex;
+  align-items: center;
+}
+
+.task-details__project-list-item--align-vertically span {
+  margin-left: 0.5em;
 }

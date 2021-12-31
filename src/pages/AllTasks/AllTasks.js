@@ -84,7 +84,11 @@ const AllTasks = () => {
   return (
     <Page title="All Tasks">
       {showModal && (
-        <Modal setShowModal={setShowModal} modalTitle="Create Task">
+        <Modal
+          modalOpen={showModal}
+          handleClose={handleClose}
+          modalTitle="Create Task"
+        >
           <CreateTaskForm afterSubmit={handleClose} />
         </Modal>
       )}

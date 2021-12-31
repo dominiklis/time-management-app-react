@@ -1,21 +1,12 @@
 .loading-page {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-}
-
-.loading-page--fixed {
-  position: fixed;
-  top: 0;
-  left: 50%;
-}
-
-@media screen and (max-width: 600px) {
-  .loading-page {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  z-index: 9999;
 }
