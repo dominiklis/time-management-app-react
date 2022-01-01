@@ -73,7 +73,7 @@ body * {
 }
 
 body {
-  background-color: var(--clr-gray8);
+  background-color: var(--clr-gray9);
 }
 
 ::-webkit-scrollbar {

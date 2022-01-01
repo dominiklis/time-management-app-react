@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { useLocation, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/slices/usersSlice";
@@ -6,12 +7,9 @@ import { loginUser } from "../../store/slices/usersSlice";
 import validatePassword from "../../utils/validatePassword";
 import validateLogin from "../../utils/validateLogin";
 
-import Button from "../../components/Button/Button";
-import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import AppLink from "../../components/Link/AppLink";
-import AuthContainer from "../../components/AuthContainer/AuthContainer";
 import InputField from "../../components/InputField/InputField";
-import AuthForm from "../../components/AuthForm/AuthForm";
+import Page from "../../components/Page/Page";
 import AuthPage from "../../components/AuthPage/AuthPage";
 
 const Login = () => {
@@ -87,61 +85,46 @@ const Login = () => {
   useEffect(() => setInitialRender(false), []);
 
   return (
-    <AuthPage>
-      {loginResponseError && (
-        <div className="auth-page__error">
-          <h3>{loginResponseError}</h3>
-        </div>
-      )}
-      <AuthContainer onSubmit={handleSubmit}>
-        <div className="auth-container__header">
-          <h1>Login</h1>
-        </div>
-        <AuthForm onSubmit={handleSubmit}>
-          <InputField
-            value={input.login}
-            onChange={handleChange}
-            label="email or username"
-            id="login"
-            type="text"
-            name="login"
-            error={errors.login}
-            fullwidth
-          />
+    <Page error={loginResponseError}>
+      <AuthPage
+        onSubmit={handleSubmit}
+        header="Login"
+        loading={loginLoading}
+        disbaleButton={
+          !input.login ||
+          !input.password ||
+          errors.login ||
+          errors.password.length !== 0
+        }
+        bottom={
+          <>
+            New user? <AppLink to="/register">Register now</AppLink>
+          </>
+        }
+      >
+        <InputField
+          value={input.login}
+          onChange={handleChange}
+          label="email or username"
+          id="login"
+          type="text"
+          name="login"
+          error={errors.login}
+          fullwidth
+        />
 
-          <InputField
-            value={input.password}
-            onChange={handleChange}
-            label="password"
-            id="password"
-            type="password"
-            name="password"
-            error={errors.password}
-            fullwidth
-          />
-
-          {loginLoading ? (
-            <LoadingButton color="primary" />
-          ) : (
-            <Button
-              type="submit"
-              disabled={
-                !input.login ||
-                !input.password ||
-                errors.login ||
-                errors.password.length !== 0
-              }
-              color="primary"
-            >
-              submit
-            </Button>
-          )}
-        </AuthForm>
-        <div className="auth-container__bottom">
-          New user? <AppLink to="/register">Register now</AppLink>
-        </div>
-      </AuthContainer>
-    </AuthPage>
+        <InputField
+          value={input.password}
+          onChange={handleChange}
+          label="password"
+          id="password"
+          type="password"
+          name="password"
+          error={errors.password}
+          fullwidth
+        />
+      </AuthPage>
+    </Page>
   );
 };
 

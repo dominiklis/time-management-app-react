@@ -9,12 +9,12 @@ const Layout = () => {
   const { user, token } = useSelector((state) => state.users);
 
   const getLayoutPageStyle = () => {
-    let className = "layout__page";
+    let cln = "layout__page";
 
     if (token && user.id && user.email && user.name)
-      className += " layout__page--padding";
+      cln += " layout__page--padding";
 
-    return className;
+    return cln;
   };
 
   return (

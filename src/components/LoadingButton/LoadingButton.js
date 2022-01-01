@@ -11,7 +11,7 @@ const LoadingButton = ({ color, className }) => {
   if (color === "success") colorStyle = " loading-button--success";
 
   let additionalClass = "";
-  if (className) additionalClass = " " + className;
+  if (className) additionalClass = ` ${className}`;
 
   return (
     <div className={`loading-button${colorStyle}${additionalClass}`}>

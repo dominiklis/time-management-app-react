@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
+
 import { useLocation, useNavigate } from "react-router";
-import validateEmail from "../../utils/validateEmail";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/slices/usersSlice";
 
+import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/validatePassword";
 import validateUsername from "../../utils/validateUsername";
 
-import AuthContainer from "../../components/AuthContainer/AuthContainer";
 import AppLink from "../../components/Link/AppLink";
-import AuthForm from "../../components/AuthForm/AuthForm";
-import LoadingButton from "../../components/LoadingButton/LoadingButton";
-import Button from "../../components/Button/Button";
 import AuthPage from "../../components/AuthPage/AuthPage";
 import InputField from "../../components/InputField/InputField";
+import Page from "../../components/Page/Page";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -99,74 +97,59 @@ const Register = () => {
   useEffect(() => setInitialRender(false), []);
 
   return (
-    <AuthPage>
-      {registerResponseError && (
-        <div className="auth-page__error">
-          <h3>{registerResponseError}</h3>
-        </div>
-      )}
-      <AuthContainer>
-        <div className="auth-container__header">
-          <h1>Register</h1>
-        </div>
-        <AuthForm onSubmit={handleSubmit}>
-          <InputField
-            value={input.name}
-            onChange={handleChange}
-            label="usernname"
-            id="name"
-            type="text"
-            name="name"
-            error={errors.name}
-            fullwidth
-          />
+    <Page error={registerResponseError}>
+      <AuthPage
+        onSubmit={handleSubmit}
+        header="Register"
+        loading={registerLoading}
+        disbaleButton={
+          !input.name ||
+          !input.email ||
+          !input.password ||
+          errors.login ||
+          errors.name ||
+          errors.password.length !== 0
+        }
+        bottom={
+          <>
+            Have an account? <AppLink to="/login">Login</AppLink>
+          </>
+        }
+      >
+        <InputField
+          value={input.name}
+          onChange={handleChange}
+          label="usernname"
+          id="name"
+          type="text"
+          name="name"
+          error={errors.name}
+          fullwidth
+        />
 
-          <InputField
-            value={input.email}
-            onChange={handleChange}
-            label="email"
-            id="email"
-            type="email"
-            name="email"
-            error={errors.email}
-            fullwidth
-          />
+        <InputField
+          value={input.email}
+          onChange={handleChange}
+          label="email"
+          id="email"
+          type="email"
+          name="email"
+          error={errors.email}
+          fullwidth
+        />
 
-          <InputField
-            value={input.password}
-            onChange={handleChange}
-            label="password"
-            id="password"
-            type="password"
-            name="password"
-            error={errors.password}
-            fullwidth
-          />
-
-          {registerLoading ? (
-            <LoadingButton color="primary" />
-          ) : (
-            <Button
-              type="submit"
-              disabled={
-                !input.name ||
-                !input.email ||
-                !input.password ||
-                errors.login ||
-                errors.name ||
-                errors.password.length !== 0
-              }
-              color="primary"
-            >
-              submit
-            </Button>
-          )}
-        </AuthForm>
-        <div className="auth-container__bottom">
-          Have an account? <AppLink to="/login">Login</AppLink>
-        </div>
-      </AuthContainer>
-    </AuthPage>
+        <InputField
+          value={input.password}
+          onChange={handleChange}
+          label="password"
+          id="password"
+          type="password"
+          name="password"
+          error={errors.password}
+          fullwidth
+        />
+      </AuthPage>
+    </Page>
   );
 };
 

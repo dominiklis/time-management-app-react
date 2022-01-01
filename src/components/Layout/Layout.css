@@ -14,6 +14,7 @@
 .layout__page {
   min-height: 100vh;
   width: 100%;
+  background-color: var(--clr-gray8);
 }
 
 .layout__page--padding {
