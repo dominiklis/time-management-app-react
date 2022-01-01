@@ -194,7 +194,6 @@ const tasks = {
     requests.delete(`/tasks/${taskId}/steps/${stepId}`),
 
   // sharing tasks
-
   shareTask: (
     taskId,
     login,
@@ -225,8 +224,8 @@ const tasks = {
   },
 
   editSharing: (
-    taskId,
     userId,
+    taskId,
     canShare,
     canChangePermissions,
     canEdit,
@@ -263,6 +262,54 @@ const projects = {
     }),
 
   delete: (projectId) => requests.delete(`/projects/${projectId}`),
+
+  // sharing projects
+  shareProject: (
+    projectId,
+    login,
+    canShare,
+    canChangePermissions,
+    canEdit,
+    canDelete
+  ) => {
+    let userId,
+      userName,
+      userEmail = "";
+
+    if (validateId(login)) {
+      userId = login;
+    } else if (validator.isEmail(login)) {
+      userEmail = login;
+    } else userName = login;
+
+    return requests.post(`/projects/${projectId}/users`, {
+      userId,
+      userName,
+      userEmail,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    });
+  },
+
+  editSharing: (
+    userId,
+    projectId,
+    canShare,
+    canChangePermissions,
+    canEdit,
+    canDelete
+  ) =>
+    requests.put(`/projects/${projectId}/users/${userId}`, {
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    }),
+
+  deleteSharing: (userId, projectId) =>
+    requests.delete(`/projects/${projectId}/users/${userId}`),
 };
 
 const apiCalls = {

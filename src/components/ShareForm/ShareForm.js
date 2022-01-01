@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./ShareTaskForm.css";
-
-import { useSelector } from "react-redux";
+import "./ShareForm.css";
 
 import Button from "../Button/Button";
 import InputField from "../InputField/InputField";
@@ -9,13 +7,13 @@ import validateLogin from "../../utils/validateLogin";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import Checkbox from "../Checkbox/Checkbox";
 
-const ShareTaskForm = ({
+const ShareForm = ({
   error,
   showError,
-  header = "share this task",
-  buttonText = "share",
+  header = "share",
+  buttonText = "submit",
   onSubmit,
-  taskId,
+  userName,
   canChangePermissions,
   userCanShare,
   userCanChangePermissions,
@@ -24,14 +22,8 @@ const ShareTaskForm = ({
   editing,
   loading,
 }) => {
-  const {
-    loadings: {
-      sharing: { sharingTask: sharingTaskLoading },
-    },
-  } = useSelector((state) => state.tasks);
-
   const [input, setInput] = useState({
-    login: "",
+    login: userName || "",
     canShare: userCanShare,
     canChangePermissions: userCanChangePermissions,
     canEdit: userCanEdit,
@@ -40,6 +32,12 @@ const ShareTaskForm = ({
 
   const [loginError, setLoginError] = useState("");
 
+  const [firstRender, setFirstRender] = useState(true);
+
+  useEffect(() => {
+    setFirstRender(false);
+  }, []);
+
   const handleInputChange = (e) =>
     setInput((prev) => ({ ...prev, login: e.target.value }));
 
@@ -47,12 +45,12 @@ const ShareTaskForm = ({
     setInput((prev) => ({ ...input, [e.target.name]: !prev[e.target.name] }));
 
   useEffect(() => {
-    setLoginError(validateLogin(input.login));
+    if (!firstRender) setLoginError(validateLogin(input.login));
   }, [input.login]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ taskId, ...input });
+    onSubmit(input);
     setInput((prev) => ({ ...prev, login: "" }));
   };
 
@@ -106,10 +104,13 @@ const ShareTaskForm = ({
             </div>
           )}
         </div>
-        {sharingTaskLoading || loading ? (
+        {loading ? (
           <LoadingButton color="primary" />
         ) : (
-          <Button color="primary" disabled={!editing && loginError}>
+          <Button
+            color="primary"
+            disabled={(!editing && loginError) || !input.login}
+          >
             {buttonText}
           </Button>
         )}
@@ -118,4 +119,4 @@ const ShareTaskForm = ({
   );
 };
 
-export default ShareTaskForm;
+export default ShareForm;

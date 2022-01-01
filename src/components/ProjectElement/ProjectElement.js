@@ -19,6 +19,7 @@ const ProjectElement = ({
   projectId,
   projectName,
   handleAddTaskToProject,
+  users,
 }) => {
   const [editProject, setEditProject] = useState(false);
 
@@ -46,6 +47,7 @@ const ProjectElement = ({
           }
           componentToBeExpanded={
             <ProjectDetails
+              authorId={authorId}
               toggleEditProject={toggleEditProject}
               projectId={projectId}
               authorName={authorName}
@@ -55,6 +57,7 @@ const ProjectElement = ({
               canDelete={canDelete}
               canEdit={canEdit}
               canShare={canShare}
+              users={users}
               handleAddTaskToProject={handleAddTaskToProject}
             />
           }

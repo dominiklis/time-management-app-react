@@ -32,7 +32,7 @@ export const createProject = createAsyncThunk(
 );
 
 export const updateProject = createAsyncThunk(
-  "tasks/updateProject",
+  "projects/updateProject",
   async (projectData, { rejectWithValue }) => {
     const { projectId, projectName, projectDescription } = projectData;
 
@@ -63,6 +63,80 @@ export const deleteProject = createAsyncThunk(
   }
 );
 
+// sharing
+export const shareProject = createAsyncThunk(
+  "projects/shareProject",
+  async (sharingData, { rejectWithValue }) => {
+    const {
+      projectId,
+      login,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    } = sharingData;
+
+    try {
+      const response = await apiCalls.projects.shareProject(
+        projectId,
+        login,
+        canShare,
+        canChangePermissions,
+        canEdit,
+        canDelete
+      );
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editSharing = createAsyncThunk(
+  "projects/editSharing",
+  async (sharingData, { rejectWithValue }) => {
+    const {
+      projectId,
+      userId,
+      canShare,
+      canChangePermissions,
+      canEdit,
+      canDelete,
+    } = sharingData;
+
+    try {
+      const response = await apiCalls.projects.editSharing(
+        userId,
+        projectId,
+        canShare,
+        canChangePermissions,
+        canEdit,
+        canDelete
+      );
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteSharing = createAsyncThunk(
+  "projects/deleteSharing",
+  async (sharingData, { rejectWithValue }) => {
+    const { userId, projectId } = sharingData;
+
+    try {
+      const response = await apiCalls.projects.deleteSharing(userId, projectId);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   projects: [],
   projectsLoaded: false,
@@ -71,12 +145,22 @@ const initialState = {
     creatingProject: false,
     editProject: false,
     deleteProject: false,
+    shareProject: false,
+    sharing: {
+      create: false,
+      edit: false,
+    },
   },
   errors: {
     gettingProjects: "",
     creatingProject: "",
     editProject: "",
     deleteProject: "",
+    shareProject: "",
+    sharing: {
+      create: "",
+      edit: "",
+    },
   },
 };
 
@@ -115,7 +199,7 @@ export const projectsSlice = createSlice({
       })
       .addCase(updateProject.fulfilled, (state, action) => {
         if (action.payload.success && state.projectsLoaded) {
-          const updatedTasks = state.projects.map((project) => {
+          const updatedProjects = state.projects.map((project) => {
             if (project.projectId === action.payload.data.projectId) {
               project.projectName = action.payload.data.projectName;
               project.projectDescription =
@@ -125,7 +209,7 @@ export const projectsSlice = createSlice({
             return project;
           });
 
-          state.tasks = updatedTasks;
+          state.projects = updatedProjects;
         }
 
         state.loadings.editProject = false;
@@ -149,6 +233,78 @@ export const projectsSlice = createSlice({
         }
 
         state.loadings.deleteProject = false;
+      })
+
+      // share projects
+      .addCase(shareProject.pending, (state) => {
+        state.loadings.sharing.create = true;
+        state.errors.sharing.create = "";
+      })
+      .addCase(shareProject.fulfilled, (state, action) => {
+        if (action.payload.success && state.projectsLoaded) {
+          const projectIndex = state.projects.findIndex(
+            (project) => project.projectId === action.payload.data.projectId
+          );
+
+          if (!state.projects[projectIndex].users)
+            state.projects[projectIndex].users = [];
+
+          state.projects[projectIndex].users.push(action.payload.data);
+        } else {
+          state.errors.sharing.create = action.payload.message;
+        }
+
+        state.loadings.sharing.create = false;
+      })
+
+      .addCase(editSharing.pending, (state) => {
+        state.loadings.sharing.edit = true;
+        state.errors.sharing.edit = "";
+      })
+      .addCase(editSharing.fulfilled, (state, action) => {
+        if (action.payload.success && state.projectsLoaded) {
+          const projectIndex = state.projects.findIndex(
+            (project) => project.projectId === action.payload.data.projectId
+          );
+
+          const updatedUsers = state.projects[projectIndex].users.map(
+            (user) => {
+              if (user.userId === action.payload.data.userId) {
+                user.canShare = action.payload.data.canShare;
+                user.canChangePermissions =
+                  action.payload.data.canChangePermissions;
+                user.canEdit = action.payload.data.canEdit;
+                user.canDelete = action.payload.data.canDelete;
+              }
+
+              return user;
+            }
+          );
+
+          state.projects[projectIndex].users = updatedUsers;
+        }
+
+        state.loadings.sharing.edit = false;
+      })
+
+      .addCase(deleteSharing.pending, (state) => {
+        state.loadings.sharing.deleteSharing = true;
+        state.errors.sharing.deleteSharing = "";
+      })
+      .addCase(deleteSharing.fulfilled, (state, action) => {
+        if (action.payload.success && state.projectsLoaded) {
+          const projectIndex = state.projects.findIndex(
+            (project) => project.projectId === action.payload.data.projectId
+          );
+
+          const updatedUsers = state.projects[projectIndex].users.filter(
+            (user) => user.userId !== action.payload.data.userId
+          );
+
+          state.projects[projectIndex].users = updatedUsers;
+        }
+
+        state.loadings.sharing.deleteSharing = false;
       });
   },
 });

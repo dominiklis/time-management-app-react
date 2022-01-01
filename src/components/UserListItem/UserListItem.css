@@ -1,7 +1,6 @@
 .task-user-card {
   display: flex;
   align-items: center;
-  margin-left: 0.5em;
 }
 
 .task-user-card__user-icons {
@@ -12,4 +11,8 @@
 
 .task-user-card__user-name {
   flex: 1;
+}
+
+.task-user-card__close-button {
+  margin-left: 0.5em;
 }

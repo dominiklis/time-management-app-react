@@ -198,8 +198,8 @@ export const editSharing = createAsyncThunk(
   "tasks/editSharing",
   async (sharingData, { rejectWithValue }) => {
     const {
-      taskId,
       userId,
+      taskId,
       canShare,
       canChangePermissions,
       canEdit,
@@ -208,8 +208,8 @@ export const editSharing = createAsyncThunk(
 
     try {
       const response = await apiCalls.tasks.editSharing(
-        taskId,
         userId,
+        taskId,
         canShare,
         canChangePermissions,
         canEdit,

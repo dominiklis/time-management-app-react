@@ -11,6 +11,7 @@ import IconButton from "../IconButton/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProject } from "../../store/slices/projectsSlice";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import ProjectUsers from "../ProjectUsers/ProjectUsers";
 
 const ProjectDetails = ({
   toggleEditProject,
@@ -23,6 +24,8 @@ const ProjectDetails = ({
   canEdit,
   canShare,
   handleAddTaskToProject,
+  authorId,
+  users,
 }) => {
   const dispatch = useDispatch();
 
@@ -33,12 +36,28 @@ const ProjectDetails = ({
   const getTabsContent = () => {
     const stepsTab = {
       label: "tasks",
-      content: <ProjectTasks projectId={projectId} />,
+      content: (
+        <ProjectTasks
+          projectId={projectId}
+          authorId={authorId}
+          users={users}
+          canShare={canShare}
+          canChangePermissions={canChangePermissions}
+        />
+      ),
     };
 
     const usersTab = {
       label: "users",
-      content: <div>proejct users</div>,
+      content: (
+        <ProjectUsers
+          projectId={projectId}
+          authorId={authorId}
+          users={users}
+          canShare={canShare}
+          canChangePermissions={canChangePermissions}
+        />
+      ),
     };
 
     return [stepsTab, usersTab];

@@ -65,7 +65,6 @@ const TaskDetails = ({
           users={users}
           canShare={canShare}
           canChangePermissions={canChangePermissions}
-          loggedUserId={user.id}
         />
       ),
     };

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import "./TaskUserCard.css";
+import "./UserListItem.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { deleteSharing, editSharing } from "../../store/slices/tasksSlice";
+import { useSelector } from "react-redux";
 import { IconContext } from "react-icons/lib";
 import { FiEdit2, FiUser, FiTrash2, FiX } from "react-icons/fi";
 
 import IconButton from "../IconButton/IconButton";
-import ShareTaskForm from "../ShareTaskForm/ShareTaskForm";
+import ShareForm from "../ShareForm/ShareForm";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskUserCard = ({
-  taskId,
   authorId,
   canLoggedUserChangePermissions,
   userId,
@@ -20,57 +18,45 @@ const TaskUserCard = ({
   canEdit,
   canChangePermissions,
   canDelete,
-  loggedUserId,
+  handleEdit,
+  editLoading,
+  handleDelete,
 }) => {
-  const dispatch = useDispatch();
-  const {
-    loadings: {
-      sharing: { editingSharing: editingSharingLoading },
-    },
-  } = useSelector((state) => state.tasks);
+  const { user } = useSelector((state) => state.users);
 
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const handleEditButton = () => setEditing((prev) => !prev);
+  const handleEditButton = () => setEditing(true);
 
-  const handleEditShareSubmit = async (formInputs) => {
-    if (!formInputs.canShare) formInputs.canShare = false;
-    if (!formInputs.canChangePermissions)
-      formInputs.canChangePermissions = false;
-    if (!formInputs.canEdit) formInputs.canEdit = false;
-    if (!formInputs.canDelete) formInputs.canDelete = false;
+  const handleEndEditingButton = () => setEditing(false);
 
-    formInputs.taskId = taskId;
-    formInputs.userId = userId;
-
-    await dispatch(editSharing(formInputs));
+  const handleEditSubmit = async (values) => {
+    await handleEdit({ ...values, userId });
     setEditing(false);
   };
 
-  const handleDeleteButton = async () => {
+  const handleDeleteButton = () => {
     setDeleting(true);
-
-    await dispatch(deleteSharing({ taskId, userId }));
-
-    setDeleting(false);
+    handleDelete(userId);
   };
 
   return (
-    <div className="task-user-card">
+    <li className="task-user-card">
       <div className="task-user-card__user-name">
         {editing ? (
-          <ShareTaskForm
+          <ShareForm
             canChangePermissions
             editing
             buttonText="save"
             header={`${userName} - editing access`}
+            userName={userName}
             userCanShare={canShare}
             userCanEdit={canEdit}
             userCanChangePermissions={canChangePermissions}
             userCanDelete={canDelete}
-            onSubmit={handleEditShareSubmit}
-            loading={editingSharingLoading}
+            onSubmit={handleEditSubmit}
+            loading={editLoading}
           />
         ) : (
           <>
@@ -85,7 +71,10 @@ const TaskUserCard = ({
       </div>
       <div className="task-user-card__actions">
         {editing ? (
-          <IconButton onClick={handleEditButton}>
+          <IconButton
+            className={"task-user-card__close-button"}
+            onClick={handleEndEditingButton}
+          >
             <FiX />
           </IconButton>
         ) : (
@@ -95,7 +84,7 @@ const TaskUserCard = ({
                 !canLoggedUserChangePermissions ||
                 userId === authorId ||
                 deleting ||
-                userId === loggedUserId
+                userId === user.id
               }
               onClick={handleEditButton}
             >
@@ -119,7 +108,7 @@ const TaskUserCard = ({
           </>
         )}
       </div>
-    </div>
+    </li>
   );
 };
 

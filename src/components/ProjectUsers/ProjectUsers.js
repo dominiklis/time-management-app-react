@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import "./TaskUsers.css";
+import "./ProjectUsers.css";
 
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteSharing,
   editSharing,
-  shareTask,
-} from "../../store/slices/tasksSlice";
+  shareProject,
+} from "../../store/slices/projectsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import ShareForm from "../ShareForm/ShareForm";
 import UserListItem from "../UserListItem/UserListItem";
 import List from "../List/List";
 
-const TaskUsers = ({
+const ProjectUsers = ({
+  projectId,
   authorId,
-  taskId,
   users,
   canShare,
   canChangePermissions,
@@ -23,21 +23,18 @@ const TaskUsers = ({
 
   const {
     loadings: {
-      sharing: {
-        sharingTask: sharingTaskLoading,
-        editingSharing: editingSharingLoading,
-      },
+      sharing: { create: shareProjectLoading, edit: editShareLoading },
     },
     errors: {
-      sharing: { sharingTask: sharingTaskError },
+      sharing: { create: shareProjectError },
     },
-  } = useSelector((state) => state.tasks);
+  } = useSelector((state) => state.projects);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleShareSubmit = async (formInputs) => {
     setFormSubmitted(false);
-    await dispatch(shareTask({ ...formInputs, taskId }));
+    await dispatch(shareProject({ ...formInputs, projectId }));
     setFormSubmitted(true);
   };
 
@@ -47,36 +44,36 @@ const TaskUsers = ({
     if (!values.canEdit) values.canEdit = false;
     if (!values.canDelete) values.canDelete = false;
 
-    await dispatch(editSharing({ ...values, taskId }));
+    await dispatch(editSharing({ ...values, projectId }));
   };
 
   const handleDelete = async (userId) => {
-    await dispatch(deleteSharing({ taskId, userId }));
+    await dispatch(deleteSharing({ projectId, userId }));
   };
 
   return (
-    <div className="task-users">
+    <div className="project-users">
       {canShare && (
         <ShareForm
           showError={formSubmitted}
           canChangePermissions={canChangePermissions}
-          error={sharingTaskError}
+          error={shareProjectError}
           onSubmit={handleShareSubmit}
-          loading={sharingTaskLoading}
+          loading={shareProjectLoading}
         />
       )}
-      <h6 className="task-users__header">
-        users with access to this task: {users.length}
+      <h6 className="project-users__header">
+        users with access to this project: {users?.length || 0}
       </h6>
       <List>
-        {users.map((u) => (
+        {users?.map((u) => (
           <UserListItem
             key={u.userId}
             authorId={authorId}
             canLoggedUserChangePermissions={canChangePermissions}
             {...u}
             handleEdit={handleEdit}
-            editLoading={editingSharingLoading}
+            editLoading={editShareLoading}
             handleDelete={handleDelete}
           />
         ))}
@@ -85,4 +82,4 @@ const TaskUsers = ({
   );
 };
 
-export default TaskUsers;
+export default ProjectUsers;
