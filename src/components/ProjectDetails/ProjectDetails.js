@@ -73,7 +73,6 @@ const ProjectDetails = ({
 
   return (
     <div className="project-details">
-      {/* {projectId} */}
       <div className="project-details__top">
         <div className="project-details__created-info">
           created {`${formatDate(createdAt)} ${formatTime(createdAt)}`} by{" "}

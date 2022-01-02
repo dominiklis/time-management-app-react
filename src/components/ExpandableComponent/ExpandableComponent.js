@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ExpandableComponent.css";
 
 const ExpandableComponent = ({
   alwaysVisibleComponent,
   componentToBeExpanded,
+  initiallyExpanded,
   passOnClickHandler,
-  alwaysExapnded,
+  alwaysExpanded,
 }) => {
-  const [expanded, setExpanded] = useState(alwaysExapnded || false);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (initiallyExpanded || alwaysExpanded) {
+      setExpanded(true);
+    }
+  }, []);
 
   const handleExpand = () =>
     setExpanded((prev) => {
-      if (alwaysExapnded) return true;
+      if (alwaysExpanded) return true;
       return !prev;
     });
 
@@ -27,7 +34,7 @@ const ExpandableComponent = ({
     let cln = "expandable__always-visible";
 
     if (!passOnClickHandler) cln += " expandable__always-visible--pointer";
-    if (alwaysExapnded)
+    if (alwaysExpanded)
       cln += " expandable__always-visible--disable-hover-active";
 
     return cln;

@@ -36,7 +36,7 @@ const ProjectTasks = ({ projectId }) => {
           <TaskElement
             border
             task={getTaskById(tasks, modalState.taskId)}
-            alwaysExapnded
+            alwaysExpanded
           />
         </Modal>
       )}
@@ -47,7 +47,7 @@ const ProjectTasks = ({ projectId }) => {
           (task) => (
             <TaskCard
               key={task.taskId}
-              {...task}
+              task={task}
               background
               border
               verticalMargin

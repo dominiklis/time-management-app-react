@@ -71,7 +71,7 @@ const Sidebar = () => {
                 currentPath === item.path ? " sidebar__item--active" : ""
               }`}
               key={item.path}
-              onClick={handleToggleButton}
+              onClick={hideMenuOnSmallScreens}
             >
               <Link className="sidebar__link" to={item.path}>
                 <div className="sidebar__item-icon">{item.icon}</div>

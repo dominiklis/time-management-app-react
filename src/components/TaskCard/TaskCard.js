@@ -3,7 +3,7 @@ import "./TaskCard.css";
 
 import { updateTask } from "../../store/slices/tasksSlice";
 import { useDispatch } from "react-redux";
-import { FiEdit2, FiCalendar } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
 
@@ -12,29 +12,12 @@ import IconButton from "../IconButton/IconButton";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const TaskCard = ({
-  taskId,
-  taskName,
-  taskDescription,
-  taskCompleted,
-  completedAt,
-  dateToComplete,
-  startTime,
-  endTime,
-  accessedAt,
-  steps,
-  canShare,
-  canChangePermissions,
-  canEdit,
-  canDelete,
-  projectId,
-  projectName,
+  task,
   onClick,
-  toggleEditTask,
   background,
   border,
   verticalMargin,
   defaultCursor,
-  showEditButton,
   showRemoveProjectIdButton,
 }) => {
   const dispatch = useDispatch();
@@ -47,14 +30,14 @@ const TaskCard = ({
 
     await dispatch(
       updateTask({
-        taskId,
-        taskName,
-        taskDescription,
-        taskCompleted: !taskCompleted,
-        dateToComplete,
-        startTime,
-        endTime,
-        projectId,
+        taskId: task.taskId,
+        taskName: task.taskName,
+        taskDescription: task.taskDescription,
+        taskCompleted: !task.taskCompleted,
+        dateToComplete: task.dateToComplete,
+        startTime: task.startTime,
+        endTime: task.endTime,
+        projectId: task.projectId,
       })
     ).unwrap();
 
@@ -79,20 +62,20 @@ const TaskCard = ({
     return cln;
   };
 
-  const handleClick = () => onClick(taskId);
+  const handleClick = () => onClick(task.taskId);
 
   const handleRemoveProjectId = async () => {
     setWaitingForResponse(true);
 
     await dispatch(
       updateTask({
-        taskId,
-        taskName,
-        taskDescription,
-        taskCompleted,
-        dateToComplete,
-        startTime,
-        endTime,
+        taskId: task.taskId,
+        taskName: task.taskName,
+        taskDescription: task.taskDescription,
+        taskCompleted: task.taskCompleted,
+        dateToComplete: task.dateToComplete,
+        startTime: task.startTime,
+        endTime: task.endTime,
         projectId: null,
       })
     );
@@ -104,42 +87,44 @@ const TaskCard = ({
         <CheckButton
           loading={updating}
           onClick={handleCompletedButton}
-          disabled={!canEdit}
+          disabled={!task.canEdit}
           size="small"
-          check={taskCompleted}
+          check={task.taskCompleted}
         />
       </div>
       <div className={getContentStyles()} onClick={handleClick}>
-        <div className="task-card__name">{taskName}</div>
+        <div className="task-card__name">{task.taskName}</div>
 
-        {dateToComplete && (
+        {task.dateToComplete && (
           <div className="task-card__date-section">
             <FiCalendar />
-            <div className="task-card__date">{formatDate(dateToComplete)}</div>
-            {startTime &&
-              (endTime ? (
+            <div className="task-card__date">
+              {formatDate(task.dateToComplete)}
+            </div>
+            {task.startTime &&
+              (task.endTime ? (
                 <div className="task-card__time">
-                  {formatInterval(startTime, endTime)}
+                  {formatInterval(task.startTime, task.endTime)}
                 </div>
               ) : (
-                <div className="task-card__time">{formatTime(startTime)}</div>
+                <div className="task-card__time">
+                  {formatTime(task.startTime)}
+                </div>
               ))}
           </div>
         )}
       </div>
       <div className="task-card__actions">
-        {showEditButton && (
-          <IconButton disabled={!canEdit} onClick={toggleEditTask}>
-            <FiEdit2 />
-          </IconButton>
-        )}
         {showRemoveProjectIdButton &&
           (waitingForResponse ? (
             <IconButton>
               <LoadingIndicator size="small" />
             </IconButton>
           ) : (
-            <IconButton onClick={handleRemoveProjectId} disabled={!canEdit}>
+            <IconButton
+              onClick={handleRemoveProjectId}
+              disabled={!task.canEdit}
+            >
               <CgClose />
             </IconButton>
           ))}

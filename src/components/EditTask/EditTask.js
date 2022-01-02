@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import "./EditTask.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTask, updateTask } from "../../store/slices/tasksSlice";
+import { updateTask } from "../../store/slices/tasksSlice";
 import { formatDate, formatTime } from "../../utils/days";
+import { CgClose } from "react-icons/cg";
 
-import Button from "../Button/Button";
+import IconButton from "../IconButton/IconButton";
 import TaskForm from "../TaskForm/TaskForm";
-import LoadingButton from "../LoadingButton/LoadingButton";
 
 const EditTask = ({
   taskId,
-  setEditTask,
   taskName,
   taskDescription,
   dateToComplete,
@@ -19,13 +18,13 @@ const EditTask = ({
   endTime,
   taskCompleted,
   projectId,
-  disableDeleteButton,
+  atTheEndOfEdition,
 }) => {
   const dispatch = useDispatch();
 
   const {
     loadings: {
-      tasks: { updateTask: editTaskLoading, deleteTask: deleteTaskLoading },
+      tasks: { updateTask: editTaskLoading },
     },
   } = useSelector((state) => state.tasks);
 
@@ -47,49 +46,30 @@ const EditTask = ({
     await dispatch(
       updateTask({ taskId, ...input, taskCompleted, projectId })
     ).unwrap();
-    setEditTask(false);
+
+    atTheEndOfEdition();
   };
 
-  const handleCloseButton = () => setEditTask(false);
-
-  const handleDeleteButton = async () => {
-    await dispatch(deleteTask(taskId)).unwrap();
-    setEditTask(false);
-  };
+  const handleCloseButton = () => atTheEndOfEdition();
 
   return (
     <div className="edit-task">
       <div className="edit-task__header">
         <h3 className="edit-task__header-text">Edit task</h3>
-        {deleteTaskLoading ? (
-          <LoadingButton
-            color="secondary"
-            className="edit-task__delete-button"
-          />
-        ) : (
-          <Button
-            color="secondary"
-            onClick={handleDeleteButton}
-            disabled={editTaskLoading || disableDeleteButton}
-            className="edit-task__delete-button"
-          >
-            delete
-          </Button>
-        )}
-        <Button
+        <IconButton
           className="edit-task__cancel-button"
           onClick={handleCloseButton}
         >
-          cancel
-        </Button>
+          <CgClose />
+        </IconButton>
       </div>
       <TaskForm
         onSubmit={handleSubmit}
         input={input}
         handleChange={handleChange}
         loading={editTaskLoading}
-        disabled={deleteTaskLoading}
         submitButtonText="update"
+        centerButton
       />
     </div>
   );

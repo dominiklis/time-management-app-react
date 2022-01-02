@@ -6,10 +6,17 @@ import TaskDetails from "../TaskDetails/TaskDetails";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import EditTask from "../EditTask/EditTask";
 
-const TaskElement = ({ task, border, alwaysExapnded }) => {
-  const [editTask, setEditTask] = useState(false);
+const TaskElement = ({ task, border, alwaysExpanded }) => {
+  const [editingState, setEditingState] = useState({
+    editing: false,
+    returnedFromEditing: false,
+  });
 
-  const toggleEditTask = () => setEditTask((prev) => !prev);
+  const atTheEndOfEdition = () =>
+    setEditingState({ editing: false, returnedFromEditing: true });
+
+  const handleEditButton = () =>
+    setEditingState((prev) => ({ ...prev, editing: true }));
 
   const getStyles = () => {
     let cln = "task-element";
@@ -21,25 +28,28 @@ const TaskElement = ({ task, border, alwaysExapnded }) => {
 
   return (
     <div className={getStyles()}>
-      {editTask ? (
+      {editingState.editing ? (
         <EditTask
-          setEditTask={setEditTask}
-          {...task}
+          atTheEndOfEdition={atTheEndOfEdition}
           disableDeleteButton={!task.canDelete}
+          {...task}
         />
       ) : (
         <ExpandableComponent
-          alwaysExapnded={alwaysExapnded}
+          initiallyExpanded={editingState.returnedFromEditing}
+          alwaysExpanded={alwaysExpanded}
           passOnClickHandler
           alwaysVisibleComponent={
             <TaskCard
-              {...task}
-              toggleEditTask={toggleEditTask}
-              defaultCursor={alwaysExapnded}
+              handleEditButton={handleEditButton}
+              defaultCursor={alwaysExpanded}
               showEditButton
+              task={task}
             />
           }
-          componentToBeExpanded={<TaskDetails {...task} />}
+          componentToBeExpanded={
+            <TaskDetails handleEditButton={handleEditButton} task={task} />
+          }
         />
       )}
     </div>

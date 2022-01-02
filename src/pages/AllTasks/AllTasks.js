@@ -106,11 +106,7 @@ const AllTasks = () => {
           key={date}
         >
           {sortedtasks[date].map((task, index) => (
-            <TaskElement
-              key={task.taskId}
-              task={task}
-              disableBottomBorder={index === sortedtasks[date].length - 1}
-            />
+            <TaskElement key={task.taskId} task={task} />
           ))}
         </Accordion>
       ))}
