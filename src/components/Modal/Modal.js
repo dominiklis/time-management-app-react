@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
 
-import { IconContext } from "react-icons";
-import { IoClose } from "react-icons/io5";
+import { CgClose } from "react-icons/cg";
+
+import IconButton from "../IconButton/IconButton";
 
 const Modal = ({ children, modalOpen, handleClose, modalTitle }) => {
   if (modalOpen) {
@@ -11,15 +12,13 @@ const Modal = ({ children, modalOpen, handleClose, modalTitle }) => {
       <div className="modal">
         <div className="modal__background" onClick={handleClose}></div>
         <div className="modal__content">
-          <IconContext.Provider
-            value={{
-              className: "modal__close-icon",
-            }}
+          <IconButton
+            onClick={handleClose}
+            className="modal__close-button"
+            size="large"
           >
-            <button onClick={handleClose} className="modal__close-button">
-              <IoClose />
-            </button>
-          </IconContext.Provider>
+            <CgClose />
+          </IconButton>
 
           <h1 className="modal__header">{modalTitle}</h1>
 

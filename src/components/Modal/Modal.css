@@ -30,6 +30,14 @@
   background-color: var(--clr-gray8);
 }
 
+@media screen and (max-width: 600px) {
+  .modal__content .icon-button {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+  }
+}
+
 .modal__header {
   color: var(--clr-prim2);
 }

@@ -3,13 +3,21 @@ import "./IconButton.css";
 
 import { IconContext } from "react-icons/lib";
 
-const IconButton = ({ children, onClick, disabled, className, color }) => {
+const IconButton = ({
+  children,
+  onClick,
+  disabled,
+  className,
+  color,
+  size,
+}) => {
   const getIconStyle = () => {
-    let className = "icon-button__icon";
+    let cln = "icon-button__icon";
 
-    if (color) className += ` icon-button__icon--${color}`;
+    if (color) cln += ` icon-button__icon--${color}`;
+    if (size === "large") cln += " icon-button__icon--large";
 
-    return className;
+    return cln;
   };
 
   return (

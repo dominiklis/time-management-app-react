@@ -48,3 +48,7 @@
 .icon-button__icon--success {
   color: var(--clr-suc2);
 }
+
+.icon-button__icon--large {
+  font-size: 2em;
+}
