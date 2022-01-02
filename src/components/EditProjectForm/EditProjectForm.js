@@ -11,6 +11,7 @@ import InputField from "../InputField/InputField";
 import TextArea from "../TextArea/TextArea";
 import IconButton from "../IconButton/IconButton";
 import { updateProject } from "../../store/slices/projectsSlice";
+import useIsInitialRender from "../../hooks/useIsInitialRender";
 
 const EditProjectForm = ({ project, setEditProject }) => {
   const dispatch = useDispatch();
@@ -46,13 +47,11 @@ const EditProjectForm = ({ project, setEditProject }) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const [initialRender, setInitialRender] = useState(true);
-
-  useEffect(() => setInitialRender(false), []);
+  const initialRender = useIsInitialRender();
 
   useEffect(() => {
     if (!initialRender) {
-      if (!input.taskName || !input.taskName.trim()) {
+      if (!input.projectName || !input.projectName.trim()) {
         setErrors((prev) => ({ ...prev, projectName: constants.nameError }));
       } else {
         setErrors((prev) => ({ ...prev, projectName: "" }));

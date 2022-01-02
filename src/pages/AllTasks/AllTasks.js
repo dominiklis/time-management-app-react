@@ -89,10 +89,16 @@ const AllTasks = () => {
           handleClose={handleClose}
           modalTitle="Create Task"
         >
-          <CreateTaskForm afterSubmit={handleClose} />
+          <CreateTaskForm title="Create new task" afterSubmit={handleClose} />
         </Modal>
       )}
 
+      <CreateTaskForm
+        title="Create new task"
+        verticalMargin
+        border
+        onlyTaskName
+      />
       <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__navigation">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>

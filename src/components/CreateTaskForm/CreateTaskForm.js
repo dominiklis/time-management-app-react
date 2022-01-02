@@ -5,6 +5,7 @@ import { createTask } from "../../store/slices/tasksSlice";
 import TaskForm from "../TaskForm/TaskForm";
 
 const CreateTaskForm = ({
+  verticalMargin,
   title,
   afterSubmit,
   border,
@@ -54,11 +55,12 @@ const CreateTaskForm = ({
     });
   };
 
-  const getStyle = () => {
+  const getTaskFormStyle = () => {
     let cln = "create-task-form";
 
     if (border) cln += " create-task-form--bordered";
     if (onlyTaskName) cln += " create-task-form--single-field";
+    if (verticalMargin) cln += " create-task-form--v-margin";
 
     return cln;
   };
@@ -73,7 +75,7 @@ const CreateTaskForm = ({
     <TaskForm
       title={title}
       onSubmit={handleSubmit}
-      className={getStyle()}
+      className={getTaskFormStyle()}
       contentClassName={getContentStyle()}
       input={input}
       handleChange={handleChange}

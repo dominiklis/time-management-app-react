@@ -10,6 +10,7 @@ import {
   CgCalendar,
   CgFileDocument,
 } from "react-icons/cg";
+import List from "../List/List";
 
 const Sidebar = () => {
   const menuItems = [
@@ -53,20 +54,28 @@ const Sidebar = () => {
     setCurrentPath("/" + location.pathname.split("/")[1]);
   }, [location.pathname]);
 
+  const getSidebarStyle = () => {
+    let cln = "sidebar";
+
+    if (hideMenu) cln += " sidebar--hidden";
+
+    return cln;
+  };
+
   return (
-    <div className={`sidebar${hideMenu ? " sidebar--hidden" : ""}`}>
-      <div className="sidebar__content">
-        <IconContext.Provider value={{ className: "sidebar__button-icon" }}>
-          <div className="sidebar__item sidebar__toggle">
+    <div className={getSidebarStyle()}>
+      <IconContext.Provider value={{ className: "sidebar__button-icon" }}>
+        <List className="sidebar__content">
+          <li className="sidebar__item sidebar__toggle">
             <button
               className="sidebar__toggle-button"
               onClick={handleToggleButton}
             >
               {hideMenu ? <CgMenu /> : <CgClose />}
             </button>
-          </div>
+          </li>
           {menuItems.map((item) => (
-            <div
+            <li
               className={`sidebar__item${
                 currentPath === item.path ? " sidebar__item--active" : ""
               }`}
@@ -77,10 +86,10 @@ const Sidebar = () => {
                 <div className="sidebar__item-icon">{item.icon}</div>
                 <div className="sidebar__item-text">{item.text}</div>
               </Link>
-            </div>
+            </li>
           ))}
-        </IconContext.Provider>
-      </div>
+        </List>
+      </IconContext.Provider>
       <div className="sidebar__background" onClick={hide}></div>
     </div>
   );

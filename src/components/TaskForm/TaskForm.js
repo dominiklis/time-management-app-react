@@ -8,6 +8,7 @@ import InputField from "../InputField/InputField";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import TextArea from "../TextArea/TextArea";
 import TimeInput from "../TimeInput/TimeInput";
+import useIsInitialRender from "../../hooks/useIsInitialRender";
 
 const TaskForm = ({
   title,
@@ -32,9 +33,7 @@ const TaskForm = ({
     setErrors((prev) => ({ ...prev, [fieldName]: error }));
   };
 
-  const [initialRender, setInitialRender] = useState(true);
-
-  useEffect(() => setInitialRender(false), []);
+  const initialRender = useIsInitialRender();
 
   useEffect(() => {
     if (!initialRender) {

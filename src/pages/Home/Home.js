@@ -34,7 +34,11 @@ const Home = () => {
           modalOpen={showModal}
           handleClose={handleClose}
         >
-          <CreateTaskForm afterSubmit={handleClose} centerButton />
+          <CreateTaskForm
+            afterSubmit={handleClose}
+            verticalMargin
+            centerButton
+          />
         </Modal>
       )}
       <FloatingButton onClick={handleOpenModal} />

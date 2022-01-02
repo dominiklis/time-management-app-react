@@ -1,16 +1,17 @@
 .create-project-form {
-  margin-bottom: 0.75em;
-  border: 1px solid var(--clr-gray5);
+  margin: 1em 0;
+  border: 1px solid var(--clr-gray7);
   padding: 0.5em;
   border-radius: 0.5em;
 }
 
-.create-project-form__content {
-  display: flex;
-  align-items: center;
+.create-project-form__button {
+  margin-top: 1em;
 }
 
-.create-project-form .button,
-.create-project-form .loading-button {
-  margin-left: 0.5em;
+@media screen and (max-width: 600px) {
+  .create-project-form__button {
+    display: flex;
+    justify-content: center;
+  }
 }

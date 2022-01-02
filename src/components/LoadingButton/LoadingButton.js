@@ -2,19 +2,22 @@ import React from "react";
 import "./LoadingButton.css";
 
 const LoadingButton = ({ color, className }) => {
-  let colorStyle = "";
+  const getStyle = () => {
+    let cln = "loading-button";
 
-  if (color === "primary") colorStyle = " loading-button--primary";
-  if (color === "secondary") colorStyle = " loading-button--secondary";
-  if (color === "error") colorStyle = " loading-button--error";
-  if (color === "warning") colorStyle = " loading-button--warning";
-  if (color === "success") colorStyle = " loading-button--success";
+    if (color === "primary") cln = " loading-button--primary";
+    else if (color === "secondary") cln = " loading-button--secondary";
+    else if (color === "error") cln = " loading-button--error";
+    else if (color === "warning") cln = " loading-button--warning";
+    else if (color === "success") cln = " loading-button--success";
 
-  let additionalClass = "";
-  if (className) additionalClass = ` ${className}`;
+    if (className) cln += ` ${className}`;
+
+    return cln;
+  };
 
   return (
-    <div className={`loading-button${colorStyle}${additionalClass}`}>
+    <div className={getStyle()}>
       <div className="loading-button__indicator"></div>
     </div>
   );

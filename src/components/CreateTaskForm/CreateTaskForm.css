@@ -5,6 +5,10 @@
 }
 
 .create-task-form--bordered {
-  border: 1px solid var(--clr-gray5);
+  border: 1px solid var(--clr-gray7);
   border-radius: 0.5em;
+}
+
+.create-task-form--v-margin {
+  margin: 1em 0;
 }
