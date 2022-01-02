@@ -10,7 +10,7 @@ import {
   getPrevMonth,
   getToday,
 } from "../../utils/days";
-import { getTasksOfPeriod } from "../../utils/filterTasks";
+import { getTasksOfPeriod, tasksWithoutDate } from "../../utils/filterTasks";
 
 import Page from "../../components/Page/Page";
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
@@ -92,6 +92,7 @@ const AllTasks = () => {
           <CreateTaskForm afterSubmit={handleClose} />
         </Modal>
       )}
+
       <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__navigation">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
@@ -100,6 +101,11 @@ const AllTasks = () => {
         </div>
         <NavigationButton onClick={handleNextMonth}>{">"}</NavigationButton>
       </div>
+      <Accordion header="tasks without date" color="secondary">
+        {tasksWithoutDate(tasks).map((task) => (
+          <TaskElement key={task.taskId} task={task} />
+        ))}
+      </Accordion>
       {Object.keys(sortedtasks).map((date) => (
         <Accordion
           header={formatDate(date) + ` (${sortedtasks[date].length})`}

@@ -9,16 +9,18 @@ const Accordion = ({ children, header, color, open }) => {
 
   const handleLabelClick = () => setOpenAccordion((prev) => !prev);
 
-  let colorWariant = "";
-  if (color === "primary") {
-    colorWariant = " accordion--primary";
-  }
-  if (color === "warning") {
-    colorWariant = " accordion--warning";
-  }
+  const getAccordionStyle = () => {
+    let cln = "accordion";
+
+    if (color === "primary") cln += " accordion--primary";
+    else if (color === "secondary") cln += " accordion--secondary";
+    else if (color === "warning") cln += " accordion--warning";
+
+    return cln;
+  };
 
   return (
-    <div className={`accordion${colorWariant}`} aria-expanded={openAccordion}>
+    <div className={getAccordionStyle()} aria-expanded={openAccordion}>
       <div
         className="accordion__label"
         aria-expanded={openAccordion}
