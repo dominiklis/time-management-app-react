@@ -8,7 +8,7 @@ import validatePassword from "../../utils/validatePassword";
 import validateLogin from "../../utils/validateLogin";
 
 import AppLink from "../../components/Link/AppLink";
-import InputField from "../../components/InputField/InputField";
+import InputField from "../../components/Inputs/InputField";
 import Page from "../../components/Page/Page";
 import AuthPage from "../../components/AuthPage/AuthPage";
 

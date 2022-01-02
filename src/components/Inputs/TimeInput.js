@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../InputField/InputField.css";
+import "../Inputs/Inputs.css";
 
 const timeError = "allowed format is HH:MM";
 

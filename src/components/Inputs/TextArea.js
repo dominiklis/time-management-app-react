@@ -1,5 +1,5 @@
 import React from "react";
-import "../InputField/InputField.css";
+import "./Inputs.css";
 
 const TextArea = ({
   value,

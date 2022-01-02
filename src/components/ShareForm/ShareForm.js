@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ShareForm.css";
 
 import Button from "../Button/Button";
-import InputField from "../InputField/InputField";
+import InputField from "../Inputs/InputField";
 import validateLogin from "../../utils/validateLogin";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import Checkbox from "../Checkbox/Checkbox";

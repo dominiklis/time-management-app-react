@@ -2,7 +2,7 @@ import React from "react";
 import "./StepTextForm.css";
 
 import Button from "../Button/Button";
-import InputField from "../InputField/InputField";
+import InputField from "../Inputs/InputField";
 import LoadingButton from "../LoadingButton/LoadingButton";
 
 const StepTextForm = ({

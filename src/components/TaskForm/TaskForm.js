@@ -4,10 +4,10 @@ import "./TaskForm.css";
 import constants from "../../utils/constants";
 
 import Button from "../Button/Button";
-import InputField from "../InputField/InputField";
+import InputField from "../Inputs/InputField";
 import LoadingButton from "../LoadingButton/LoadingButton";
-import TextArea from "../TextArea/TextArea";
-import TimeInput from "../TimeInput/TimeInput";
+import TextArea from "../Inputs/TextArea";
+import TimeInput from "../Inputs/TimeInput";
 import useIsInitialRender from "../../hooks/useIsInitialRender";
 
 const TaskForm = ({
