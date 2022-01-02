@@ -1,0 +1,15 @@
+.task-form__button {
+  margin-top: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .task-form__button {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.task-form__button--center {
+  display: flex;
+  justify-content: center;
+}

@@ -5,11 +5,12 @@ import { createTask } from "../../store/slices/tasksSlice";
 import TaskForm from "../TaskForm/TaskForm";
 
 const CreateTaskForm = ({
+  title,
   afterSubmit,
   border,
   onlyTaskName,
-  title,
   projectId,
+  centerButton,
 }) => {
   const dispatch = useDispatch();
 
@@ -41,7 +42,9 @@ const CreateTaskForm = ({
         projectId: projectId || null,
       })
     ).unwrap();
+
     afterSubmit?.();
+
     setInput({
       taskName: "",
       taskDescription: "",
@@ -77,6 +80,7 @@ const CreateTaskForm = ({
       loading={createTaskLoading}
       submitButtonText="create"
       onlyTaskName={onlyTaskName}
+      centerButton={centerButton}
     />
   );
 };

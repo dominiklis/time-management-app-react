@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "./TaskForm.css";
+
 import constants from "../../utils/constants";
 
 import Button from "../Button/Button";
@@ -18,6 +20,7 @@ const TaskForm = ({
   disabled,
   submitButtonText = "submit",
   onlyTaskName,
+  centerButton,
 }) => {
   const [errors, setErrors] = useState({
     taskName: "",
@@ -42,6 +45,14 @@ const TaskForm = ({
       }
     }
   }, [input.taskName]);
+
+  const getButtonsStyle = () => {
+    let cln = "task-form__button";
+
+    if (centerButton) cln += " task-form__button--center";
+
+    return cln;
+  };
 
   return (
     <form onSubmit={onSubmit} className={className}>
@@ -109,23 +120,25 @@ const TaskForm = ({
           </>
         )}
 
-        {loading ? (
-          <LoadingButton color="primary" />
-        ) : (
-          <Button
-            type="submit"
-            disabled={
-              !input.taskName ||
-              errors.taskName ||
-              errors.startTime ||
-              errors.endTime ||
-              disabled
-            }
-            color="primary"
-          >
-            {submitButtonText}
-          </Button>
-        )}
+        <div className={getButtonsStyle()}>
+          {loading ? (
+            <LoadingButton color="primary" />
+          ) : (
+            <Button
+              type="submit"
+              disabled={
+                !input.taskName ||
+                errors.taskName ||
+                errors.startTime ||
+                errors.endTime ||
+                disabled
+              }
+              color="primary"
+            >
+              {submitButtonText}
+            </Button>
+          )}
+        </div>
       </div>
     </form>
   );

@@ -30,15 +30,15 @@ const Home = () => {
     <Page title="Tasks For Today" loadingPage={!tasksLoaded}>
       {showModal && (
         <Modal
+          modalTitle="Create Task"
           modalOpen={showModal}
           handleClose={handleClose}
-          modalTitle="Create Task"
         >
-          <CreateTaskForm afterSubmit={handleClose} />
+          <CreateTaskForm afterSubmit={handleClose} centerButton />
         </Modal>
       )}
       <FloatingButton onClick={handleOpenModal} />
-      <CreateTaskForm border onlyTaskName title="create new task" />
+      <CreateTaskForm title="Create new task" border onlyTaskName />
 
       <div className="home-page">
         <Accordion
