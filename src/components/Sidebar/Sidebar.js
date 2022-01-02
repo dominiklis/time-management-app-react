@@ -46,6 +46,10 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
+    hideMenuOnSmallScreens();
+  }, []);
+
+  useEffect(() => {
     setCurrentPath("/" + location.pathname.split("/")[1]);
   }, [location.pathname]);
 
@@ -67,7 +71,7 @@ const Sidebar = () => {
                 currentPath === item.path ? " sidebar__item--active" : ""
               }`}
               key={item.path}
-              onClick={hideMenuOnSmallScreens}
+              onClick={handleToggleButton}
             >
               <Link className="sidebar__link" to={item.path}>
                 <div className="sidebar__item-icon">{item.icon}</div>
