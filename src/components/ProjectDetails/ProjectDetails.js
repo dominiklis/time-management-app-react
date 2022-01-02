@@ -14,18 +14,9 @@ import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import ProjectUsers from "../ProjectUsers/ProjectUsers";
 
 const ProjectDetails = ({
+  project,
   toggleEditProject,
-  projectId,
-  authorName,
-  createdAt,
-  projectDescription,
-  canChangePermissions,
-  canDelete,
-  canEdit,
-  canShare,
   handleAddTaskToProject,
-  authorId,
-  users,
 }) => {
   const dispatch = useDispatch();
 
@@ -38,11 +29,11 @@ const ProjectDetails = ({
       label: "tasks",
       content: (
         <ProjectTasks
-          projectId={projectId}
-          authorId={authorId}
-          users={users}
-          canShare={canShare}
-          canChangePermissions={canChangePermissions}
+          projectId={project.projectId}
+          authorId={project.authorId}
+          users={project.users}
+          canShare={project.canShare}
+          canChangePermissions={project.canChangePermissions}
         />
       ),
     };
@@ -51,11 +42,11 @@ const ProjectDetails = ({
       label: "users",
       content: (
         <ProjectUsers
-          projectId={projectId}
-          authorId={authorId}
-          users={users}
-          canShare={canShare}
-          canChangePermissions={canChangePermissions}
+          projectId={project.projectId}
+          authorId={project.authorId}
+          users={project.users}
+          canShare={project.canShare}
+          canChangePermissions={project.canChangePermissions}
         />
       ),
     };
@@ -64,30 +55,34 @@ const ProjectDetails = ({
   };
 
   const handleDeleteButton = async () => {
-    await dispatch(deleteProject(projectId)).unwrap();
+    await dispatch(deleteProject(project.projectId)).unwrap();
   };
 
   const handleAddTaskButton = () => {
-    handleAddTaskToProject(projectId);
+    handleAddTaskToProject(project.projectId);
   };
 
   return (
     <div className="project-details">
       <div className="project-details__top">
         <div className="project-details__created-info">
-          created {`${formatDate(createdAt)} ${formatTime(createdAt)}`} by{" "}
-          <span className="project-details__author-name">{authorName}</span>
+          created{" "}
+          {`${formatDate(project.createdAt)} ${formatTime(project.createdAt)}`}{" "}
+          by{" "}
+          <span className="project-details__author-name">
+            {project.authorName}
+          </span>
         </div>
         <div className="project-details__actions">
           <IconButton
             onClick={handleAddTaskButton}
-            disabled={!canEdit || deleteProjectLoading}
+            disabled={!project.canEdit || deleteProjectLoading}
           >
             <CgMathPlus />
           </IconButton>
           <IconButton
             onClick={toggleEditProject}
-            disabled={!canEdit || deleteProjectLoading}
+            disabled={!project.canEdit || deleteProjectLoading}
           >
             <FiEdit2 />
           </IconButton>
@@ -96,18 +91,21 @@ const ProjectDetails = ({
               <LoadingIndicator size="small" />
             </IconButton>
           ) : (
-            <IconButton disabled={!canDelete} onClick={handleDeleteButton}>
+            <IconButton
+              disabled={!project.canDelete}
+              onClick={handleDeleteButton}
+            >
               <CgTrashEmpty />
             </IconButton>
           )}
         </div>
       </div>
 
-      {projectDescription && (
+      {project.projectDescription && (
         <>
           <h3 className="project-details__header">description:</h3>
           <div className="project-details__description">
-            {projectDescription}
+            {project.projectDescription}
           </div>
         </>
       )}

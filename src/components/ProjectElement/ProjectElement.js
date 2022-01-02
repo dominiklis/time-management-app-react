@@ -6,21 +6,7 @@ import ProjectCard from "../ProjectCard/ProjectCard";
 import ProjectDetails from "../ProjectDetails/ProjectDetails";
 import EditProjectForm from "../EditProjectForm/EditProjectForm";
 
-const ProjectElement = ({
-  authorEmail,
-  authorId,
-  authorName,
-  canChangePermissions,
-  canDelete,
-  canEdit,
-  canShare,
-  createdAt,
-  projectDescription,
-  projectId,
-  projectName,
-  handleAddTaskToProject,
-  users,
-}) => {
+const ProjectElement = ({ project, handleAddTaskToProject }) => {
   const [editProject, setEditProject] = useState(false);
 
   const toggleEditProject = () => setEditProject((prev) => !prev);
@@ -28,36 +14,21 @@ const ProjectElement = ({
   return (
     <div className="project-element">
       {editProject ? (
-        <EditProjectForm
-          projectId={projectId}
-          setEditProject={setEditProject}
-          projectName={projectName}
-          projectDescription={projectDescription}
-          canChangePermissions={canChangePermissions}
-          canDelete={canDelete}
-          canEdit={canEdit}
-          canShare={canShare}
-        />
+        <EditProjectForm project={project} setEditProject={setEditProject} />
       ) : (
         <ExpandableComponent
           hoverActiveStyles
-          key={projectId}
+          key={project.projectId}
           alwaysVisibleComponent={
-            <ProjectCard projectName={projectName} authorName={authorName} />
+            <ProjectCard
+              projectName={project.projectName}
+              authorName={project.authorName}
+            />
           }
           componentToBeExpanded={
             <ProjectDetails
-              authorId={authorId}
+              project={project}
               toggleEditProject={toggleEditProject}
-              projectId={projectId}
-              authorName={authorName}
-              createdAt={createdAt}
-              projectDescription={projectDescription}
-              canChangePermissions={canChangePermissions}
-              canDelete={canDelete}
-              canEdit={canEdit}
-              canShare={canShare}
-              users={users}
               handleAddTaskToProject={handleAddTaskToProject}
             />
           }

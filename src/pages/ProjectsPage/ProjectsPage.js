@@ -42,7 +42,7 @@ const ProjectsPage = () => {
       {projects.map((project) => (
         <ProjectElement
           key={project.projectId}
-          {...project}
+          project={project}
           handleAddTaskToProject={handleOpenModal}
         />
       ))}

@@ -63,7 +63,7 @@ const ProjectTasks = ({ projectId }) => {
           (task) => (
             <TaskCard
               key={task.taskId}
-              {...task}
+              task={task}
               background
               border
               verticalMargin

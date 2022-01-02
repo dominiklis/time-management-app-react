@@ -12,20 +12,12 @@ import TextArea from "../TextArea/TextArea";
 import IconButton from "../IconButton/IconButton";
 import { updateProject } from "../../store/slices/projectsSlice";
 
-const EditProjectForm = ({
-  projectId,
-  setEditProject,
-  projectName,
-  projectDescription,
-  canChangePermissions,
-  canEdit,
-  canShare,
-}) => {
+const EditProjectForm = ({ project, setEditProject }) => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
-    projectName: projectName,
-    projectDescription: projectDescription,
+    projectName: project.projectName,
+    projectDescription: project.projectDescription,
   });
 
   const [errors, setErrors] = useState({
@@ -44,7 +36,9 @@ const EditProjectForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await dispatch(updateProject({ projectId, ...input })).unwrap();
+    await dispatch(
+      updateProject({ projectId: project.projectId, ...input })
+    ).unwrap();
     setEditProject(false);
   };
 
