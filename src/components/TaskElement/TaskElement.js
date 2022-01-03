@@ -40,12 +40,7 @@ const TaskElement = ({ task, border, alwaysExpanded }) => {
           alwaysExpanded={alwaysExpanded}
           passOnClickHandler
           alwaysVisibleComponent={
-            <TaskCard
-              handleEditButton={handleEditButton}
-              defaultCursor={alwaysExpanded}
-              showEditButton
-              task={task}
-            />
+            <TaskCard defaultCursor={alwaysExpanded} task={task} />
           }
           componentToBeExpanded={
             <TaskDetails handleEditButton={handleEditButton} task={task} />

@@ -2,8 +2,7 @@ import React from "react";
 import "./ProjectDetails.css";
 
 import { formatDate, formatTime } from "../../utils/days";
-import { FiEdit2 } from "react-icons/fi";
-import { CgTrashEmpty, CgMathPlus } from "react-icons/cg";
+import { CgPen, CgTrashEmpty, CgMathPlus } from "react-icons/cg";
 
 import ProjectTasks from "../ProjectTasks/ProjectTasks";
 import Tabs from "../Tabs/Tabs";
@@ -76,7 +75,7 @@ const ProjectDetails = ({
             onClick={toggleEditProject}
             disabled={!project.canEdit || deleteProjectLoading}
           >
-            <FiEdit2 />
+            <CgPen />
           </IconButton>
           {deleteProjectLoading ? (
             <IconButton disabled={true}>
