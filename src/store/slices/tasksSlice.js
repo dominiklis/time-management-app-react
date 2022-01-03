@@ -284,18 +284,7 @@ const initialState = {
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {
-    setStepsForTask: (state, action) => {
-      const taskIndex = state.tasks.findIndex(
-        (task) => task.taskId === action.payload.taskId
-      );
-
-      state.tasks[taskIndex] = {
-        ...state.tasks[taskIndex],
-        steps: action.payload.steps,
-      };
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // getting tasks
@@ -535,6 +524,6 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const { setStepsForTask } = tasksSlice.actions;
+// export const {} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

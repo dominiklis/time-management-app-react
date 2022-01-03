@@ -3,6 +3,12 @@
   align-items: center;
 }
 
+@media screen and (max-width: 600px) {
+  .step-text-form {
+    flex-direction: column;
+  }
+}
+
 .step-text-form .button,
 .step-text-form .loading-button {
   margin-left: 0.5em;

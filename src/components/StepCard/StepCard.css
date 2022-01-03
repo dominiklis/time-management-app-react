@@ -3,10 +3,14 @@
   align-content: center;
 }
 
-.step__header {
-  padding: 0.25em 0.75em 0.25em 0;
-  display: flex;
-  align-content: center;
+@media screen and (max-width: 600px) {
+  .step {
+    flex-direction: column;
+  }
+
+  .step__actions {
+    align-self: flex-end;
+  }
 }
 
 .step__text,
@@ -16,8 +20,10 @@
   align-content: center;
   flex-direction: column;
 }
-.step__text {
+
+.step__content {
   flex: 1;
+  display: flex;
 }
 
 .step__position {

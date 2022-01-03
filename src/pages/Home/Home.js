@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Home.css";
 
 import { useSelector } from "react-redux";
-
 import {
   overdueTasks,
   tasksForToday,

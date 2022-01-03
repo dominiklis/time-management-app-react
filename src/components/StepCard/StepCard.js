@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./StepCard.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { FiEdit2, FiX, FiTrash2 } from "react-icons/fi";
+import { CgPen, CgClose, CgTrashEmpty } from "react-icons/cg";
 import { deleteStep, updateStep } from "../../store/slices/tasksSlice";
 
 import CheckButton from "../CheckButton/CheckButton";
@@ -87,15 +87,6 @@ const Step = ({
 
   return (
     <div className="step">
-      <div className="step__header">
-        <CheckButton
-          loading={updating}
-          check={stepCompleted}
-          onClick={handleCompletedButton}
-          disabled={!canEdit || deleting || editing}
-          size="small"
-        />
-      </div>
       {editing ? (
         <div className="step__edit-form">
           <StepTextForm
@@ -107,17 +98,27 @@ const Step = ({
           />
 
           <IconButton className="step__edit-cancel-button" onClick={toggleEdit}>
-            <FiX />
+            <CgClose />
           </IconButton>
         </div>
       ) : (
         <>
-          <div className="step__position">{index}.</div>
-          <div className="step__text"> {stepText}</div>
+          <div className="step__content">
+            <CheckButton
+              loading={updating}
+              check={stepCompleted}
+              onClick={handleCompletedButton}
+              disabled={!canEdit || deleting || editing}
+              size="small"
+            />
+
+            <div className="step__position">{index}.</div>
+            <div className="step__text"> {stepText}</div>
+          </div>
           <div className="step__actions">
             {canEdit && !editing && (
               <IconButton disabled={!canEdit || deleting} onClick={toggleEdit}>
-                <FiEdit2 />
+                <CgPen />
               </IconButton>
             )}
             {canEdit &&
@@ -130,7 +131,7 @@ const Step = ({
                   disabled={!canEdit || editing}
                   onClick={handleDeleteButton}
                 >
-                  <FiTrash2 />
+                  <CgTrashEmpty />
                 </IconButton>
               ))}
           </div>
