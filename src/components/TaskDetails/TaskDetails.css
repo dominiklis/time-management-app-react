@@ -27,6 +27,10 @@
   align-self: flex-end;
 }
 
+.task-details__actions .icon-button + .icon-button {
+  margin-left: 0.25em;
+}
+
 .task-details__created-info,
 .task-details__assignemnts {
   font-size: 0.8em;

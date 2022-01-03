@@ -2,6 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 600px) {
+  .project-details__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .project-details__created-info {
@@ -11,6 +19,10 @@
 
 .project-details__author-name {
   color: var(--clr-prim2);
+}
+
+.project-details__actions {
+  align-self: flex-end;
 }
 
 .project-details__actions .icon-button + .icon-button {

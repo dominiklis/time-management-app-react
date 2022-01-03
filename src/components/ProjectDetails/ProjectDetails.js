@@ -65,14 +65,6 @@ const ProjectDetails = ({
   return (
     <div className="project-details">
       <div className="project-details__top">
-        <div className="project-details__created-info">
-          created{" "}
-          {`${formatDate(project.createdAt)} ${formatTime(project.createdAt)}`}{" "}
-          by{" "}
-          <span className="project-details__author-name">
-            {project.authorName}
-          </span>
-        </div>
         <div className="project-details__actions">
           <IconButton
             onClick={handleAddTaskButton}
@@ -98,6 +90,14 @@ const ProjectDetails = ({
               <CgTrashEmpty />
             </IconButton>
           )}
+        </div>
+        <div className="project-details__created-info">
+          created{" "}
+          {`${formatDate(project.createdAt)} ${formatTime(project.createdAt)}`}{" "}
+          by{" "}
+          <span className="project-details__author-name">
+            {project.authorName}
+          </span>
         </div>
       </div>
 
