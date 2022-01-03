@@ -17,6 +17,7 @@ import Modal from "../Modal/Modal";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import constants from "../../utils/constants";
 
 const TaskDetails = ({ task, handleEditButton }) => {
   const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const TaskDetails = ({ task, handleEditButton }) => {
         <Modal
           modalOpen={modalState.showModal}
           handleClose={handleCloseModal}
-          modalTitle="assign to project"
+          modalTitle={constants.assignToProject}
         >
           {editTaskLoading && <LoadingPage />}
 

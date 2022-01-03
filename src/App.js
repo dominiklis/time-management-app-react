@@ -100,6 +100,14 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="projects/:projectId"
+            element={
+              <RequireAuth>
+                <ProjectsPage />
+              </RequireAuth>
+            }
+          />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>

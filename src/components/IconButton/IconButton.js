@@ -3,14 +3,7 @@ import "./IconButton.css";
 
 import { IconContext } from "react-icons/lib";
 
-const IconButton = ({
-  children,
-  onClick,
-  disabled,
-  className,
-  color,
-  size,
-}) => {
+const IconButton = ({ className, children, color, size, ...props }) => {
   const getIconStyle = () => {
     let cln = "icon-button__icon";
 
@@ -29,7 +22,7 @@ const IconButton = ({
   };
 
   return (
-    <button className={getButtonStyle()} onClick={onClick} disabled={disabled}>
+    <button className={getButtonStyle()} {...props}>
       <IconContext.Provider
         value={{
           className: getIconStyle(),

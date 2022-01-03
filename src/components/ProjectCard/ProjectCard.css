@@ -15,3 +15,7 @@
 .project-card__actions {
   margin-left: 0.5em;
 }
+
+.project-card__name--primary {
+  color: var(--clr-prim2);
+}

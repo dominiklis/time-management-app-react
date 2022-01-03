@@ -3,6 +3,14 @@
   border-radius: 0.5em;
 }
 
+.expandable__always-visible:hover {
+  background-color: var(--clr-gray6);
+}
+
+.expandable__always-visible:active {
+  background-color: var(--clr-gray5);
+}
+
 .expandable[aria-expanded="true"] .expandable__always-visible {
   border-bottom: 1px solid var(--clr-gray5);
 }
@@ -17,16 +25,8 @@
   cursor: pointer;
 }
 
-.expandable__always-visible:hover {
-  background-color: var(--clr-gray6);
-}
-
 .expandable[aria-expanded="false"] .expandable__always-visible:hover {
   border-radius: 0.5em;
-}
-
-.expandable__always-visible:active {
-  background-color: var(--clr-gray5);
 }
 
 .expandable__always-visible,

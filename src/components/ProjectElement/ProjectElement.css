@@ -1,3 +1,9 @@
 .project-element {
   margin: 0.75em 0;
+  border: 1px solid transparent;
+}
+
+.project-element--border {
+  border-radius: 0.5em;
+  border: 1px solid var(--clr-prim2);
 }

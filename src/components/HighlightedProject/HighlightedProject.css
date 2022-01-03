@@ -1,0 +1,7 @@
+.highlighted-project {
+  border: 1px solid var(--clr-gray5);
+  border-left: none;
+  border-right: none;
+  padding: 0.5em 0;
+  margin-bottom: 1em;
+}
