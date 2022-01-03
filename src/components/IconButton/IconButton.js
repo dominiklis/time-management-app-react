@@ -20,12 +20,16 @@ const IconButton = ({
     return cln;
   };
 
+  const getButtonStyle = () => {
+    let cln = "icon-button";
+
+    if (className) cln += ` ${className}`;
+
+    return cln;
+  };
+
   return (
-    <button
-      className={`icon-button ${className}`}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <button className={getButtonStyle()} onClick={onClick} disabled={disabled}>
       <IconContext.Provider
         value={{
           className: getIconStyle(),
