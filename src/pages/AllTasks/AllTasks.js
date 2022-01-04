@@ -20,6 +20,7 @@ import TaskElement from "../../components/TaskElement/TaskElement";
 import Modal from "../../components/Modal/Modal";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import SearchForm from "../../components/SearchForm/SearchForm";
 
 const getPath = (date) => {
   return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
@@ -93,12 +94,8 @@ const AllTasks = () => {
         </Modal>
       )}
 
-      <CreateTaskForm
-        title="Create new task"
-        verticalMargin
-        border
-        onlyTaskName
-      />
+      <SearchForm />
+
       <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__navigation">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>

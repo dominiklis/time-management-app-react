@@ -81,6 +81,8 @@ const tasks = {
   // tasks
   get: (params) => requests.get("/tasks", params),
 
+  search: (searchInput) => requests.post("/tasks/search", { searchInput }),
+
   create: (
     taskName,
     taskDescription,

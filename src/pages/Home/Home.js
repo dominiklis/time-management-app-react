@@ -14,6 +14,7 @@ import TaskElement from "../../components/TaskElement/TaskElement";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import Modal from "../../components/Modal/Modal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import SearchForm from "../../components/SearchForm/SearchForm";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
@@ -41,7 +42,7 @@ const Home = () => {
         </Modal>
       )}
       <FloatingButton onClick={handleOpenModal} />
-      <CreateTaskForm title="Create new task" border onlyTaskName />
+      <SearchForm />
 
       <div className="home-page">
         <Accordion

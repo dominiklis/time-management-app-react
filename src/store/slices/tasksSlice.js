@@ -164,6 +164,19 @@ export const reorganizeStepsOrder = createAsyncThunk(
   }
 );
 
+export const searchTasks = createAsyncThunk(
+  "tasks/searchTasks",
+  async (searchInput, { rejectWithValue }) => {
+    try {
+      const response = await apiCalls.tasks.search(searchInput);
+
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 // sharing
 export const shareTask = createAsyncThunk(
   "tasks/shareTask",
@@ -279,12 +292,22 @@ const initialState = {
       deleteSharing: "",
     },
   },
+  search: {
+    input: "",
+    results: [],
+    loading: false,
+    error: "",
+  },
 };
 
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchInput: (state, action) => {
+      state.search.input = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // getting tasks
@@ -299,6 +322,19 @@ export const tasksSlice = createSlice({
 
         state.loadings.tasks.gettingTasks = false;
         state.tasksLoaded = true;
+      })
+
+      // searching for tasks
+      .addCase(searchTasks.pending, (state) => {
+        state.search.loading = true;
+        state.search.error = "";
+      })
+      .addCase(searchTasks.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          state.search.results = action.payload.data;
+        }
+
+        state.search.loading = false;
       })
 
       // create task
@@ -524,6 +560,6 @@ export const tasksSlice = createSlice({
   },
 });
 
-// export const {} = tasksSlice.actions;
+export const { setSearchInput } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

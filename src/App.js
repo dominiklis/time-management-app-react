@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setInitialLoad } from "./store/slices/appSlice";
 import { renewToken, userTokenKey } from "./store/slices/usersSlice";
+import { getTasks } from "./store/slices/tasksSlice";
+import { getProjects } from "./store/slices/projectsSlice";
 
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
@@ -14,8 +16,7 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import AllTasks from "./pages/AllTasks/AllTasks";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
-import { getTasks } from "./store/slices/tasksSlice";
-import { getProjects } from "./store/slices/projectsSlice";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
@@ -110,6 +111,24 @@ function App() {
           />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+
+          <Route
+            path="search"
+            element={
+              <RequireAuth>
+                <SearchPage />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="search/:searchInput"
+            element={
+              <RequireAuth>
+                <SearchPage />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </div>

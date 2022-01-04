@@ -9,6 +9,7 @@ import {
   CgCalendarToday,
   CgCalendar,
   CgFileDocument,
+  CgSearch,
 } from "react-icons/cg";
 import List from "../List/List";
 
@@ -28,6 +29,11 @@ const Sidebar = () => {
       path: "/projects",
       icon: <CgFileDocument />,
       text: "projects",
+    },
+    {
+      path: "/search",
+      icon: <CgSearch />,
+      text: "search",
     },
   ];
 

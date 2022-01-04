@@ -41,7 +41,7 @@ const CreateProjectForm = () => {
 
   return (
     <form className="create-project-form" onSubmit={handleSubmit}>
-      <h4>Create new project</h4>
+      <h5>Create new project</h5>
       <div className="create-project-form__content">
         <InputField
           value={projectName}
