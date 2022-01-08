@@ -21,10 +21,10 @@ const Home = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = () => setShowModal(true);
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
   const handleClose = () => setShowModal(false);
-
-  if (tasks.length === 0 && tasksLoaded) return <div>Add your first task.</div>;
 
   return (
     <Page title="Tasks For Today" loadingPage={!tasksLoaded}>
@@ -42,34 +42,41 @@ const Home = () => {
         </Modal>
       )}
       <FloatingButton onClick={handleOpenModal} />
-      <SearchForm />
 
-      <div className="home-page">
-        <Accordion
-          header={`Today (${tasksForToday(tasks).length})`}
-          color="primary"
-          open
-        >
-          {tasksForToday(tasks).map((task) => (
-            <TaskElement key={task.taskId} task={task} />
-          ))}
-        </Accordion>
+      {tasks.length === 0 && tasksLoaded ? (
+        <p>Add your first task.</p>
+      ) : (
+        <>
+          <SearchForm />
 
-        <Accordion
-          header={`Overdue (${overdueTasks(tasks).length})`}
-          color="warning"
-        >
-          {overdueTasks(tasks).map((task) => (
-            <TaskElement key={task.taskId} task={task} />
-          ))}
-        </Accordion>
+          <div className="home-page">
+            <Accordion
+              header={`Today (${tasksForToday(tasks).length})`}
+              color="primary"
+              open
+            >
+              {tasksForToday(tasks).map((task) => (
+                <TaskElement key={task.taskId} task={task} />
+              ))}
+            </Accordion>
 
-        <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
-          {tasksWithoutDate(tasks).map((task) => (
-            <TaskElement key={task.taskId} task={task} />
-          ))}
-        </Accordion>
-      </div>
+            <Accordion
+              header={`Overdue (${overdueTasks(tasks).length})`}
+              color="warning"
+            >
+              {overdueTasks(tasks).map((task) => (
+                <TaskElement key={task.taskId} task={task} />
+              ))}
+            </Accordion>
+
+            <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
+              {tasksWithoutDate(tasks).map((task) => (
+                <TaskElement key={task.taskId} task={task} />
+              ))}
+            </Accordion>
+          </div>
+        </>
+      )}
     </Page>
   );
 };
