@@ -10,7 +10,7 @@
 }
 
 .button:hover {
-  background-color: var(--clr-gray8);
+  background-color: var(--clr-gray6);
 }
 
 .button:disabled {

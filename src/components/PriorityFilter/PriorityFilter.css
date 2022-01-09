@@ -1,0 +1,30 @@
+.priority-filter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 600px) {
+  .priority-filter {
+    justify-content: center;
+  }
+}
+
+.priority-filter__content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.priority-filter__content h5 {
+  margin-bottom: 0.25em;
+}
+
+.priority-filter__buttons {
+  border: 1px solid var(--clr-gray7);
+  padding: 0.3em;
+  border-radius: 0.5em;
+}
+
+.priority-filter .button + .button {
+  margin-left: 0.5em;
+}

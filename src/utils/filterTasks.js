@@ -67,6 +67,12 @@ const getCompletedTasks = (tasks, completed) =>
 const getTaskById = (tasks, taskId) =>
   tasks.find((task) => task.taskId === taskId);
 
+const filterByPriority = (tasks, priorities) => {
+  if (priorities.length === 0) return tasks;
+
+  return tasks.filter((task) => priorities.includes(task.priority));
+};
+
 export {
   overdueTasks,
   tasksWithoutDate,
@@ -75,4 +81,5 @@ export {
   getTasksForProject,
   getCompletedTasks,
   getTaskById,
+  filterByPriority,
 };

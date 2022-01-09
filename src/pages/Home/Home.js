@@ -3,6 +3,7 @@ import "./Home.css";
 
 import { useSelector } from "react-redux";
 import {
+  filterByPriority,
   overdueTasks,
   tasksForToday,
   tasksWithoutDate,
@@ -15,11 +16,13 @@ import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import Modal from "../../components/Modal/Modal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import SearchForm from "../../components/SearchForm/SearchForm";
+import PriorityFilter from "../../components/PriorityFilter/PriorityFilter";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
 
   const [showModal, setShowModal] = useState(false);
+  const [priority, setPriority] = useState([]);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -48,6 +51,7 @@ const Home = () => {
       ) : (
         <>
           <SearchForm />
+          <PriorityFilter selected={priority} setSelected={setPriority} />
 
           <div className="home-page">
             <Accordion
@@ -55,7 +59,7 @@ const Home = () => {
               color="primary"
               open
             >
-              {tasksForToday(tasks).map((task) => (
+              {filterByPriority(tasksForToday(tasks), priority).map((task) => (
                 <TaskElement key={task.taskId} task={task} />
               ))}
             </Accordion>
@@ -64,15 +68,17 @@ const Home = () => {
               header={`Overdue (${overdueTasks(tasks).length})`}
               color="warning"
             >
-              {overdueTasks(tasks).map((task) => (
+              {filterByPriority(overdueTasks(tasks), priority).map((task) => (
                 <TaskElement key={task.taskId} task={task} />
               ))}
             </Accordion>
 
             <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
-              {tasksWithoutDate(tasks).map((task) => (
-                <TaskElement key={task.taskId} task={task} />
-              ))}
+              {filterByPriority(tasksWithoutDate(tasks), priority).map(
+                (task) => (
+                  <TaskElement key={task.taskId} task={task} />
+                )
+              )}
             </Accordion>
           </div>
         </>
