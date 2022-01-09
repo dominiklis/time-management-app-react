@@ -27,11 +27,11 @@ const CreateTaskForm = ({
     dateToComplete: "",
     startTime: "",
     endTime: "",
+    priority: 0,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +52,7 @@ const CreateTaskForm = ({
       dateToComplete: "",
       startTime: "",
       endTime: "",
+      priority: 0,
     });
   };
 
@@ -60,7 +61,7 @@ const CreateTaskForm = ({
 
     if (border) cln += " create-task-form--bordered";
     if (onlyTaskName) cln += " create-task-form--single-field";
-    if (verticalMargin) cln += " create-task-form--v-margin";
+    if (verticalMargin) cln += " create-task-form--vertical-margin";
 
     return cln;
   };

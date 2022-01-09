@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./TaskForm.css";
 
 import constants from "../../utils/constants";
+import useIsInitialRender from "../../hooks/useIsInitialRender";
 
 import Button from "../Button/Button";
 import InputField from "../Inputs/InputField";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import TextArea from "../Inputs/TextArea";
 import TimeInput from "../Inputs/TimeInput";
-import useIsInitialRender from "../../hooks/useIsInitialRender";
+import Select from "../Inputs/Select";
 
 const TaskForm = ({
   title,
@@ -22,6 +23,7 @@ const TaskForm = ({
   submitButtonText = "submit",
   onlyTaskName,
   centerButton,
+  priority = 0,
 }) => {
   const [errors, setErrors] = useState({
     taskName: "",
@@ -115,6 +117,30 @@ const TaskForm = ({
               setError={setTimeError}
               error={errors.endTime}
               lightBorder
+            />
+
+            <Select
+              value={input.priority}
+              onChange={handleChange}
+              name="priority"
+              label="priority"
+              values={[
+                {
+                  value: 0,
+                  text: "normal",
+                  selected: priority === 0,
+                },
+                {
+                  value: 1,
+                  text: "important",
+                  selected: priority === 1,
+                },
+                {
+                  value: 2,
+                  text: "urgent",
+                  selected: priority === 2,
+                },
+              ]}
             />
           </>
         )}

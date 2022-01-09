@@ -72,6 +72,12 @@
   display: flex;
 }
 
+.task-card__priority-section {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
 .task-card__date {
   margin: 0 0.4em;
 }
@@ -81,5 +87,5 @@
 }
 
 .task-card__priority--urgent {
-  color: var(--clr-err3);
+  color: var(--clr-war5);
 }

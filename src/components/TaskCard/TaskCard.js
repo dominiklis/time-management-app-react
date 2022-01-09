@@ -105,8 +105,8 @@ const TaskCard = ({
       <div className={getContentStyles()} onClick={handleClick}>
         <div className="task-card__name">{task.taskName}</div>
 
-        {task.dateToComplete && (
-          <div className="task-card__bottom">
+        <div className="task-card__bottom">
+          {task.dateToComplete && (
             <div className="task-card__date-section">
               <FiCalendar />
               <div className="task-card__date">
@@ -123,15 +123,15 @@ const TaskCard = ({
                   </div>
                 ))}
             </div>
-            {(task.priority === 1 || task.priority === 2) && (
-              <div>
-                <span className={getPriorityStyles(task.priority)}>
-                  {getPriorityLevel(task.priority)}
-                </span>
-              </div>
-            )}
-          </div>
-        )}
+          )}
+          {(task.priority === 1 || task.priority === 2) && (
+            <div className="task-card__priority-section">
+              <span className={getPriorityStyles(task.priority)}>
+                {getPriorityLevel(task.priority)}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
       <div className="task-card__actions">
         {showRemoveProjectIdButton &&

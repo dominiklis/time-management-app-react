@@ -26,6 +26,7 @@ export const createTask = createAsyncThunk(
       startTime,
       endTime,
       projectId,
+      priority,
     } = taskData;
 
     try {
@@ -36,7 +37,8 @@ export const createTask = createAsyncThunk(
         dateToComplete,
         startTime,
         endTime,
-        projectId
+        projectId,
+        priority
       );
 
       return response;

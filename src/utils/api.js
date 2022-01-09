@@ -90,13 +90,15 @@ const tasks = {
     day,
     startTime,
     endTime,
-    projectId
+    projectId,
+    priority
   ) => {
     const newTask = {
       taskName,
       taskDescription,
       taskCompleted,
       projectId,
+      priority,
     };
 
     if (day) newTask.dateToComplete = new Date(`${day} 00:00`).toISOString();
