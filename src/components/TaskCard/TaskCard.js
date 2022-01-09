@@ -39,6 +39,7 @@ const TaskCard = ({
         startTime: task.startTime,
         endTime: task.endTime,
         projectId: task.projectId,
+        priority: task.priority,
       })
     ).unwrap();
 

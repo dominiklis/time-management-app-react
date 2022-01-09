@@ -60,6 +60,7 @@ export const updateTask = createAsyncThunk(
       startTime,
       endTime,
       projectId,
+      priority,
     } = taskData;
 
     try {
@@ -71,7 +72,8 @@ export const updateTask = createAsyncThunk(
         taskCompleted,
         startTime,
         endTime,
-        projectId
+        projectId,
+        priority
       );
 
       return response;
@@ -374,6 +376,7 @@ export const tasksSlice = createSlice({
               task.endTime = action.payload.data.endTime;
               task.projectId = action.payload.data.projectId;
               task.projectName = action.payload.data.projectName;
+              task.priority = action.payload.data.priority;
             }
 
             return task;

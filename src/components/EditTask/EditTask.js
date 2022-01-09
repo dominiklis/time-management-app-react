@@ -19,6 +19,7 @@ const EditTask = ({
   taskCompleted,
   projectId,
   atTheEndOfEdition,
+  priority,
 }) => {
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ const EditTask = ({
     dateToComplete: dateToComplete ? formatDate(dateToComplete, true) : null,
     startTime: startTime ? formatTime(startTime) : null,
     endTime: endTime ? formatTime(endTime) : null,
+    priority: priority ?? 0,
   });
 
   const handleChange = (e) => {

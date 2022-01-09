@@ -82,6 +82,7 @@ const TaskDetails = ({ task, handleEditButton }) => {
         startTime: task.startTime,
         endTime: task.endTime,
         projectId: projectId,
+        priority: task.priority,
       })
     );
   };

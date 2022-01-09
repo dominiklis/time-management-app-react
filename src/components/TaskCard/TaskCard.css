@@ -70,6 +70,13 @@
 
 .task-card__date-section {
   display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.task-card__time {
+  display: flex;
+  align-items: center;
 }
 
 .task-card__priority-section {

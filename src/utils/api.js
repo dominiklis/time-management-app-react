@@ -127,7 +127,8 @@ const tasks = {
     taskCompleted,
     startTime,
     endTime,
-    projectId
+    projectId,
+    priority
   ) => {
     const updatedTask = {
       taskName,
@@ -137,6 +138,7 @@ const tasks = {
       startTime,
       endTime,
       projectId,
+      priority,
     };
 
     if (dateToComplete === "") {
