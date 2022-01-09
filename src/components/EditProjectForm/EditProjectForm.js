@@ -13,7 +13,7 @@ import InputField from "../Inputs/InputField";
 import TextArea from "../Inputs/TextArea";
 import IconButton from "../IconButton/IconButton";
 
-const EditProjectForm = ({ project, setEditProject }) => {
+const EditProjectForm = ({ project, atTheEndOfEdition }) => {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -32,7 +32,7 @@ const EditProjectForm = ({ project, setEditProject }) => {
     },
   } = useSelector((state) => state.projects);
 
-  const handleCloseButton = () => setEditProject(false);
+  const handleCloseButton = () => atTheEndOfEdition();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +40,8 @@ const EditProjectForm = ({ project, setEditProject }) => {
     await dispatch(
       updateProject({ projectId: project.projectId, ...input })
     ).unwrap();
-    setEditProject(false);
+
+    atTheEndOfEdition();
   };
 
   const handleChange = (e) => {

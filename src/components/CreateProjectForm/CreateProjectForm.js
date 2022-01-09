@@ -56,7 +56,7 @@ const CreateProjectForm = () => {
         />
         <div className="create-project-form__button">
           {waitingForResponse ? (
-            <LoadingButton />
+            <LoadingButton color="primary" />
           ) : (
             <Button
               type="submit"

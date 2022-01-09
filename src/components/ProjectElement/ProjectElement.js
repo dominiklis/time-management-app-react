@@ -13,9 +13,18 @@ const ProjectElement = ({
   headerColor,
   initiallyExpanded,
 }) => {
-  const [editProject, setEditProject] = useState(false);
+  // const [editProject, setEditProject] = useState(false);
+  const [editingState, setEditingState] = useState({
+    editing: false,
+    returnedFromEditing: false,
+  });
 
-  const toggleEditProject = () => setEditProject((prev) => !prev);
+  const atTheEndOfEdition = () =>
+    setEditingState({ editing: false, returnedFromEditing: true });
+
+  const toggleEditProject = () =>
+    setEditingState((prev) => ({ ...prev, editing: !prev.editing }));
+
   const getStyle = () => {
     let cln = "project-element";
 
@@ -26,12 +35,18 @@ const ProjectElement = ({
 
   return (
     <div className={getStyle()}>
-      {editProject ? (
-        <EditProjectForm project={project} setEditProject={setEditProject} />
+      {editingState.editing ? (
+        <EditProjectForm
+          project={project}
+          // setEditProject={editingState.editing}
+          atTheEndOfEdition={atTheEndOfEdition}
+        />
       ) : (
         <ExpandableComponent
           hoverActiveStyles
-          initiallyExpanded={initiallyExpanded}
+          initiallyExpanded={
+            initiallyExpanded || editingState.returnedFromEditing
+          }
           key={project.projectId}
           alwaysVisibleComponent={
             <ProjectCard
