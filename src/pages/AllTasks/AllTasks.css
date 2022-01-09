@@ -5,11 +5,26 @@
   height: 100%;
 }
 
-.all-tasks-page__navigation {
+.all-tasks-page__top {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .all-tasks-page__top {
+    flex-direction: column;
+  }
+
+  .all-tasks-page__top .priority-filter {
+    margin-top: 1em;
+  }
+}
+
+.all-tasks-page__navigation {
+  display: flex;
+  align-items: center;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,6 +1,7 @@
 .priority-filter {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 0.5em;
 }
 
 @media screen and (max-width: 600px) {

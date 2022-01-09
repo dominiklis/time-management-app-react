@@ -10,7 +10,11 @@ import {
   getPrevMonth,
   getToday,
 } from "../../utils/days";
-import { getTasksOfPeriod, tasksWithoutDate } from "../../utils/filterTasks";
+import {
+  filterByPriority,
+  getTasksOfPeriod,
+  tasksWithoutDate,
+} from "../../utils/filterTasks";
 
 import Page from "../../components/Page/Page";
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
@@ -21,6 +25,7 @@ import Modal from "../../components/Modal/Modal";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import SearchForm from "../../components/SearchForm/SearchForm";
+import PriorityFilter from "../../components/PriorityFilter/PriorityFilter";
 
 const getPath = (date) => {
   return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
@@ -30,6 +35,7 @@ const getPath = (date) => {
 
 const AllTasks = () => {
   const [showModal, setShowModal] = useState(false);
+  const [priority, setPriority] = useState([]);
 
   const handleOpenModal = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -95,17 +101,20 @@ const AllTasks = () => {
       )}
 
       <SearchForm />
-
       <FloatingButton onClick={handleOpenModal} />
-      <div className="all-tasks-page__navigation">
-        <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
-        <div className="all-tasks-page__current-month">
-          {formatMonthAndYear(month)}
+      <div className="all-tasks-page__top">
+        <div className="all-tasks-page__navigation">
+          <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
+          <div className="all-tasks-page__current-month">
+            {formatMonthAndYear(month)}
+          </div>
+          <NavigationButton onClick={handleNextMonth}>{">"}</NavigationButton>
         </div>
-        <NavigationButton onClick={handleNextMonth}>{">"}</NavigationButton>
+
+        <PriorityFilter selected={priority} setSelected={setPriority} />
       </div>
       <Accordion header="tasks without date" color="secondary">
-        {tasksWithoutDate(tasks).map((task) => (
+        {filterByPriority(tasksWithoutDate(tasks), priority).map((task) => (
           <TaskElement key={task.taskId} task={task} />
         ))}
       </Accordion>
@@ -114,7 +123,7 @@ const AllTasks = () => {
           header={formatDate(date) + ` (${sortedtasks[date].length})`}
           key={date}
         >
-          {sortedtasks[date].map((task, index) => (
+          {filterByPriority(sortedtasks[date], priority).map((task, index) => (
             <TaskElement key={task.taskId} task={task} />
           ))}
         </Accordion>
