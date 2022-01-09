@@ -10,6 +10,7 @@ import { formatDate, formatInterval, formatTime } from "../../utils/days";
 import CheckButton from "../CheckButton/CheckButton";
 import IconButton from "../IconButton/IconButton";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
+import getPriorityLevel from "../../utils/getPriorityLevel";
 
 const TaskCard = ({
   task,
@@ -62,6 +63,15 @@ const TaskCard = ({
     return cln;
   };
 
+  const getPriorityStyles = (priority) => {
+    let cln = "task-card__priority";
+
+    if (priority === 1) cln += " task-card__priority--important";
+    else if (priority === 2) cln += " task-card__priority--urgent";
+
+    return cln;
+  };
+
   const handleClick = () => onClick(task.taskId);
 
   const handleRemoveProjectId = async () => {
@@ -96,21 +106,30 @@ const TaskCard = ({
         <div className="task-card__name">{task.taskName}</div>
 
         {task.dateToComplete && (
-          <div className="task-card__date-section">
-            <FiCalendar />
-            <div className="task-card__date">
-              {formatDate(task.dateToComplete)}
+          <div className="task-card__bottom">
+            <div className="task-card__date-section">
+              <FiCalendar />
+              <div className="task-card__date">
+                {formatDate(task.dateToComplete)}
+              </div>
+              {task.startTime &&
+                (task.endTime ? (
+                  <div className="task-card__time">
+                    {formatInterval(task.startTime, task.endTime)}
+                  </div>
+                ) : (
+                  <div className="task-card__time">
+                    {formatTime(task.startTime)}
+                  </div>
+                ))}
             </div>
-            {task.startTime &&
-              (task.endTime ? (
-                <div className="task-card__time">
-                  {formatInterval(task.startTime, task.endTime)}
-                </div>
-              ) : (
-                <div className="task-card__time">
-                  {formatTime(task.startTime)}
-                </div>
-              ))}
+            {(task.priority === 1 || task.priority === 2) && (
+              <div>
+                <span className={getPriorityStyles(task.priority)}>
+                  {getPriorityLevel(task.priority)}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>

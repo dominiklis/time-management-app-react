@@ -43,7 +43,6 @@
 
 @media screen and (max-width: 600px) {
   .task-card__content {
-    max-width: 66%;
     text-overflow: ellipsis;
     overflow: hidden;
   }
@@ -63,11 +62,24 @@
   margin-left: 0.25em;
 }
 
-.task-card__date-section {
+.task-card__bottom {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.task-card__date-section {
+  display: flex;
 }
 
 .task-card__date {
   margin: 0 0.4em;
+}
+
+.task-card__priority--important {
+  color: var(--clr-war3);
+}
+
+.task-card__priority--urgent {
+  color: var(--clr-err3);
 }
