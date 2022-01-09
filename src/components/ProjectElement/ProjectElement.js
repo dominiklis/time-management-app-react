@@ -13,7 +13,6 @@ const ProjectElement = ({
   headerColor,
   initiallyExpanded,
 }) => {
-  // const [editProject, setEditProject] = useState(false);
   const [editingState, setEditingState] = useState({
     editing: false,
     returnedFromEditing: false,
@@ -38,7 +37,6 @@ const ProjectElement = ({
       {editingState.editing ? (
         <EditProjectForm
           project={project}
-          // setEditProject={editingState.editing}
           atTheEndOfEdition={atTheEndOfEdition}
         />
       ) : (
