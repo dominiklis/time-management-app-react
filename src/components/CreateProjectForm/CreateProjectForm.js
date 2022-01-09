@@ -54,19 +54,17 @@ const CreateProjectForm = () => {
           error={error}
           lightBorder
         />
-        <div className="create-project-form__button">
-          {waitingForResponse ? (
-            <LoadingButton color="primary" />
-          ) : (
-            <Button
-              type="submit"
-              disabled={projectName.length === 0}
-              color="primary"
-            >
-              create
-            </Button>
-          )}
-        </div>
+        {waitingForResponse ? (
+          <LoadingButton color="primary" />
+        ) : (
+          <Button
+            type="submit"
+            disabled={projectName.length === 0}
+            color="primary"
+          >
+            create
+          </Button>
+        )}
       </div>
     </form>
   );
