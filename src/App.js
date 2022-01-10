@@ -78,6 +78,14 @@ function App() {
             }
           />
           <Route
+            path="home"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="all"
             element={
               <RequireAuth>

@@ -8,3 +8,32 @@
 .home-page .accordion:last-child {
   margin-bottom: 100px;
 }
+
+.home-page__header {
+  display: flex;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  flex-wrap: wrap;
+}
+
+.home-page__header .search {
+  flex: 1;
+  flex-basis: 200px;
+  margin-right: 0.5em;
+  padding-right: 0.5em;
+  border-right: 1px solid var(--clr-gray6);
+}
+
+@media screen and (max-width: 600px) {
+  .home-page__header {
+    flex-direction: column;
+  }
+  .home-page__header .search {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+    margin-bottom: 0.5em;
+    flex-basis: auto;
+  }
+}

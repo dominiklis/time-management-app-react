@@ -30,7 +30,7 @@ const Home = () => {
   const handleClose = () => setShowModal(false);
 
   return (
-    <Page title="Tasks For Today" loadingPage={!tasksLoaded}>
+    <Page title="Your tasks" loadingPage={!tasksLoaded}>
       {showModal && (
         <Modal
           modalTitle="Create Task"
@@ -49,39 +49,37 @@ const Home = () => {
       {tasks.length === 0 && tasksLoaded ? (
         <p>Add your first task.</p>
       ) : (
-        <>
-          <SearchForm />
-          <PriorityFilter selected={priority} setSelected={setPriority} />
-
-          <div className="home-page">
-            <Accordion
-              header={`Today (${tasksForToday(tasks).length})`}
-              color="primary"
-              open
-            >
-              {filterByPriority(tasksForToday(tasks), priority).map((task) => (
-                <TaskElement key={task.taskId} task={task} />
-              ))}
-            </Accordion>
-
-            <Accordion
-              header={`Overdue (${overdueTasks(tasks).length})`}
-              color="warning"
-            >
-              {filterByPriority(overdueTasks(tasks), priority).map((task) => (
-                <TaskElement key={task.taskId} task={task} />
-              ))}
-            </Accordion>
-
-            <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
-              {filterByPriority(tasksWithoutDate(tasks), priority).map(
-                (task) => (
-                  <TaskElement key={task.taskId} task={task} />
-                )
-              )}
-            </Accordion>
+        <div className="home-page">
+          <div className="home-page__header">
+            <SearchForm />
+            <PriorityFilter selected={priority} setSelected={setPriority} />
           </div>
-        </>
+
+          <Accordion
+            header={`Today (${tasksForToday(tasks).length})`}
+            color="primary"
+            open
+          >
+            {filterByPriority(tasksForToday(tasks), priority).map((task) => (
+              <TaskElement key={task.taskId} task={task} />
+            ))}
+          </Accordion>
+
+          <Accordion
+            header={`Overdue (${overdueTasks(tasks).length})`}
+            color="warning"
+          >
+            {filterByPriority(overdueTasks(tasks), priority).map((task) => (
+              <TaskElement key={task.taskId} task={task} />
+            ))}
+          </Accordion>
+
+          <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
+            {filterByPriority(tasksWithoutDate(tasks), priority).map((task) => (
+              <TaskElement key={task.taskId} task={task} />
+            ))}
+          </Accordion>
+        </div>
       )}
     </Page>
   );

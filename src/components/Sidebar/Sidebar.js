@@ -4,9 +4,9 @@ import "./Sidebar.css";
 import { Link, useLocation } from "react-router-dom";
 import { IconContext } from "react-icons";
 import {
+  CgHome,
   CgMenu,
   CgClose,
-  CgCalendarToday,
   CgCalendar,
   CgFileDocument,
   CgSearch,
@@ -17,8 +17,8 @@ const Sidebar = () => {
   const menuItems = [
     {
       path: "/",
-      icon: <CgCalendarToday />,
-      text: "today",
+      icon: <CgHome />,
+      text: "home",
     },
     {
       path: "/all",
