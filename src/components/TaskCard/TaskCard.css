@@ -89,6 +89,10 @@
   margin: 0 0.4em;
 }
 
+.task-card__date-span {
+  margin-right: 0.4em;
+}
+
 .task-card__priority--important {
   color: var(--clr-war3);
 }

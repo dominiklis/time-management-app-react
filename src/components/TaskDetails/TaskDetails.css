@@ -28,9 +28,20 @@
 }
 
 .task-details__created-info,
-.task-details__assignemnts {
+.task-details__assignemnts,
+.task-details__date-to-complete,
+.task-details__completed-date {
   font-size: 0.8em;
   color: var(--clr-gray4);
+}
+
+.task-details__date-to-complete {
+  display: flex;
+  align-items: center;
+}
+
+.task-details__info-span + .task-details__info-span {
+  margin-left: 0.5em;
 }
 
 .task-details__author-name {

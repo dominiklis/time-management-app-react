@@ -6,7 +6,13 @@ import TaskDetails from "../TaskDetails/TaskDetails";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import EditTask from "../EditTask/EditTask";
 
-const TaskElement = ({ task, border, alwaysExpanded }) => {
+const TaskElement = ({
+  task,
+  border,
+  alwaysExpanded,
+  useCompletedDateInCard,
+  hideCompletedDateInDetails,
+}) => {
   const [editingState, setEditingState] = useState({
     editing: false,
     returnedFromEditing: false,
@@ -40,10 +46,19 @@ const TaskElement = ({ task, border, alwaysExpanded }) => {
           alwaysExpanded={alwaysExpanded}
           passOnClickHandler
           alwaysVisibleComponent={
-            <TaskCard defaultCursor={alwaysExpanded} task={task} />
+            <TaskCard
+              defaultCursor={alwaysExpanded}
+              task={task}
+              useCompletedDate={useCompletedDateInCard}
+            />
           }
           componentToBeExpanded={
-            <TaskDetails handleEditButton={handleEditButton} task={task} />
+            <TaskDetails
+              handleEditButton={handleEditButton}
+              task={task}
+              showDateToComplete={useCompletedDateInCard}
+              hideCompltedDate={hideCompletedDateInDetails}
+            />
           }
         />
       )}

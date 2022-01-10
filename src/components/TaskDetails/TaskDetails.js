@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "./TaskDetails.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { formatDate, formatTime } from "../../utils/days";
+import { formatDate, formatInterval, formatTime } from "../../utils/days";
 import { CgPen, CgAssign, CgClose, CgTrashEmpty } from "react-icons/cg";
 import { getProjectsThatUserCanEdit } from "../../utils/filterProjects";
 import { deleteTask } from "../../store/slices/tasksSlice";
 import { updateTask } from "../../store/slices/tasksSlice";
+import { FiCalendar } from "react-icons/fi";
 
 import TaskSteps from "../TaskSteps/TaskSteps";
 import TaskUsers from "../TaskUsers/TaskUsers";
@@ -19,7 +20,12 @@ import LoadingPage from "../LoadingPage/LoadingPage";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import constants from "../../utils/constants";
 
-const TaskDetails = ({ task, handleEditButton }) => {
+const TaskDetails = ({
+  task,
+  handleEditButton,
+  showDateToComplete,
+  hideCompltedDate,
+}) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.users);
@@ -151,14 +157,48 @@ const TaskDetails = ({ task, handleEditButton }) => {
           )}
         </div>
         <div>
+          {!hideCompltedDate && task.completedAt && (
+            <div className="task-details__completed-date">
+              <span className="task-details__info-span">completed:</span>
+              <span className="task-details__info-span">
+                {formatDate(task.completedAt)}
+              </span>
+              <span className="task-details__info-span">
+                {formatTime(task.completedAt)}
+              </span>
+            </div>
+          )}
+
+          {showDateToComplete && (
+            <div className="task-details__date-to-complete">
+              <span className="task-details__info-span">
+                <FiCalendar />
+              </span>
+              <span className="task-details__info-span">
+                {formatDate(task.dateToComplete)}
+              </span>
+              {task.startTime &&
+                (task.endTime ? (
+                  <span className="task-details__info-span">
+                    {formatInterval(task.startTime, task.endTime)}
+                  </span>
+                ) : (
+                  <span className="task-details__info-span">
+                    {formatTime(task.startTime)}
+                  </span>
+                ))}
+            </div>
+          )}
+
           <div className="task-details__created-info">
-            created{" "}
-            {`${formatDate(task.createdAt)} ${formatTime(task.createdAt)}`}
+            <span className="task-details__info-span">created</span>
+            <span className="task-details__info-span">{`${formatDate(
+              task.createdAt
+            )} ${formatTime(task.createdAt)}`}</span>
             {user.id !== task.authorId && (
               <>
-                {" "}
-                by{" "}
-                <span className="task-details__author-name">
+                <span className="task-details__info-span">by</span>
+                <span className="task-details__author-name  task-details__info-span">
                   {task.authorName}
                 </span>
               </>
@@ -168,18 +208,19 @@ const TaskDetails = ({ task, handleEditButton }) => {
           <div className="task-details__assignemnts">
             {task.projectId ? (
               <>
-                task assigned to project:{" "}
-                <AppLink to={`/projects/${task.projectId}`}>
-                  {task.projectName}
-                </AppLink>
+                <span className="task-details__info-span">
+                  task assigned to project:
+                </span>
+                <span className="task-details__info-span">
+                  <AppLink to={`/projects/${task.projectId}`}>
+                    {task.projectName}
+                  </AppLink>
+                </span>
               </>
             ) : (
-              <>
+              <span className="task-details__info-span">
                 assign this task to project
-                <AppLink to={`/projects/${task.projectId}`}>
-                  {task.projectName}
-                </AppLink>
-              </>
+              </span>
             )}
           </div>
         </div>

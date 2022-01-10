@@ -29,7 +29,12 @@ const CompletedTasks = () => {
         <>
           <div className="today-page">
             {compltedTasks.map((task) => (
-              <TaskElement key={task.taskId} task={task} />
+              <TaskElement
+                key={task.taskId}
+                task={task}
+                useCompletedDateInCard
+                hideCompletedDateInDetails
+              />
             ))}
           </div>
         </>

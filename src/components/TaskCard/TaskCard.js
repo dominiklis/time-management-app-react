@@ -20,6 +20,7 @@ const TaskCard = ({
   verticalMargin,
   defaultCursor,
   showRemoveProjectIdButton,
+  useCompletedDate,
 }) => {
   const dispatch = useDispatch();
 
@@ -109,20 +110,36 @@ const TaskCard = ({
         <div className="task-card__bottom">
           {task.dateToComplete && (
             <div className="task-card__date-section">
-              <FiCalendar />
-              <div className="task-card__date">
-                {formatDate(task.dateToComplete)}
-              </div>
-              {task.startTime &&
-                (task.endTime ? (
-                  <div className="task-card__time">
-                    {formatInterval(task.startTime, task.endTime)}
+              {useCompletedDate ? (
+                <>
+                  completed:
+                  <div className="task-card__date">
+                    <span className="task-card__date-span">
+                      {formatDate(task.completedAt)}
+                    </span>
+                    <span className="task-card__date-span">
+                      {formatTime(task.completedAt)}
+                    </span>
                   </div>
-                ) : (
-                  <div className="task-card__time">
-                    {formatTime(task.startTime)}
+                </>
+              ) : (
+                <>
+                  <FiCalendar />
+                  <div className="task-card__date">
+                    {formatDate(task.dateToComplete)}
                   </div>
-                ))}
+                  {task.startTime &&
+                    (task.endTime ? (
+                      <div className="task-card__time">
+                        {formatInterval(task.startTime, task.endTime)}
+                      </div>
+                    ) : (
+                      <div className="task-card__time">
+                        {formatTime(task.startTime)}
+                      </div>
+                    ))}
+                </>
+              )}
             </div>
           )}
           {(task.priority === 1 || task.priority === 2) && (
