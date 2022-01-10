@@ -8,7 +8,7 @@
 
 .search-filter-header .search {
   flex: 1;
-  flex-basis: 200px;
+  flex-basis: 250px;
   margin-right: 0.5em;
   padding-right: 0.5em;
   border-right: 1px solid var(--clr-gray6);

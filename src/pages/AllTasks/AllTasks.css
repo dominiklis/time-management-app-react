@@ -7,26 +7,9 @@
 
 .all-tasks-page__top {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 0.5em;
-}
-
-@media screen and (max-width: 600px) {
-  .all-tasks-page__top {
-    flex-direction: column;
-  }
-}
-
-.all-tasks-page__navigation {
-  display: flex;
-  align-items: center;
-}
-
-@media screen and (max-width: 600px) {
-  .all-tasks-page__navigation {
-    justify-content: center;
-  }
 }
 
 .all-tasks-page__current-month {
