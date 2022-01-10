@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./BrowsePage.css";
 
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import constants from "../../utils/constants";
 
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import Modal from "../../components/Modal/Modal";
 import Page from "../../components/Page/Page";
 import AppLink from "../../components/Link/AppLink";
-import { useSelector } from "react-redux";
 
 const BrowsePage = () => {
   const { tasksLoaded } = useSelector((state) => state.tasks);
@@ -25,14 +26,14 @@ const BrowsePage = () => {
   const handleClose = () => setShowModal(false);
 
   return (
-    <Page title="Browse Tasks" loadingPage={!tasksLoaded}>
+    <Page title={constants.pageTitles.browseTasks} loadingPage={!tasksLoaded}>
       {showModal && (
         <Modal
           modalOpen={showModal}
           handleClose={handleClose}
-          modalTitle="Create Task"
+          modalTitle={constants.modalTitles.createTask}
         >
-          <CreateTaskForm title="Create new task" afterSubmit={handleClose} />
+          <CreateTaskForm afterSubmit={handleClose} />
         </Modal>
       )}
 

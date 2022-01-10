@@ -10,6 +10,7 @@ import SearchForm from "../../components/SearchForm/SearchForm";
 import List from "../../components/List/List";
 import TaskElement from "../../components/TaskElement/TaskElement";
 import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
+import constants from "../../utils/constants";
 
 const SearchPage = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,11 @@ const SearchPage = () => {
 
   return (
     <Page
-      title={searchInput ? `Search results for "${search.input}"` : "Search"}
+      title={
+        searchInput
+          ? constants.pageTitles.searchFor(search.input)
+          : constants.pageTitles.search
+      }
     >
       <SearchForm />
       {waitingForResponse ? (

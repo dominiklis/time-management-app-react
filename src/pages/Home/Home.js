@@ -8,6 +8,7 @@ import {
   tasksForToday,
   tasksWithoutDate,
 } from "../../utils/filterTasks";
+import constants from "../../utils/constants";
 
 import Accordion from "../../components/Accordion/Accordion";
 import Page from "../../components/Page/Page";
@@ -29,10 +30,10 @@ const Home = () => {
   const handleClose = () => setShowModal(false);
 
   return (
-    <Page title="Your tasks" loadingPage={!tasksLoaded}>
+    <Page title={constants.pageTitles.home} loadingPage={!tasksLoaded}>
       {showModal && (
         <Modal
-          modalTitle="Create Task"
+          modalTitle={constants.modalTitles.createTask}
           modalOpen={showModal}
           handleClose={handleClose}
         >
@@ -46,7 +47,7 @@ const Home = () => {
       <FloatingButton onClick={handleOpenModal} />
 
       {tasks.length === 0 && tasksLoaded ? (
-        <p>Add your first task.</p>
+        <p>{constants.pageTexts.addFirstTask}</p>
       ) : (
         <div className="home-page">
           <SearchAndFilterHeader

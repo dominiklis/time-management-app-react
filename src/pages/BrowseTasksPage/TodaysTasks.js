@@ -3,12 +3,13 @@ import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import { tasksForToday } from "../../utils/filterTasks";
-
-import TaskElement from "../../components/TaskElement/TaskElement";
 import {
   createSelectTasksWithDateAndStartTime,
   createSelectTasksWithDateOnly,
 } from "../../utils/selectors";
+import constants from "../../utils/constants";
+
+import TaskElement from "../../components/TaskElement/TaskElement";
 
 const TodaysTasks = () => {
   const setBrowseTasksPageTitle = useOutletContext();
@@ -41,7 +42,7 @@ const TodaysTasks = () => {
   return (
     <div>
       {tasks.length === 0 && tasksLoaded ? (
-        <p>add your first task</p>
+        <p>{constants.pageTexts.addFirstTask}</p>
       ) : (
         <>
           <div className="today-page">

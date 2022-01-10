@@ -15,6 +15,7 @@ import {
   getTasksOfPeriod,
   tasksWithoutDate,
 } from "../../utils/filterTasks";
+import constants from "../../utils/constants";
 
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
@@ -98,7 +99,10 @@ const MonthlyTasks = () => {
         </div>
         <NavigationButton onClick={handleNextMonth}>{">"}</NavigationButton>
       </div>
-      <Accordion header="tasks without date" color="secondary">
+      <Accordion
+        header={constants.accordionHeaders.tasksWithoutDate}
+        color="secondary"
+      >
         {filterByPriority(tasksWithoutDate(tasks), priority).map((task) => (
           <TaskElement key={task.taskId} task={task} />
         ))}
