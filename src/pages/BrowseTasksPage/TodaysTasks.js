@@ -1,17 +1,26 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
-import { useOutletContext } from "react-router-dom";
-import { tasksForToday } from "../../utils/filterTasks";
 import {
-  createSelectTasksWithDateAndStartTime,
-  createSelectTasksWithDateOnly,
-} from "../../utils/selectors";
+  filterByPriority,
+  overdueTasks,
+  tasksForToday,
+  tasksWithoutDate,
+} from "../../utils/filterTasks";
 import constants from "../../utils/constants";
+
+import Accordion from "../../components/Accordion/Accordion";
 
 import TaskElement from "../../components/TaskElement/TaskElement";
 
+import SearchAndFilterHeader from "../../components/SearchAndFilterHeader/SearchAndFilterHeader";
+import { useOutletContext } from "react-router-dom";
+
 const TodaysTasks = () => {
+  const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
+
+  const [priority, setPriority] = useState([]);
+
   const setBrowseTasksPageTitle = useOutletContext();
 
   useEffect(() => {
@@ -22,43 +31,44 @@ const TodaysTasks = () => {
     });
   }, [setBrowseTasksPageTitle]);
 
-  const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
-
-  const selectTasksWithDateAndStartTime = useMemo(
-    createSelectTasksWithDateAndStartTime,
-    []
-  );
-
-  const selectTasksWithDateOnly = useMemo(createSelectTasksWithDateOnly, []);
-
-  const tasksWithDateAndStartTime = useSelector((state) =>
-    selectTasksWithDateAndStartTime(state, true)
-  );
-
-  const tasksWithDateOnly = useSelector((state) =>
-    selectTasksWithDateOnly(state)
-  );
-
   return (
-    <div>
+    <>
       {tasks.length === 0 && tasksLoaded ? (
         <p>{constants.pageTexts.addFirstTask}</p>
       ) : (
         <>
-          <div className="today-page">
-            {tasksForToday(tasksWithDateAndStartTime).map((task) => (
+          <SearchAndFilterHeader
+            priority={priority}
+            setPriority={setPriority}
+          />
+
+          <Accordion
+            header={`Today (${tasksForToday(tasks).length})`}
+            color="primary"
+            open
+          >
+            {filterByPriority(tasksForToday(tasks), priority).map((task) => (
               <TaskElement key={task.taskId} task={task} />
             ))}
-          </div>
-          <h3>also to be done today</h3>
-          <div className="today-page">
-            {tasksForToday(tasksWithDateOnly).map((task) => (
+          </Accordion>
+
+          <Accordion
+            header={`Overdue (${overdueTasks(tasks).length})`}
+            color="warning"
+          >
+            {filterByPriority(overdueTasks(tasks), priority).map((task) => (
               <TaskElement key={task.taskId} task={task} />
             ))}
-          </div>
+          </Accordion>
+
+          <Accordion header={`No date (${tasksWithoutDate(tasks).length})`}>
+            {filterByPriority(tasksWithoutDate(tasks), priority).map((task) => (
+              <TaskElement key={task.taskId} task={task} />
+            ))}
+          </Accordion>
         </>
       )}
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,8 @@ const constants = {
   highlightedProject: "highlighted project",
 
   pageTitles: {
-    home: "Your tasks",
+    home: "Tasks for today",
+    yourTasks: "Your tasks",
     browseTasks: "Browse Tasks",
     search: "Search",
     searchFor: (searchInput) => `Search results for "${searchInput}"`,
