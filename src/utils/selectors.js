@@ -2,6 +2,13 @@ import { createSelector } from "@reduxjs/toolkit";
 
 const tasksSelector = (state) => state.tasks.tasks;
 
+const createSelectCompletedTasks = () =>
+  createSelector(tasksSelector, (tasks) =>
+    tasks
+      .filter((task) => task.taskCompleted)
+      .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
+  );
+
 const createSelectTasksWithoutDateSet = () =>
   createSelector(tasksSelector, (tasks) =>
     tasks.filter((task) => !task.dateToComplete)
@@ -9,7 +16,7 @@ const createSelectTasksWithoutDateSet = () =>
 
 const createSelectTasksWithDateOnly = () =>
   createSelector(tasksSelector, (tasks) =>
-    tasks.filter((tasks) => !!tasks.dateToComplete && !tasks.startTime)
+    tasks.filter((task) => !!task.dateToComplete && !task.startTime)
   );
 
 const createSelectTasksWithDateAndStartTime = () =>
@@ -27,6 +34,7 @@ const createSelectTasksWithDateAndStartTime = () =>
   );
 
 export {
+  createSelectCompletedTasks,
   createSelectTasksWithoutDateSet,
   createSelectTasksWithDateOnly,
   createSelectTasksWithDateAndStartTime,

@@ -12,6 +12,15 @@ import {
 
 const TodaysTasks = () => {
   const setBrowseTasksPageTitle = useOutletContext();
+
+  useEffect(() => {
+    setBrowseTasksPageTitle({
+      leftButton: { text: "completed", to: "completed" },
+      rightButton: { text: "monthly", to: "month" },
+      header: "today",
+    });
+  }, [setBrowseTasksPageTitle]);
+
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
 
   const selectTasksWithDateAndStartTime = useMemo(
@@ -29,18 +38,10 @@ const TodaysTasks = () => {
     selectTasksWithDateOnly(state)
   );
 
-  useEffect(() => {
-    setBrowseTasksPageTitle({
-      leftButton: { text: "completed", to: "completed" },
-      rightButton: { text: "monthly", to: "month" },
-      header: "today",
-    });
-  }, [setBrowseTasksPageTitle]);
-
   return (
     <div>
       {tasks.length === 0 && tasksLoaded ? (
-        <p>Add your first task.</p>
+        <p>add your first task</p>
       ) : (
         <>
           <div className="today-page">

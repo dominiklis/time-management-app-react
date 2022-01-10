@@ -19,6 +19,7 @@ import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import BrowsePage from "./pages/BrowseTasksPage/BrowsePage";
 import TodaysTasks from "./pages/BrowseTasksPage/TodaysTasks";
+import CompletedTasks from "./pages/BrowseTasksPage/CompletedTasks";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
@@ -117,6 +118,14 @@ function App() {
               element={
                 <RequireAuth>
                   <MonthlyTasks />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="completed"
+              element={
+                <RequireAuth>
+                  <CompletedTasks />
                 </RequireAuth>
               }
             />

@@ -69,8 +69,6 @@ const MonthlyTasks = () => {
         true
       );
 
-      console.log(tasksForThisMonth);
-
       setSortedTasks(tasksForThisMonth);
     },
     [tasks]
