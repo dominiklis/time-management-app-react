@@ -26,6 +26,7 @@ import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import PriorityFilter from "../../components/PriorityFilter/PriorityFilter";
+import SearchAndFilterHeader from "../../components/SearchAndFilterHeader/SearchAndFilterHeader";
 
 const getPath = (date) => {
   return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
@@ -100,7 +101,7 @@ const AllTasks = () => {
         </Modal>
       )}
 
-      <SearchForm />
+      <SearchAndFilterHeader priority={priority} setPriority={setPriority} />
       <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__top">
         <div className="all-tasks-page__navigation">
@@ -110,8 +111,6 @@ const AllTasks = () => {
           </div>
           <NavigationButton onClick={handleNextMonth}>{">"}</NavigationButton>
         </div>
-
-        <PriorityFilter selected={priority} setSelected={setPriority} />
       </div>
       <Accordion header="tasks without date" color="secondary">
         {filterByPriority(tasksWithoutDate(tasks), priority).map((task) => (

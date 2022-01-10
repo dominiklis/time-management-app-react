@@ -16,10 +16,6 @@
   .all-tasks-page__top {
     flex-direction: column;
   }
-
-  .all-tasks-page__top .priority-filter {
-    margin-top: 1em;
-  }
 }
 
 .all-tasks-page__navigation {

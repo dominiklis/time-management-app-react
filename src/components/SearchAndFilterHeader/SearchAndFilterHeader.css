@@ -1,0 +1,28 @@
+.search-filter-header {
+  display: flex;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  flex-wrap: wrap;
+}
+
+.search-filter-header .search {
+  flex: 1;
+  flex-basis: 200px;
+  margin-right: 0.5em;
+  padding-right: 0.5em;
+  border-right: 1px solid var(--clr-gray6);
+}
+
+@media screen and (max-width: 600px) {
+  .search-filter-header {
+    flex-direction: column;
+  }
+  .search-filter-header .search {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+    margin-bottom: 0.5em;
+    flex-basis: auto;
+  }
+}

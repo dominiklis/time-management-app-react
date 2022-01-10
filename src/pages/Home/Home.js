@@ -15,8 +15,7 @@ import TaskElement from "../../components/TaskElement/TaskElement";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import Modal from "../../components/Modal/Modal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
-import SearchForm from "../../components/SearchForm/SearchForm";
-import PriorityFilter from "../../components/PriorityFilter/PriorityFilter";
+import SearchAndFilterHeader from "../../components/SearchAndFilterHeader/SearchAndFilterHeader";
 
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
@@ -50,10 +49,10 @@ const Home = () => {
         <p>Add your first task.</p>
       ) : (
         <div className="home-page">
-          <div className="home-page__header">
-            <SearchForm />
-            <PriorityFilter selected={priority} setSelected={setPriority} />
-          </div>
+          <SearchAndFilterHeader
+            priority={priority}
+            setPriority={setPriority}
+          />
 
           <Accordion
             header={`Today (${tasksForToday(tasks).length})`}
