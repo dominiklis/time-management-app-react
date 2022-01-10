@@ -14,9 +14,11 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
-import BrowseTasksPage from "./pages/BrowseTasksPage/BrowseTasksPage";
+import MonthlyTasks from "./pages/BrowseTasksPage/MonthlyTasks";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import BrowsePage from "./pages/BrowseTasksPage/BrowsePage";
+import TodaysTasks from "./pages/BrowseTasksPage/TodaysTasks";
 
 function App() {
   const { initialLoad } = useSelector((state) => state.app);
@@ -85,22 +87,40 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route
-            path="browse"
-            element={
-              <RequireAuth>
-                <BrowseTasksPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="browse/:monthYear"
-            element={
-              <RequireAuth>
-                <BrowseTasksPage />
-              </RequireAuth>
-            }
-          />
+          <Route path="/browse" element={<BrowsePage />}>
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <TodaysTasks />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="today"
+              element={
+                <RequireAuth>
+                  <TodaysTasks />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="month"
+              element={
+                <RequireAuth>
+                  <MonthlyTasks />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="month/:monthYear"
+              element={
+                <RequireAuth>
+                  <MonthlyTasks />
+                </RequireAuth>
+              }
+            />
+          </Route>
           <Route
             path="projects"
             element={

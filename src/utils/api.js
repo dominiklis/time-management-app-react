@@ -20,7 +20,7 @@ axios.interceptors.request.use((config) => {
 const delay = (d) => new Promise((resolve) => setTimeout(resolve, d));
 
 axios.interceptors.response.use(async (response) => {
-  await delay(1500);
+  await delay(500);
   return response;
 });
 

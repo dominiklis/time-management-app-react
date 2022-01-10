@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./BrowseTasksPage.css";
+import "./MonthlyTasks.css";
 
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import {
   formatDate,
   formatMonthAndYear,
@@ -16,34 +16,35 @@ import {
   tasksWithoutDate,
 } from "../../utils/filterTasks";
 
-import Page from "../../components/Page/Page";
 import NavigationButton from "../../components/NavigationButton/NavigationButton";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import Accordion from "../../components/Accordion/Accordion";
 import TaskElement from "../../components/TaskElement/TaskElement";
-import Modal from "../../components/Modal/Modal";
-import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
-import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import SearchAndFilterHeader from "../../components/SearchAndFilterHeader/SearchAndFilterHeader";
 
 const getPath = (date) => {
-  return `/browse/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
-    date.getMonth() + 1
-  }`;
+  return `/browse/month/${date.getFullYear()}-${
+    date.getMonth() < 9 ? "0" : ""
+  }${date.getMonth() + 1}`;
 };
 
-const BrowseTasksPage = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [priority, setPriority] = useState([]);
+const MonthlyTasks = () => {
+  const setBrowseTasksPageTitle = useOutletContext();
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  useEffect(() => {
+    setBrowseTasksPageTitle({
+      leftButton: { text: "completed", to: "completed" },
+      rightButton: { text: "today", to: "today" },
+      header: "monthly",
+    });
+  }, [setBrowseTasksPageTitle]);
 
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
 
   const navigate = useNavigate();
   const { monthYear } = useParams();
 
+  const [priority, setPriority] = useState([]);
   const [month, setMonth] = useState(null);
   const [sortedtasks, setSortedTasks] = useState([]);
 
@@ -68,6 +69,8 @@ const BrowseTasksPage = () => {
         true
       );
 
+      console.log(tasksForThisMonth);
+
       setSortedTasks(tasksForThisMonth);
     },
     [tasks]
@@ -88,19 +91,8 @@ const BrowseTasksPage = () => {
   }
 
   return (
-    <Page title="Browse Tasks">
-      {showModal && (
-        <Modal
-          modalOpen={showModal}
-          handleClose={handleClose}
-          modalTitle="Create Task"
-        >
-          <CreateTaskForm title="Create new task" afterSubmit={handleClose} />
-        </Modal>
-      )}
-
+    <>
       <SearchAndFilterHeader priority={priority} setPriority={setPriority} />
-      <FloatingButton onClick={handleOpenModal} />
       <div className="all-tasks-page__top">
         <NavigationButton onClick={handlePrevMonth}>{"<"}</NavigationButton>
         <div className="all-tasks-page__current-month">
@@ -113,18 +105,22 @@ const BrowseTasksPage = () => {
           <TaskElement key={task.taskId} task={task} />
         ))}
       </Accordion>
-      {Object.keys(sortedtasks).map((date) => (
-        <Accordion
-          header={formatDate(date) + ` (${sortedtasks[date].length})`}
-          key={date}
-        >
-          {filterByPriority(sortedtasks[date], priority).map((task, index) => (
-            <TaskElement key={task.taskId} task={task} />
-          ))}
-        </Accordion>
-      ))}
-    </Page>
+      {Object.keys(sortedtasks)
+        .sort()
+        .map((date) => (
+          <Accordion
+            header={formatDate(date) + ` (${sortedtasks[date].length})`}
+            key={date}
+          >
+            {filterByPriority(sortedtasks[date], priority).map(
+              (task, index) => (
+                <TaskElement key={task.taskId} task={task} />
+              )
+            )}
+          </Accordion>
+        ))}
+    </>
   );
 };
 
-export default BrowseTasksPage;
+export default MonthlyTasks;

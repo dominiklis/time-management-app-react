@@ -1,0 +1,14 @@
+.browse-page__navigation {
+  background-color: var(--clr-gray9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.browse-page__navigation > * {
+  flex: 1;
+  text-align: center;
+}
