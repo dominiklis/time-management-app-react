@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./AllTasks.css";
+import "./BrowseTasksPage.css";
 
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,12 +27,12 @@ import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import SearchAndFilterHeader from "../../components/SearchAndFilterHeader/SearchAndFilterHeader";
 
 const getPath = (date) => {
-  return `/all/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
+  return `/browse/${date.getFullYear()}-${date.getMonth() < 9 ? "0" : ""}${
     date.getMonth() + 1
   }`;
 };
 
-const AllTasks = () => {
+const BrowseTasksPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [priority, setPriority] = useState([]);
 
@@ -88,7 +88,7 @@ const AllTasks = () => {
   }
 
   return (
-    <Page title="All Tasks">
+    <Page title="Browse Tasks">
       {showModal && (
         <Modal
           modalOpen={showModal}
@@ -127,4 +127,4 @@ const AllTasks = () => {
   );
 };
 
-export default AllTasks;
+export default BrowseTasksPage;

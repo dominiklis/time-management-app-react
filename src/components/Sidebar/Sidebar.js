@@ -21,9 +21,9 @@ const Sidebar = () => {
       text: "home",
     },
     {
-      path: "/all",
+      path: "/browse",
       icon: <CgCalendar />,
-      text: "all tasks",
+      text: "browse tasks",
     },
     {
       path: "/projects",

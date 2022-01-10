@@ -14,7 +14,7 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
-import AllTasks from "./pages/AllTasks/AllTasks";
+import BrowseTasksPage from "./pages/BrowseTasksPage/BrowseTasksPage";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 
@@ -86,18 +86,18 @@ function App() {
             }
           />
           <Route
-            path="all"
+            path="browse"
             element={
               <RequireAuth>
-                <AllTasks />
+                <BrowseTasksPage />
               </RequireAuth>
             }
           />
           <Route
-            path="all/:monthYear"
+            path="browse/:monthYear"
             element={
               <RequireAuth>
-                <AllTasks />
+                <BrowseTasksPage />
               </RequireAuth>
             }
           />
