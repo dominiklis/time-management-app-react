@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import "./Sidebar.css";
 
 import { Link, useLocation } from "react-router-dom";
@@ -10,8 +11,10 @@ import {
   CgCalendar,
   CgFileDocument,
   CgSearch,
+  CgCloseR,
 } from "react-icons/cg";
 import List from "../List/List";
+import { logoutUser } from "../../store/slices/usersSlice";
 
 const Sidebar = () => {
   const menuItems = [
@@ -37,6 +40,7 @@ const Sidebar = () => {
     },
   ];
 
+  const dispatch = useDispatch();
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState(
     "/" + location.pathname.split("/")[1]
@@ -68,6 +72,8 @@ const Sidebar = () => {
     return cln;
   };
 
+  const handleLogoutButton = () => dispatch(logoutUser());
+
   return (
     <div className={getSidebarStyle()}>
       <IconContext.Provider value={{ className: "sidebar__button-icon" }}>
@@ -94,6 +100,18 @@ const Sidebar = () => {
               </Link>
             </li>
           ))}
+
+          <li
+            className={`sidebar__item sidebar__item--logout-button`}
+            onClick={handleLogoutButton}
+          >
+            <button className="sidebar__button">
+              <div className="sidebar__item-icon">
+                <CgCloseR />
+              </div>
+              <div className="sidebar__item-text">logout</div>
+            </button>
+          </li>
         </List>
       </IconContext.Provider>
       <div className="sidebar__background" onClick={hide}></div>

@@ -37,6 +37,9 @@
   border: 1px solid transparent;
 }
 
+.sidebar__item--logout-button {
+}
+
 .sidebar__button-icon {
   vertical-align: middle;
 }
@@ -45,6 +48,11 @@
   border-left: 3px solid var(--clr-prim1);
   background-color: var(--clr-gray8);
   cursor: pointer;
+}
+
+.sidebar__item--logout-button:hover {
+  border-left: 3px solid var(--clr-err1);
+  background-color: var(--clr-err5);
 }
 
 .sidebar__item:active {
@@ -71,10 +79,22 @@
   border-left: 3px solid transparent;
 }
 
-.sidebar__link {
+.sidebar__link,
+.sidebar__button {
   display: flex;
   align-items: center;
   text-decoration: none;
+}
+
+.sidebar__button {
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.sidebar__button .sidebar__item-text {
+  text-align: left;
 }
 
 .sidebar__item-icon {

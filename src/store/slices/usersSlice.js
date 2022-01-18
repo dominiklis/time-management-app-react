@@ -3,11 +3,11 @@ import apiCalls from "../../utils/api";
 
 export const userTokenKey = "user-token";
 
-const saveTokenLocalStorace = (token) => {
+const saveTokenLocalStorage = (token) => {
   localStorage.setItem(userTokenKey, token);
 };
 
-const removeTokenFromLocalStorace = () => {
+const removeTokenFromLocalStorage = () => {
   localStorage.removeItem(userTokenKey);
 };
 
@@ -69,7 +69,13 @@ const initialState = {
 export const usersSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser: (state) => {
+      removeTokenFromLocalStorage();
+      state.token = null;
+      state.user = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       // login user
@@ -81,7 +87,7 @@ export const usersSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.data.user;
           state.token = action.payload.data.token;
-          saveTokenLocalStorace(action.payload.data.token);
+          saveTokenLocalStorage(action.payload.data.token);
         } else {
           state.errors.login = action.payload.message;
         }
@@ -97,7 +103,7 @@ export const usersSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.data.user;
           state.token = action.payload.data.token;
-          saveTokenLocalStorace(action.payload.data.token);
+          saveTokenLocalStorage(action.payload.data.token);
         } else {
           state.errors.register = action.payload.message;
         }
@@ -113,16 +119,16 @@ export const usersSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.data.user;
           state.token = action.payload.data.token;
-          saveTokenLocalStorace(action.payload.data.token);
+          saveTokenLocalStorage(action.payload.data.token);
         } else {
           state.errors.renew = action.payload.message;
-          removeTokenFromLocalStorace();
+          removeTokenFromLocalStorage();
         }
         state.loadings.renew = false;
       });
   },
 });
 
-// export const {} = usersSlice.actions;
+export const { logoutUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
