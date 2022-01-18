@@ -167,7 +167,13 @@ const initialState = {
 export const projectsSlice = createSlice({
   name: "projects",
   initialState,
-  reducers: {},
+  reducers: {
+    clearProjects: (state) => {
+      state.projects = [];
+      state.projectsLoaded = false;
+      console.log("clear projects");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProjects.pending, (state) => {
@@ -309,6 +315,6 @@ export const projectsSlice = createSlice({
   },
 });
 
-// export const {} = projectsSlice.actions;
+export const { clearProjects } = projectsSlice.actions;
 
 export default projectsSlice.reducer;

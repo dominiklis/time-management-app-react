@@ -311,6 +311,11 @@ export const tasksSlice = createSlice({
     setSearchInput: (state, action) => {
       state.search.input = action.payload;
     },
+    clearTasks: (state) => {
+      state.tasks = [];
+      state.tasksLoaded = false;
+      console.log("clear tasks");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -565,6 +570,6 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const { setSearchInput } = tasksSlice.actions;
+export const { setSearchInput, clearTasks } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -15,6 +15,8 @@ import {
 } from "react-icons/cg";
 import List from "../List/List";
 import { logoutUser } from "../../store/slices/usersSlice";
+import { clearTasks } from "../../store/slices/tasksSlice";
+import { clearProjects } from "../../store/slices/projectsSlice";
 
 const Sidebar = () => {
   const menuItems = [
@@ -72,7 +74,11 @@ const Sidebar = () => {
     return cln;
   };
 
-  const handleLogoutButton = () => dispatch(logoutUser());
+  const handleLogoutButton = () => {
+    dispatch(clearTasks());
+    dispatch(clearProjects());
+    dispatch(logoutUser());
+  };
 
   return (
     <div className={getSidebarStyle()}>
