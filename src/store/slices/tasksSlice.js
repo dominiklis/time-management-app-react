@@ -314,7 +314,6 @@ export const tasksSlice = createSlice({
     clearTasks: (state) => {
       state.tasks = [];
       state.tasksLoaded = false;
-      console.log("clear tasks");
     },
   },
   extraReducers: (builder) => {

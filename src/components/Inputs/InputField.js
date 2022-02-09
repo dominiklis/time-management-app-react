@@ -18,7 +18,7 @@ const InputField = ({
   if (error) {
     if (Array.isArray(error)) {
       errorsToShow = error.map((err) => (
-        <div ket={err} className="input-field__error">
+        <div key={err} className="input-field__error">
           {err}
         </div>
       ));

@@ -171,7 +171,6 @@ export const projectsSlice = createSlice({
     clearProjects: (state) => {
       state.projects = [];
       state.projectsLoaded = false;
-      console.log("clear projects");
     },
   },
   extraReducers: (builder) => {

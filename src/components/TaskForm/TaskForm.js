@@ -128,17 +128,14 @@ const TaskForm = ({
                 {
                   value: 0,
                   text: "normal",
-                  selected: priority === 0,
                 },
                 {
                   value: 1,
                   text: "important",
-                  selected: priority === 1,
                 },
                 {
                   value: 2,
                   text: "urgent",
-                  selected: priority === 2,
                 },
               ]}
             />

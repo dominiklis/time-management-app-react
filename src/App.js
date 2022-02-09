@@ -88,7 +88,14 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path="/browse" element={<BrowsePage />}>
+          <Route
+            path="/browse"
+            element={
+              <RequireAuth>
+                <BrowsePage />
+              </RequireAuth>
+            }
+          >
             <Route
               index
               element={
