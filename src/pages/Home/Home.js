@@ -70,7 +70,9 @@ const Home = () => {
                   <TaskElement key={task.taskId} task={task} />
                 ))}
               </div>
-              <h3>also to be done today</h3>
+              {tasksForToday(tasksWithDateOnly).length > 0 && (
+                <h3>also to be done today</h3>
+              )}
               <div className="today-page">
                 {tasksForToday(tasksWithDateOnly).map((task) => (
                   <TaskElement key={task.taskId} task={task} />
