@@ -11,6 +11,7 @@ import {
 import ShareForm from "../ShareForm/ShareForm";
 import UserListItem from "../UserListItem/UserListItem";
 import List from "../List/List";
+import { determineLogin } from "../../utils/determineLogin";
 
 const TaskUsers = ({
   authorId,
@@ -37,7 +38,20 @@ const TaskUsers = ({
 
   const handleShareSubmit = async (formInputs) => {
     setFormSubmitted(false);
-    await dispatch(shareTask({ ...formInputs, taskId }));
+
+    const { userName, userEmail, userId } = determineLogin(formInputs.login);
+
+    const [userWithAccess] = users.filter(
+      (u) =>
+        u.userName === userName ||
+        u.userEmail === userEmail ||
+        u.userId === userId
+    );
+
+    if (userWithAccess) {
+      await handleEdit({ ...formInputs, userId: userWithAccess.userId });
+    } else await dispatch(shareTask({ ...formInputs, taskId }));
+
     setFormSubmitted(true);
   };
 

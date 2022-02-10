@@ -24,10 +24,10 @@ const ShareForm = ({
 }) => {
   const [input, setInput] = useState({
     login: userName || "",
-    canShare: userCanShare,
-    canChangePermissions: userCanChangePermissions,
-    canEdit: userCanEdit,
-    canDelete: userCanDelete,
+    canShare: userCanShare || false,
+    canChangePermissions: userCanChangePermissions || false,
+    canEdit: userCanEdit || false,
+    canDelete: userCanDelete || false,
   });
 
   const [loginError, setLoginError] = useState("");

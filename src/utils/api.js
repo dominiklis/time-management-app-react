@@ -2,6 +2,7 @@ import axios from "axios";
 import validator from "validator";
 import { userTokenKey } from "../store/slices/usersSlice";
 import { getToday } from "./days";
+import { determineLogin } from "./determineLogin";
 import { isIsoDate } from "./isIsoString";
 import validateId from "./validateId";
 
@@ -208,20 +209,13 @@ const tasks = {
     canEdit,
     canDelete
   ) => {
-    let userId,
-      userName,
-      userEmail = "";
-
-    if (validateId(login)) {
-      userId = login;
-    } else if (validator.isEmail(login)) {
-      userEmail = login;
-    } else userName = login;
+    const userLogin = determineLogin(login);
 
     return requests.post(`/tasks/${taskId}/users`, {
-      userId,
-      userName,
-      userEmail,
+      // userId,
+      // userName,
+      // userEmail,
+      ...userLogin,
       canShare,
       canChangePermissions,
       canEdit,
