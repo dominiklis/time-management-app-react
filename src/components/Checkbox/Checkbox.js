@@ -11,7 +11,12 @@ const Checkbox = ({ label, checked, onChange, name, disabled }) => {
         name={name}
         disabled={disabled}
       />
-      <label className="checkbox__label">{label}</label>
+      <label
+        className="checkbox__label"
+        onClick={() => onChange({ target: { name } })}
+      >
+        {label}
+      </label>
     </div>
   );
 };
