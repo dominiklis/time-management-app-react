@@ -7,6 +7,7 @@ import {
   shareProject,
 } from "../../store/slices/projectsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { determineLogin } from "../../utils/determineLogin";
 
 import ShareForm from "../ShareForm/ShareForm";
 import UserListItem from "../UserListItem/UserListItem";
@@ -34,7 +35,19 @@ const ProjectUsers = ({
 
   const handleShareSubmit = async (formInputs) => {
     setFormSubmitted(false);
-    await dispatch(shareProject({ ...formInputs, projectId }));
+
+    const { userName, userEmail, userId } = determineLogin(formInputs.login);
+    const [userWithAccess] = users.filter(
+      (u) =>
+        u.userName === userName ||
+        u.userEmail === userEmail ||
+        u.userId === userId
+    );
+
+    if (userWithAccess) {
+      await handleEdit({ ...formInputs, userId: userWithAccess.userId });
+    } else await dispatch(shareProject({ ...formInputs, projectId }));
+
     setFormSubmitted(true);
   };
 

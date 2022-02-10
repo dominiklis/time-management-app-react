@@ -7,11 +7,11 @@ import {
   editSharing,
   shareTask,
 } from "../../store/slices/tasksSlice";
+import { determineLogin } from "../../utils/determineLogin";
 
 import ShareForm from "../ShareForm/ShareForm";
 import UserListItem from "../UserListItem/UserListItem";
 import List from "../List/List";
-import { determineLogin } from "../../utils/determineLogin";
 
 const TaskUsers = ({
   authorId,
@@ -40,7 +40,6 @@ const TaskUsers = ({
     setFormSubmitted(false);
 
     const { userName, userEmail, userId } = determineLogin(formInputs.login);
-
     const [userWithAccess] = users.filter(
       (u) =>
         u.userName === userName ||
