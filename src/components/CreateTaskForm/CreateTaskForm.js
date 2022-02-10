@@ -45,15 +45,6 @@ const CreateTaskForm = ({
     ).unwrap();
 
     afterSubmit?.();
-
-    setInput({
-      taskName: "",
-      taskDescription: "",
-      dateToComplete: "",
-      startTime: "",
-      endTime: "",
-      priority: 0,
-    });
   };
 
   const getTaskFormStyle = () => {
