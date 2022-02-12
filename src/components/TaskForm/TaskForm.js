@@ -8,7 +8,6 @@ import Button from "../Button/Button";
 import InputField from "../Inputs/InputField";
 import LoadingButton from "../LoadingButton/LoadingButton";
 import TextArea from "../Inputs/TextArea";
-import TimeInput from "../Inputs/TimeInput";
 import Select from "../Inputs/Select";
 
 const TaskForm = ({
@@ -84,40 +83,53 @@ const TaskForm = ({
               lightBorder
             />
 
-            <InputField
-              value={input.dateToComplete}
-              onChange={handleChange}
-              label="day"
-              id="dateToComplete"
-              type="date"
-              name="dateToComplete"
-              fullwidth
-              lightBorder
-            />
+            <div className="task-form__date-time-container">
+              <InputField
+                value={input.startDate}
+                onChange={handleChange}
+                label="start"
+                id="startDate"
+                type="date"
+                name="startDate"
+                fullwidth
+                lightBorder
+              />
 
-            <TimeInput
-              onChange={handleChange}
-              value={input.startTime}
-              label="start"
-              id="startTime"
-              type="number"
-              name="startTime"
-              setError={setTimeError}
-              error={errors.startTime}
-              lightBorder
-            />
+              <InputField
+                onChange={handleChange}
+                value={input.startTime}
+                id="startTime"
+                type="time"
+                name="startTime"
+                setError={setTimeError}
+                lightBorder
+                fullwidth
+              />
+            </div>
 
-            <TimeInput
-              onChange={handleChange}
-              value={input.endTime}
-              label="end"
-              id="endTime"
-              type="number"
-              name="endTime"
-              setError={setTimeError}
-              error={errors.endTime}
-              lightBorder
-            />
+            <div className="task-form__date-time-container">
+              <InputField
+                value={input.endDate}
+                onChange={handleChange}
+                label="end"
+                id="endDate"
+                type="date"
+                name="endDate"
+                fullwidth
+                lightBorder
+              />
+
+              <InputField
+                onChange={handleChange}
+                value={input.endTime}
+                id="endTime"
+                type="time"
+                name="endTime"
+                setError={setTimeError}
+                lightBorder
+                fullwidth
+              />
+            </div>
 
             <Select
               value={input.priority}

@@ -8,6 +8,7 @@ import { getProjectsThatUserCanEdit } from "../../utils/filterProjects";
 import { deleteTask } from "../../store/slices/tasksSlice";
 import { updateTask } from "../../store/slices/tasksSlice";
 import { FiCalendar } from "react-icons/fi";
+import constants from "../../utils/constants";
 
 import TaskSteps from "../TaskSteps/TaskSteps";
 import TaskUsers from "../TaskUsers/TaskUsers";
@@ -18,7 +19,6 @@ import Modal from "../Modal/Modal";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
-import constants from "../../utils/constants";
 
 const TaskDetails = ({
   task,
@@ -84,7 +84,8 @@ const TaskDetails = ({
         taskName: task.taskName,
         taskDescription: task.taskDescription,
         taskCompleted: task.taskCompleted,
-        dateToComplete: task.dateToComplete,
+        startDate: task.startDate,
+        endDate: task.endDate,
         startTime: task.startTime,
         endTime: task.endTime,
         projectId: projectId,
@@ -175,7 +176,7 @@ const TaskDetails = ({
                 <FiCalendar />
               </span>
               <span className="task-details__info-span">
-                {formatDate(task.dateToComplete)}
+                {formatDate(task.startDate)}
               </span>
               {task.startTime &&
                 (task.endTime ? (

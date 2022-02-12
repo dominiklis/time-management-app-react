@@ -13,3 +13,16 @@
   display: flex;
   justify-content: center;
 }
+
+.task-form__date-time-container {
+  display: flex;
+}
+
+.task-form__date-time-container .input-field {
+  flex: 1;
+}
+
+.task-form__date-time-container .input-field + .input-field {
+  align-self: flex-end;
+  margin-left: 0.5em;
+}

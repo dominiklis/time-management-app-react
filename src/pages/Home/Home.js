@@ -7,7 +7,7 @@ import constants from "../../utils/constants";
 import {
   createSelectTasksWithDateAndStartTime,
   createSelectTasksWithDateOnly,
-} from "../../utils/selectors";
+} from "../../store/selectors";
 
 import Page from "../../components/Page/Page";
 import TaskElement from "../../components/TaskElement/TaskElement";

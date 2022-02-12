@@ -24,7 +24,8 @@ const CreateTaskForm = ({
   const [input, setInput] = useState({
     taskName: "",
     taskDescription: "",
-    dateToComplete: "",
+    startDate: "",
+    endDate: "",
     startTime: "",
     endTime: "",
     priority: 0,

@@ -5,6 +5,9 @@ import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import EditTask from "../EditTask/EditTask";
+import { getTimeInput } from "../../utils/getTimeInput";
+import { getDateInput } from "../../utils/getDateInput";
+import useIsMounted from "../../hooks/useIsMounted";
 
 const TaskElement = ({
   task,
@@ -13,13 +16,17 @@ const TaskElement = ({
   useCompletedDateInCard,
   hideCompletedDateInDetails,
 }) => {
+  const isMounted = useIsMounted();
+
   const [editingState, setEditingState] = useState({
     editing: false,
     returnedFromEditing: false,
   });
 
-  const atTheEndOfEdition = () =>
-    setEditingState({ editing: false, returnedFromEditing: true });
+  const atTheEndOfEdition = () => {
+    if (isMounted)
+      setEditingState({ editing: false, returnedFromEditing: true });
+  };
 
   const handleEditButton = () =>
     setEditingState((prev) => ({ ...prev, editing: true }));
@@ -38,7 +45,16 @@ const TaskElement = ({
         <EditTask
           atTheEndOfEdition={atTheEndOfEdition}
           disableDeleteButton={!task.canDelete}
-          {...task}
+          taskId={task.taskId}
+          taskName={task.taskName}
+          taskDescription={task.taskDescription ? task.taskDescription : ""}
+          startDate={task.startDate ? getDateInput(task.startDate) : ""}
+          endDate={task.endDate ? getDateInput(task.endDate) : ""}
+          startTime={task.startTime ? getTimeInput(task.startDate) : ""}
+          endTime={task.endTime ? getTimeInput(task.endDate) : ""}
+          taskCompleted={task.taskCompleted}
+          projectId={task.projectId}
+          priority={task.priority}
         />
       ) : (
         <ExpandableComponent

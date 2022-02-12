@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { FiCalendar } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
+import useIsMounted from "../../hooks/useIsMounted";
 
 import CheckButton from "../CheckButton/CheckButton";
 import IconButton from "../IconButton/IconButton";
@@ -24,6 +25,8 @@ const TaskCard = ({
 }) => {
   const dispatch = useDispatch();
 
+  const isMounted = useIsMounted();
+
   const [updating, setUpdating] = useState(false);
   const [waitingForResponse, setWaitingForResponse] = useState(false);
 
@@ -36,7 +39,8 @@ const TaskCard = ({
         taskName: task.taskName,
         taskDescription: task.taskDescription,
         taskCompleted: !task.taskCompleted,
-        dateToComplete: task.dateToComplete,
+        startDate: task.startDate,
+        endDate: task.endDate,
         startTime: task.startTime,
         endTime: task.endTime,
         projectId: task.projectId,
@@ -44,7 +48,7 @@ const TaskCard = ({
       })
     ).unwrap();
 
-    setUpdating(false);
+    if (isMounted) setUpdating(false);
   };
 
   const getStyles = () => {
@@ -85,7 +89,8 @@ const TaskCard = ({
         taskName: task.taskName,
         taskDescription: task.taskDescription,
         taskCompleted: task.taskCompleted,
-        dateToComplete: task.dateToComplete,
+        startDate: task.startDate,
+        endDate: task.endDate,
         startTime: task.startTime,
         endTime: task.endTime,
         projectId: null,
@@ -108,7 +113,7 @@ const TaskCard = ({
         <div className="task-card__name">{task.taskName}</div>
 
         <div className="task-card__bottom">
-          {task.dateToComplete && (
+          {task.startDate && (
             <div className="task-card__date-section">
               {useCompletedDate ? (
                 <>
@@ -126,16 +131,16 @@ const TaskCard = ({
                 <>
                   <FiCalendar />
                   <div className="task-card__date">
-                    {formatDate(task.dateToComplete)}
+                    {formatDate(task.startDate)}
                   </div>
                   {task.startTime &&
                     (task.endTime ? (
                       <div className="task-card__time">
-                        {formatInterval(task.startTime, task.endTime)}
+                        {formatInterval(task.startDate, task.endDate, true)}
                       </div>
                     ) : (
                       <div className="task-card__time">
-                        {formatTime(task.startTime)}
+                        {formatTime(task.startDate)}
                       </div>
                     ))}
                 </>

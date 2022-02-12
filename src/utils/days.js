@@ -74,11 +74,15 @@ const formatTime = (date) => {
   return `${hours}:${minutes}`;
 };
 
-const formatInterval = (date1, date2) => {
+const formatInterval = (date1, date2, includeSecondDate = false) => {
   const start = formatTime(date1);
   const end = formatTime(date2);
+  let secondDate = "";
+  if (formatDate(date1) !== formatDate(date2) && includeSecondDate) {
+    secondDate = formatDate(date2);
+  }
 
-  return `${start} - ${end}`;
+  return `${start} -${` ${secondDate}`} ${end}`;
 };
 
 const monthNames = [

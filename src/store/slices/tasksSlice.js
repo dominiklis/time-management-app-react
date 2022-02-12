@@ -22,7 +22,8 @@ export const createTask = createAsyncThunk(
       taskName,
       taskDescription,
       taskCompleted,
-      dateToComplete,
+      startDate,
+      endDate,
       startTime,
       endTime,
       projectId,
@@ -34,7 +35,8 @@ export const createTask = createAsyncThunk(
         taskName,
         taskDescription,
         taskCompleted,
-        dateToComplete,
+        startDate,
+        endDate,
         startTime,
         endTime,
         projectId,
@@ -56,7 +58,8 @@ export const updateTask = createAsyncThunk(
       taskName,
       taskDescription,
       taskCompleted,
-      dateToComplete,
+      startDate,
+      endDate,
       startTime,
       endTime,
       projectId,
@@ -68,8 +71,9 @@ export const updateTask = createAsyncThunk(
         taskId,
         taskName,
         taskDescription,
-        dateToComplete,
         taskCompleted,
+        startDate,
+        endDate,
         startTime,
         endTime,
         projectId,
@@ -375,7 +379,8 @@ export const tasksSlice = createSlice({
               task.taskCompleted = action.payload.data.taskCompleted;
               task.createdAt = action.payload.data.createdAt;
               task.completedAt = action.payload.data.completedAt;
-              task.dateToComplete = action.payload.data.dateToComplete;
+              task.startDate = action.payload.data.startDate;
+              task.endDate = action.payload.data.endDate;
               task.startTime = action.payload.data.startTime;
               task.endTime = action.payload.data.endTime;
               task.projectId = action.payload.data.projectId;

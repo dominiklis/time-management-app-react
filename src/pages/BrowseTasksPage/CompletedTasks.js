@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import TaskElement from "../../components/TaskElement/TaskElement";
-import { createSelectCompletedTasks } from "../../utils/selectors";
+import { createSelectCompletedTasks } from "../../store/selectors";
 
 const CompletedTasks = () => {
   const setBrowseTasksPageTitle = useOutletContext();

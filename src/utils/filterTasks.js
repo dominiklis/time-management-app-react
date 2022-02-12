@@ -5,13 +5,12 @@ const overdueTasks = (tasks) => {
 
   return tasks.filter((task) => {
     if (!task.dateToComplete || task.taskCompleted) return false;
-    const taskDate = new Date(task.dateToComplete);
+    const taskDate = new Date(task.startDate);
     return taskDate.getTime() < today.getTime();
   });
 };
 
-const tasksWithoutDate = (tasks) =>
-  tasks.filter((task) => !task.dateToComplete);
+const tasksWithoutDate = (tasks) => tasks.filter((task) => !task.startDate);
 
 const tasksForToday = (tasks) => {
   const today = getToday();
@@ -19,8 +18,12 @@ const tasksForToday = (tasks) => {
   const tomorrow = getTomorrow();
 
   return tasks.filter((task) => {
-    if (!task.dateToComplete) return false;
-    const taskDate = new Date(task.dateToComplete);
+    if (!task.startDate) return false;
+
+    let taskDate = null;
+    if (task.endDate) taskDate = new Date(task.endDate);
+    else taskDate = new Date(task.startDate);
+
     return (
       taskDate.getTime() >= today.getTime() &&
       taskDate.getTime() < tomorrow.getTime()
@@ -33,8 +36,12 @@ const getTasksOfPeriod = (tasks, start, end, sorted) => {
   end = new Date(end);
 
   const tasksFromGivenPeriod = tasks.filter((task) => {
-    if (!task.dateToComplete) return false;
-    const taskDate = new Date(task.dateToComplete);
+    if (!task.startDate) return false;
+
+    let taskDate = null;
+    if (task.endDate) taskDate = new Date(task.endDate);
+    else taskDate = new Date(task.startDate);
+
     return (
       taskDate.getTime() >= start.getTime() &&
       taskDate.getTime() < end.getTime()
@@ -43,10 +50,15 @@ const getTasksOfPeriod = (tasks, start, end, sorted) => {
 
   if (sorted) {
     const sortedTasks = {};
+
     tasksFromGivenPeriod.forEach((task) => {
-      if (!sortedTasks[task.dateToComplete])
-        sortedTasks[task.dateToComplete] = [];
-      sortedTasks[task.dateToComplete].push(task);
+      const dateToComplete = task.endDate
+        ? task.endDate.split("T")[0]
+        : task.startDate.split("T")[0];
+
+      if (!sortedTasks[dateToComplete]) sortedTasks[dateToComplete] = [];
+
+      sortedTasks[dateToComplete].push(task);
     });
 
     return sortedTasks;

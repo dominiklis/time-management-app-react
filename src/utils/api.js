@@ -1,9 +1,8 @@
 import axios from "axios";
 import validator from "validator";
 import { userTokenKey } from "../store/slices/usersSlice";
-import { getToday } from "./days";
 import { determineLogin } from "./determineLogin";
-import { isIsoDate } from "./isIsoString";
+import { getTaskDates } from "./getTaskDates";
 import validateId from "./validateId";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
@@ -88,9 +87,10 @@ const tasks = {
     taskName,
     taskDescription,
     taskCompleted,
-    day,
-    startTime,
-    endTime,
+    sDate,
+    eDate,
+    sTime,
+    eTime,
     projectId,
     priority
   ) => {
@@ -102,73 +102,33 @@ const tasks = {
       priority,
     };
 
-    if (day) newTask.dateToComplete = new Date(`${day} 00:00`).toISOString();
+    const dates = getTaskDates(sDate, eDate, sTime, eTime);
 
-    if (startTime) {
-      if (!day) {
-        const today = getToday();
-        newTask.dateToComplete = today.toISOString();
-        day = today.toISOString().split("T")[0];
-      }
-
-      newTask.startTime = new Date(`${day} ${startTime}`).toISOString();
-    }
-
-    if (endTime && startTime)
-      newTask.endTime = new Date(`${day} ${endTime}`).toISOString();
-
-    return requests.post("/tasks", newTask);
+    return requests.post("/tasks", { ...newTask, ...dates });
   },
 
   update: (
     taskId,
     taskName,
     taskDescription,
-    dateToComplete,
     taskCompleted,
-    startTime,
-    endTime,
+    sDate,
+    eDate,
+    sTime,
+    eTime,
     projectId,
     priority
   ) => {
-    const updatedTask = {
+    let updatedTask = {
       taskName,
       taskDescription,
-      dateToComplete,
-      taskCompleted,
-      startTime,
-      endTime,
       projectId,
       priority,
     };
 
-    if (dateToComplete === "") {
-      dateToComplete = null;
-      updatedTask.dateToComplete = dateToComplete;
-    }
+    const dates = getTaskDates(sDate, eDate, sTime, eTime);
 
-    if (dateToComplete && !isIsoDate(dateToComplete))
-      updatedTask.dateToComplete = new Date(
-        `${dateToComplete} 00:00`
-      ).toISOString();
-
-    if (startTime && !isIsoDate(startTime)) {
-      if (!dateToComplete) {
-        const today = getToday();
-        updatedTask.dateToComplete = today.toISOString();
-        dateToComplete = today.toISOString().split("T")[0];
-      }
-
-      updatedTask.startTime = new Date(
-        `${dateToComplete} ${startTime}`
-      ).toISOString();
-    } else if (startTime === "") updatedTask.startTime = null;
-
-    if (endTime && startTime && !isIsoDate(endTime))
-      updatedTask.endTime = new Date(
-        `${dateToComplete} ${endTime}`
-      ).toISOString();
-    else if (endTime === "") updatedTask.endTime = null;
+    updatedTask = { ...updatedTask, ...dates };
 
     if (typeof taskCompleted === "boolean")
       updatedTask.taskCompleted = taskCompleted;

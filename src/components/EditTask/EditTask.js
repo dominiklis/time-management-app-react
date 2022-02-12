@@ -3,17 +3,18 @@ import "./EditTask.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateTask } from "../../store/slices/tasksSlice";
-import { formatDate, formatTime } from "../../utils/days";
 import { CgClose } from "react-icons/cg";
 
 import IconButton from "../IconButton/IconButton";
 import TaskForm from "../TaskForm/TaskForm";
+import useIsMounted from "../../hooks/useIsMounted";
 
 const EditTask = ({
   taskId,
   taskName,
   taskDescription,
-  dateToComplete,
+  startDate,
+  endDate,
   startTime,
   endTime,
   taskCompleted,
@@ -32,9 +33,10 @@ const EditTask = ({
   const [input, setInput] = useState({
     taskName: taskName,
     taskDescription: taskDescription,
-    dateToComplete: dateToComplete ? formatDate(dateToComplete, true) : null,
-    startTime: startTime ? formatTime(startTime) : null,
-    endTime: endTime ? formatTime(endTime) : null,
+    startDate: startDate ?? "",
+    endDate: endDate ?? "",
+    startTime: startTime ?? "",
+    endTime: endTime ?? "",
     priority: priority ?? 0,
   });
 
