@@ -114,11 +114,9 @@ const MonthlyTasks = () => {
             header={formatDate(date) + ` (${sortedtasks[date].length})`}
             key={date}
           >
-            {filterByPriority(sortedtasks[date], priority).map(
-              (task, index) => (
-                <TaskElement key={task.taskId} task={task} />
-              )
-            )}
+            {filterByPriority(sortedtasks[date], priority).map((task) => (
+              <TaskElement key={task.taskId} task={task} />
+            ))}
           </Accordion>
         ))}
     </>

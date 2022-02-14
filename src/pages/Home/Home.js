@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { tasksForToday } from "../../utils/filterTasks";
 import constants from "../../utils/constants";
 import {
-  createSelectTasksWithDateAndStartTime,
-  createSelectTasksWithDateOnly,
+  createSelectTasksForTodayWithStartTime,
+  createSelectTasksForTodayWithStartDateOnly,
 } from "../../store/selectors";
 
 import Page from "../../components/Page/Page";
@@ -18,15 +18,18 @@ import FloatingButton from "../../components/FloatingButton/FloatingButton";
 const Home = () => {
   const { tasks, tasksLoaded } = useSelector((state) => state.tasks);
 
-  const selectTasksWithDateAndStartTime = useMemo(
-    createSelectTasksWithDateAndStartTime,
+  const selectTodaysTasksWithStartTime = useMemo(
+    createSelectTasksForTodayWithStartTime,
     []
   );
 
-  const selectTasksWithDateOnly = useMemo(createSelectTasksWithDateOnly, []);
+  const selectTasksWithDateOnly = useMemo(
+    createSelectTasksForTodayWithStartDateOnly,
+    []
+  );
 
-  const tasksWithDateAndStartTime = useSelector((state) =>
-    selectTasksWithDateAndStartTime(state, true)
+  const tasksWithStartTime = useSelector((state) =>
+    selectTodaysTasksWithStartTime(state)
   );
 
   const tasksWithDateOnly = useSelector((state) =>
@@ -66,7 +69,7 @@ const Home = () => {
           ) : (
             <>
               <div className="today-page">
-                {tasksForToday(tasksWithDateAndStartTime).map((task) => (
+                {tasksWithStartTime.map((task) => (
                   <TaskElement key={task.taskId} task={task} />
                 ))}
               </div>

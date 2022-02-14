@@ -1,17 +1,5 @@
 import { getToday, getTomorrow } from "./days";
 
-const overdueTasks = (tasks) => {
-  const today = getToday();
-
-  return tasks.filter((task) => {
-    if (!task.dateToComplete || task.taskCompleted) return false;
-    const taskDate = new Date(task.startDate);
-    return taskDate.getTime() < today.getTime();
-  });
-};
-
-const tasksWithoutDate = (tasks) => tasks.filter((task) => !task.startDate);
-
 const tasksForToday = (tasks) => {
   const today = getToday();
 
@@ -30,6 +18,41 @@ const tasksForToday = (tasks) => {
     );
   });
 };
+
+const tasksForTodayWithStartTimeOnly = (tasks) => {
+  const todays = tasksForToday(tasks);
+
+  return todays.filter((task) => task.startTime);
+};
+
+const tasksForTodayWithDateOnly = (tasks) => {
+  const todays = tasksForToday(tasks);
+
+  return todays.filter((task) => task.startDate && !task.startTime);
+};
+
+const overdueTasks = (tasks) => {
+  const today = getToday();
+
+  const result = tasks.filter((task) => {
+    if (!task.startDate || task.taskCompleted) return false;
+
+    let date = task.startDate;
+    if (task.endDate) date = task.endDate;
+
+    return new Date(date).getTime() < today.getTime();
+  });
+
+  return result;
+};
+
+const tasksWithoutDate = (tasks) => tasks.filter((task) => !task.startDate);
+
+const getCompletedTasks = (tasks, completed = true) =>
+  tasks.filter((task) => {
+    if (task.taskCompleted === completed) return true;
+    return false;
+  });
 
 const getTasksOfPeriod = (tasks, start, end, sorted) => {
   start = new Date(start);
@@ -70,12 +93,6 @@ const getTasksOfPeriod = (tasks, start, end, sorted) => {
 const getTasksForProject = (tasks, projectId) =>
   tasks.filter((task) => task.projectId === projectId);
 
-const getCompletedTasks = (tasks, completed) =>
-  tasks.filter((task) => {
-    if (task.taskCompleted === completed) return true;
-    return false;
-  });
-
 const getTaskById = (tasks, taskId) =>
   tasks.find((task) => task.taskId === taskId);
 
@@ -86,12 +103,14 @@ const filterByPriority = (tasks, priorities) => {
 };
 
 export {
+  tasksForToday,
+  tasksForTodayWithStartTimeOnly,
+  tasksForTodayWithDateOnly,
   overdueTasks,
   tasksWithoutDate,
-  tasksForToday,
+  getCompletedTasks,
   getTasksOfPeriod,
   getTasksForProject,
-  getCompletedTasks,
   getTaskById,
   filterByPriority,
 };

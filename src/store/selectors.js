@@ -1,44 +1,49 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { tasksWithoutDate } from "../utils/filterTasks";
+import {
+  getCompletedTasks,
+  overdueTasks,
+  tasksForToday,
+  tasksForTodayWithDateOnly,
+  tasksForTodayWithStartTimeOnly,
+  tasksWithoutDate,
+} from "../utils/filterTasks";
+import { sortByTime, sortCompletionDate } from "../utils/sortTasks";
 
 const tasksSelector = (state) => state.tasks.tasks;
 
+const createSelectTasksForToday = () =>
+  createSelector(tasksSelector, (tasks) =>
+    tasksForToday(tasks).sort(sortByTime())
+  );
+
+const createSelectTasksForTodayWithStartTime = () =>
+  createSelector(tasksSelector, (tasks) =>
+    tasksForTodayWithStartTimeOnly(tasks).sort(sortByTime())
+  );
+
+const createSelectTasksForTodayWithStartDateOnly = () =>
+  createSelector(tasksSelector, (tasks) =>
+    tasksForTodayWithDateOnly(tasks).sort(sortByTime())
+  );
+
+const createSelectOverdueTasks = () =>
+  createSelector(tasksSelector, (tasks) =>
+    overdueTasks(tasks).sort(sortByTime(true))
+  );
+
+const createSelectTasksWithoutDate = () =>
+  createSelector(tasksSelector, (tasks) => tasksWithoutDate(tasks));
+
 const createSelectCompletedTasks = () =>
   createSelector(tasksSelector, (tasks) =>
-    tasks
-      .filter((task) => task.taskCompleted)
-      .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
-  );
-
-const createSelectTasksWithoutDateSet = () =>
-  createSelector(tasksSelector, (tasks) => {
-    return tasksWithoutDate(tasks);
-  });
-
-const createSelectTasksWithDateOnly = () =>
-  createSelector(tasksSelector, (tasks) =>
-    tasks.filter((task) => !!task.startDate && !task.startTime)
-  );
-
-const createSelectTasksWithDateAndStartTime = () =>
-  createSelector(
-    tasksSelector,
-    (_, sortByStartTime) => sortByStartTime,
-    (tasks, sortByStartTime = false) =>
-      tasks
-        .filter((task) => {
-          return !!task.startDate && task.startTime;
-        })
-        .sort((a, b) => {
-          if (!sortByStartTime) return 0;
-
-          return new Date(a.startTime) - new Date(b.startTime);
-        })
+    getCompletedTasks(tasks).sort(sortCompletionDate)
   );
 
 export {
+  createSelectTasksForToday,
+  createSelectTasksForTodayWithStartDateOnly,
+  createSelectTasksForTodayWithStartTime,
+  createSelectOverdueTasks,
+  createSelectTasksWithoutDate,
   createSelectCompletedTasks,
-  createSelectTasksWithoutDateSet,
-  createSelectTasksWithDateOnly,
-  createSelectTasksWithDateAndStartTime,
 };
