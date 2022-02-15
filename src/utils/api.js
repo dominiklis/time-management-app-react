@@ -172,9 +172,6 @@ const tasks = {
     const userLogin = determineLogin(login);
 
     return requests.post(`/tasks/${taskId}/users`, {
-      // userId,
-      // userName,
-      // userEmail,
       ...userLogin,
       canShare,
       canChangePermissions,

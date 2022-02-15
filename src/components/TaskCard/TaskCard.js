@@ -7,11 +7,11 @@ import { FiCalendar } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { formatDate, formatInterval, formatTime } from "../../utils/days";
 import useIsMounted from "../../hooks/useIsMounted";
+import getPriorityLevel from "../../utils/getPriorityLevel";
 
 import CheckButton from "../CheckButton/CheckButton";
 import IconButton from "../IconButton/IconButton";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
-import getPriorityLevel from "../../utils/getPriorityLevel";
 
 const TaskCard = ({
   task,

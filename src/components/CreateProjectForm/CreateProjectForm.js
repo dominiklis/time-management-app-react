@@ -32,7 +32,7 @@ const CreateProjectForm = () => {
   useEffect(() => {
     if (!initialRender) {
       if (!projectName || !projectName.trim()) {
-        setError(constants.nameError);
+        setError(constants.errors.name);
       } else {
         setError("");
       }

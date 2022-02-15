@@ -7,7 +7,6 @@ import { CgClose } from "react-icons/cg";
 
 import IconButton from "../IconButton/IconButton";
 import TaskForm from "../TaskForm/TaskForm";
-import useIsMounted from "../../hooks/useIsMounted";
 
 const EditTask = ({
   taskId,

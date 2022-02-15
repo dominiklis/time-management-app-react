@@ -47,5 +47,13 @@ export const getTaskDates = (startDate, endDate, startTime, endTime) => {
     }
   }
 
+  if (
+    result.startDate === result.endDate &&
+    result.startTime === result.endTime
+  ) {
+    result.endDate = "";
+    result.endTime = null;
+  }
+
   return result;
 };

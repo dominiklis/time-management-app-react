@@ -26,9 +26,31 @@ const TaskForm = ({
 }) => {
   const [errors, setErrors] = useState({
     taskName: "",
-    startTime: "",
     endTime: "",
   });
+
+  const [disableSubmitButton, setDisableSubmitButton] = useState(true);
+
+  useEffect(() => {
+    if (
+      !input.taskName ||
+      errors.taskName ||
+      errors.endDate ||
+      errors.endTime ||
+      disabled
+    ) {
+      return setDisableSubmitButton(true);
+    }
+
+    setDisableSubmitButton(false);
+  }, [
+    disableSubmitButton,
+    disabled,
+    errors.endDate,
+    errors.endTime,
+    errors.taskName,
+    input.taskName,
+  ]);
 
   const setTimeError = (error, fieldName) => {
     setErrors((prev) => ({ ...prev, [fieldName]: error }));
@@ -39,12 +61,37 @@ const TaskForm = ({
   useEffect(() => {
     if (!initialRender) {
       if (!input.taskName || !input.taskName.trim()) {
-        setErrors((prev) => ({ ...prev, taskName: constants.nameError }));
-      } else {
-        setErrors((prev) => ({ ...prev, taskName: "" }));
+        return setErrors((prev) => ({
+          ...prev,
+          taskName: constants.errors.name,
+        }));
       }
+
+      setErrors((prev) => ({ ...prev, taskName: "" }));
     }
   }, [input.taskName]);
+
+  useEffect(() => {
+    if (input.startDate === input.endDate && input.startTime > input.endTime) {
+      return setErrors((prev) => ({
+        ...prev,
+        endTime: constants.errors.endTime,
+      }));
+    }
+
+    setErrors((prev) => ({ ...prev, endTime: "" }));
+  }, [input.endTime, input.endDate, input.startDate, input.startTime]);
+
+  useEffect(() => {
+    if (input.endDate && input.startDate > input.endDate) {
+      return setErrors((prev) => ({
+        ...prev,
+        endDate: constants.errors.endTime,
+      }));
+    }
+
+    setErrors((prev) => ({ ...prev, endDate: "" }));
+  }, [input.startDate, input.endDate]);
 
   const getButtonsStyle = () => {
     let cln = "task-form__button";
@@ -117,6 +164,9 @@ const TaskForm = ({
                 name="endDate"
                 fullwidth
                 lightBorder
+                disabled={!input.startDate || !input.startTime}
+                min={input.startDate}
+                error={errors.endDate}
               />
 
               <InputField
@@ -128,6 +178,8 @@ const TaskForm = ({
                 setError={setTimeError}
                 lightBorder
                 fullwidth
+                disabled={!input.endDate || !input.startTime}
+                error={errors.endTime}
               />
             </div>
 
@@ -160,13 +212,7 @@ const TaskForm = ({
           ) : (
             <Button
               type="submit"
-              disabled={
-                !input.taskName ||
-                errors.taskName ||
-                errors.startTime ||
-                errors.endTime ||
-                disabled
-              }
+              disabled={disableSubmitButton}
               color="primary"
             >
               {submitButtonText}

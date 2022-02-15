@@ -15,6 +15,10 @@
   font-size: 0.9em;
 }
 
+.input-field__label--disabled {
+  color: var(--clr-gray5);
+}
+
 .input-field__label:focus-within {
   color: var(--clr-prim2);
 }
@@ -41,6 +45,11 @@
 .input-field__textarea--light-border,
 .select__select {
   border-color: var(--clr-gray5);
+}
+
+.input-field__input--disabled {
+  color: var(--clr-gray5);
+  border-color: var(--clr-gray7);
 }
 
 .input-field__input:focus,

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./TaskElement.css";
 
+import { getTimeInput } from "../../utils/getTimeInput";
+import { getDateInput } from "../../utils/getDateInput";
+import useIsMounted from "../../hooks/useIsMounted";
+
 import TaskCard from "../TaskCard/TaskCard";
 import TaskDetails from "../TaskDetails/TaskDetails";
 import ExpandableComponent from "../ExpandableComponent/ExpandableComponent";
 import EditTask from "../EditTask/EditTask";
-import { getTimeInput } from "../../utils/getTimeInput";
-import { getDateInput } from "../../utils/getDateInput";
-import useIsMounted from "../../hooks/useIsMounted";
 
 const TaskElement = ({
   task,

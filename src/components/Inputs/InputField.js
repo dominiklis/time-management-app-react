@@ -12,6 +12,8 @@ const InputField = ({
   fullwidth,
   placeholder,
   lightBorder,
+  disabled,
+  min,
 }) => {
   let errorsToShow = null;
 
@@ -27,11 +29,20 @@ const InputField = ({
     }
   }
 
+  const getLabelStyle = () => {
+    let cln = "input-field__label";
+
+    if (disabled) cln += " input-field__label--disabled";
+
+    return cln;
+  };
+
   const getInputStyle = () => {
     let cln = "input-field__input";
 
     if (fullwidth) cln += " input-field__input--fullwidth";
     if (lightBorder) cln += " input-field__input--light-border";
+    if (disabled) cln += " input-field__input--disabled";
 
     return cln;
   };
@@ -39,7 +50,7 @@ const InputField = ({
   return (
     <div className="input-field">
       {error && errorsToShow}
-      <label htmlFor={id} className="input-field__label">
+      <label htmlFor={id} className={getLabelStyle()}>
         {label}
         <input
           className={getInputStyle()}
@@ -49,6 +60,8 @@ const InputField = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          disabled={disabled}
+          min={min}
         />
       </label>
     </div>

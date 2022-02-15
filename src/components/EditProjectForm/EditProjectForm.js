@@ -53,7 +53,7 @@ const EditProjectForm = ({ project, atTheEndOfEdition }) => {
   useEffect(() => {
     if (!initialRender) {
       if (!input.projectName || !input.projectName.trim()) {
-        setErrors((prev) => ({ ...prev, projectName: constants.nameError }));
+        setErrors((prev) => ({ ...prev, projectName: constants.errors.name }));
       } else {
         setErrors((prev) => ({ ...prev, projectName: "" }));
       }
